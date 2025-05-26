@@ -4,8 +4,7 @@
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/anhpt-bss/nextjs-tailwind-starter?style=social)](https://GitHub.com/anhpt-bss/nextjs-tailwind-starter/stargazers/)
 [![GitHub forks](https://img.shields.io/github/forks/anhpt-bss/nextjs-tailwind-starter?style=social)](https://github.com/anhpt-bss/nextjs-tailwind-starter/forks)
-[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Ftimlrxx)](https://x.com/timlrxx)
-[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=https://github.com/sponsors/timlrx)](https://github.com/sponsors/timlrx)
+[![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com)](https://x.com/anhpt)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/anhpt-bss/nextjs-tailwind-starter)
 
@@ -235,10 +234,6 @@ Consider removing the following features that cannot be used in a static build:
 - [How can I customize the `kbar` search?](/faq/customize-kbar-search.md)
 - [Deploy with docker](/faq/deploy-with-docker.md)
 
-## Support
-
-Using the template? Support this effort by giving a star on GitHub, sharing your own blog and giving a shoutout on Twitter or becoming a project [sponsor](https://github.com/sponsors/timlrx).
-
 ## Licence
 
-[MIT](https://github.com/anhpt-bss/nextjs-tailwind-starter/blob/main/LICENSE) © [Timothy Lin](https://www.timlrx.com)
+[MIT](https://github.com/anhpt-bss/nextjs-tailwind-starter/blob/main/LICENSE) © [APT](https://github.com/anhpt-bss)
