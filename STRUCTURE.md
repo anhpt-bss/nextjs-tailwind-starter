@@ -112,3 +112,56 @@
 ---
 
 > Xem thêm chi tiết trong README.md và FAQ của dự án để biết cách mở rộng, cá nhân hóa, và deploy.
+
+### 6. Hướng dẫn sử dụng Tailwind CSS trong dự án
+
+#### 6.1. Cấu hình và plugin
+
+- **Cấu hình chính:** `tailwind.config.js` ở thư mục gốc, đã mở rộng màu sắc, font, responsive breakpoint, v.v. theo nhu cầu dự án.
+- **Import style:** Toàn bộ style Tailwind được import qua `css/tailwind.css` trong `app/layout.tsx`.
+- **Plugin sử dụng:**
+  - `@tailwindcss/forms`: Tối ưu giao diện form.
+  - `@tailwindcss/typography`: Style đẹp cho markdown/prose.
+  - `@tailwindcss/postcss`: Tích hợp postcss.
+- **Dark mode:** Sử dụng class `dark:` và quản lý theme qua `next-themes`.
+- **Prettier plugin:** Đã cài `prettier-plugin-tailwindcss` để tự động sắp xếp class Tailwind khi format code.
+
+#### 6.2. Quy tắc viết class Tailwind
+
+- **Viết trực tiếp class Tailwind vào thuộc tính `className` của component hoặc thẻ HTML.**
+- **Kết hợp nhiều class bằng dấu cách, có thể dùng các prefix như responsive (`md:`), trạng thái (`hover:`, `focus:`, `dark:`), v.v.**
+- **Không cần viết CSS custom cho layout thông thường, chỉ cần dùng class Tailwind.**
+- **Có thể dùng template string hoặc thư viện như `clsx`/`cn` để điều kiện hóa class.**
+
+**Ví dụ:**
+
+```jsx
+<button className="rounded bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700">
+  Submit
+</button>
+```
+
+#### 6.3. Một số lưu ý và best practice
+
+- **Dark mode:** Luôn thêm class `dark:` cho các màu nền, màu chữ nếu muốn hỗ trợ theme tối.
+- **Responsive:** Sử dụng các prefix như `sm:`, `md:`, `lg:`, `xl:` để style theo breakpoint.
+- **State:** Sử dụng `hover:`, `focus:`, `active:`, `disabled:` để style theo trạng thái tương tác.
+- **Form:** Dùng class như `form-input`, `form-select` sẽ tự động được style đẹp nhờ plugin.
+- **Typography:** Dùng class `prose` cho nội dung markdown.
+- **Sắp xếp class:** Không cần lo lắng về thứ tự class, Prettier sẽ tự động sắp xếp lại.
+- **Mở rộng theme:** Nếu muốn thêm màu, font, spacing... hãy sửa trong `tailwind.config.js`.
+
+**Ví dụ nâng cao:**
+
+```jsx
+<div className={`rounded p-4 ${isActive ? 'bg-green-100' : 'bg-gray-100'}`}>...</div>
+```
+
+#### 6.4. Tài liệu tham khảo
+
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
+- [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography)
+- [Prettier Plugin Tailwind](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+
+---

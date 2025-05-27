@@ -12,5 +12,19 @@
   "prettier.requireConfig": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.alwaysShowStatus": true,
-  "eslint.run": "onType"
+  "eslint.run": "onType",
+  "files.exclude": {
+    "**/.next": true,
+    "**/.contentlayer": true,
+    "**/.yarn": true
+  },
+  "search.exclude": {
+    "**/.next": true,
+    "**/.contentlayer": true,
+    "**/.yarn": true
+  },
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.renderWhitespace": "boundary"
 }
