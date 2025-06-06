@@ -1,0 +1,61 @@
+﻿---
+title: 'How do you set up a CI/CD pipeline for a frontend project?'
+date: '2025-06-06'
+tags: ['interview', 'ci/cd', 'pipeline', 'frontend']
+draft: false
+summary: 'A practical guide to setting up CI/CD pipelines for frontend projects, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you set up a CI/CD pipeline for a frontend project?
+
+CI/CD pipelines automate testing, building, and deployment. Interviewers want to know if you can set up and maintain these pipelines for frontend projects.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of DevOps practices
+- To see if you can automate quality and deployment
+
+## Key Steps
+
+- Lint, test, and build on every commit
+- Use tools like GitHub Actions, GitLab CI, Jenkins
+- Deploy to staging/production automatically
+- Rollback on failure
+
+## Example
+
+```yaml
+# GitHub Actions example
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+```
+
+## Interview Tips
+
+- Mention tools and cloud providers
+- Discuss rollback and monitoring
+
+## Useful English Phrases & Sentence Starters
+
+- I set up CI/CD by ...
+- For example, ...
+- This ensures ...
+
+## Sample Answer
+
+> I set up CI/CD pipelines using GitHub Actions or GitLab CI to automate linting, testing, building, and deployment. This ensures code quality and fast, reliable releases for frontend projects.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

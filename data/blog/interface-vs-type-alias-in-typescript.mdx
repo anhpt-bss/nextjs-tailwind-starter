@@ -1,0 +1,62 @@
+﻿---
+title: 'Interface vs Type alias in TypeScript?'
+date: '2025-06-06'
+tags: ['interview', 'typescript', 'interface', 'type', 'frontend']
+draft: false
+summary: 'A clear comparison of Interface and Type alias in TypeScript, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Interface vs Type alias in TypeScript?
+
+Understanding the differences between interface and type alias is important for writing clean, maintainable TypeScript code. This is a common interview question for frontend and TypeScript roles.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of TypeScript's type system
+- To see if you know when to use interface vs type
+
+## Interface
+
+- Used to define the shape of objects
+- Supports declaration merging and extension
+
+## Type Alias
+
+- Can represent any type (primitive, union, intersection, etc.)
+- Cannot be merged, but can use intersections
+
+## Example
+
+```ts
+interface User {
+  name: string
+  age: number
+}
+type Point = { x: number; y: number }
+type ID = string | number
+```
+
+## Interview Tips
+
+- Mention declaration merging for interfaces
+- Explain when to use each
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- An interface is ...
+- A type alias is ...
+- I use interface when ...
+- I use type when ...
+
+## Sample Answer
+
+> An interface in TypeScript is used to define the shape of objects and supports extension and merging. A type alias can represent any type, including unions and intersections, but cannot be merged. I use interfaces for object shapes and types for more complex or union types.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

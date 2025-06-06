@@ -1,0 +1,54 @@
+﻿---
+title: 'How do you monitor errors, logging, and performance in frontend apps?'
+date: '2025-06-06'
+tags: ['interview', 'monitoring', 'logging', 'performance', 'frontend']
+draft: false
+summary: 'A practical guide to monitoring errors, logging, and performance in frontend apps, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you monitor errors, logging, and performance in frontend apps?
+
+Monitoring is essential for maintaining healthy frontend apps. Interviewers want to know if you can detect and fix issues in production.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of monitoring tools
+- To see if you can respond to issues quickly
+
+## Best Practices
+
+- Use error tracking tools (Sentry, Bugsnag)
+- Log important events and errors
+- Monitor performance (Lighthouse, Web Vitals)
+- Set up alerts and dashboards
+
+## Example
+
+```js
+// Sentry setup
+import * as Sentry from '@sentry/browser'
+Sentry.init({ dsn: '...' })
+```
+
+## Interview Tips
+
+- Mention real-time monitoring and alerting
+- Discuss integration with CI/CD
+
+## Useful English Phrases & Sentence Starters
+
+- I monitor errors by ...
+- For performance, I ...
+- For example, ...
+
+## Sample Answer
+
+> I monitor errors using Sentry, log important events, and track performance with Lighthouse and Web Vitals. I set up alerts to respond quickly to issues in production.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

@@ -1,0 +1,58 @@
+﻿---
+title: 'How do you handle optional chaining and nullish coalescing?'
+date: '2025-06-06'
+tags: ['interview', 'javascript', 'optional chaining', 'nullish coalescing', 'frontend']
+draft: false
+summary: 'A practical guide to optional chaining and nullish coalescing in JavaScript, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you handle optional chaining and nullish coalescing?
+
+Optional chaining (`?.`) and nullish coalescing (`??`) are modern JavaScript features that make code safer and more concise. Interviewers ask about these to see if you write robust, modern code.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of modern JS syntax
+- To see if you can write safe, concise code
+
+## Optional Chaining (`?.`)
+
+- Allows safe access to deeply nested properties
+- Returns `undefined` if a reference is nullish (null or undefined)
+
+## Nullish Coalescing (`??`)
+
+- Returns the right-hand value if the left is null or undefined
+- Useful for providing default values
+
+## Example
+
+```js
+const user = { profile: { name: 'Alice' } }
+const name = user.profile?.name // 'Alice'
+const age = user.profile?.age ?? 18 // 18
+```
+
+## Interview Tips
+
+- Explain the difference from `||` (logical OR)
+- Give examples with nested objects
+- Mention browser support if relevant
+
+## Useful English Phrases & Sentence Starters
+
+- Optional chaining allows ...
+- Nullish coalescing is useful for ...
+- For example, ...
+
+## Sample Answer
+
+> Optional chaining lets me safely access nested properties without checking each level. Nullish coalescing provides default values only when a value is null or undefined, not for other falsy values. I use both to write safer, cleaner code.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

@@ -1,0 +1,44 @@
+You are a technical blog author writing in MDX format for a Next.js site using Contentlayer.
+
+Please write a complete, high-quality technical blog post about the topic: [CHỦ ĐỀ DO NGƯỜI DÙNG CUNG CẤP]. And export to mdx file (name file style a-b-c.mdx).
+
+Requirements:
+
+1. Include a YAML frontmatter with these fields:
+  - title
+  - date (format: YYYY-MM-DD)
+  - tags (array of relevant tags)
+  - draft (true or false)
+  - summary (a short description of the post)
+  - layout (use "PostSimple")
+  - authors (array of author names, e.g., ["default"])
+
+2. Content structure must include these sections with clear headings:
+
+  - Introduction: explain what the topic is and why it matters.
+  - Main Content: divided into logical subsections with headings.
+  - Tips / Best Practices: bulleted or checklist format.
+  - Example / Sample: provide relevant code snippets or practical examples.
+  - Useful Phrases / Sentence Starters: especially if the topic is related to interviews or communication.
+  - Common Mistakes: list frequent errors or misconceptions.
+  - Related / Follow-up: suggest related questions or deeper topics.
+  - Author’s Note: personal reflection or advice.
+  - Newsletter Form component: at the end include the JSX line `<BlogNewsletterForm title="Like what you are reading?" />`
+
+3. Insert a Table of Contents after the introduction using:
+
+   `<TOCInline toc={props.toc} />`
+
+4. Use proper Markdown formatting, including code blocks with syntax highlighting, checklists, notes, or admonitions where relevant.
+
+5. Write entirely in English.
+
+6. Do NOT include any explanations about the framework or tooling unless directly related to the topic.
+
+7. The tone should be clear, professional, and suitable for a developer audience.
+
+---
+
+Example:
+
+

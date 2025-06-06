@@ -1,0 +1,65 @@
+﻿---
+title: 'How do you write and use custom React hooks? Best practices?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'custom hook', 'best practices']
+draft: false
+summary: 'A practical guide to writing and using custom React hooks, with best practices, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you write and use custom React hooks? Best practices?
+
+Custom hooks are a powerful feature in React for reusing logic. Interviewers ask about them to see if you can write clean, maintainable, and reusable code.
+
+## Why Interviewers Ask This Question
+
+- To check your understanding of hooks and code reuse
+- To see if you follow best practices
+
+## How to Write a Custom Hook
+
+- Start with `use` prefix (e.g., useFetch)
+- Use built-in hooks inside (useState, useEffect, etc.)
+- Return state and functions as needed
+
+## Example
+
+```js
+function useCounter(initial = 0) {
+  const [count, setCount] = React.useState(initial)
+  const increment = () => setCount((c) => c + 1)
+  return { count, increment }
+}
+
+// Usage
+const { count, increment } = useCounter()
+```
+
+## Best Practices
+
+- Keep hooks focused and reusable
+- Avoid side effects outside useEffect
+- Document hook usage and return values
+
+## Interview Tips
+
+- Be ready to write a simple custom hook
+- Explain why custom hooks improve code quality
+- Mention testing hooks
+
+## Useful English Phrases & Sentence Starters
+
+- A custom hook is ...
+- I use custom hooks to ...
+- For example, ...
+
+## Sample Answer
+
+> A custom hook is a function that uses React hooks to encapsulate reusable logic. I use custom hooks to share stateful logic across components, making my code cleaner and easier to maintain. For example, I often create hooks for data fetching or form handling.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

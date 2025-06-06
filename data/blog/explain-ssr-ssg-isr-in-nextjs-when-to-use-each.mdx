@@ -1,0 +1,70 @@
+﻿---
+title: 'Explain SSR, SSG, ISR in NextJS. When to use each?'
+date: '2025-06-06'
+tags: ['interview', 'nextjs', 'ssr', 'ssg', 'isr', 'rendering']
+draft: false
+summary: 'A practical guide to SSR, SSG, and ISR in NextJS, with use cases, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Explain SSR, SSG, ISR in NextJS. When to use each?
+
+NextJS supports multiple rendering strategies: SSR, SSG, and ISR. Interviewers want to know if you can choose the right approach for different scenarios.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of modern rendering strategies
+- To see if you can optimize performance and SEO
+
+## SSR (Server-Side Rendering)
+
+- Generates HTML on each request
+- Good for dynamic, frequently updated content
+
+## SSG (Static Site Generation)
+
+- Generates HTML at build time
+- Best for static, rarely changing content
+
+## ISR (Incremental Static Regeneration)
+
+- Updates static pages after deployment
+- Combines benefits of SSR and SSG
+
+## Example
+
+```js
+// SSR: getServerSideProps
+// SSG: getStaticProps
+// ISR: getStaticProps + revalidate
+```
+
+## When to Use
+
+- SSR: user-specific or frequently changing data
+- SSG: marketing pages, blogs
+- ISR: e-commerce, content sites needing updates
+
+## Interview Tips
+
+- Compare pros and cons
+- Mention SEO and performance
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- SSR is used for ...
+- SSG is best for ...
+- ISR combines ...
+- For example, ...
+
+## Sample Answer
+
+> SSR generates pages on each request, SSG builds them at compile time, and ISR allows static pages to update after deployment. I use SSR for dynamic content, SSG for static pages, and ISR for sites that need both performance and up-to-date content.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

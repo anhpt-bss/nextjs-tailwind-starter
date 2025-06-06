@@ -1,0 +1,59 @@
+﻿---
+title: 'What is the Composition API in VueJS?'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'composition api']
+draft: false
+summary: 'A practical guide to the Composition API in VueJS, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What is the Composition API in VueJS?
+
+The Composition API is a major feature introduced in Vue 3. Interviewers want to know if you can use it to write modular and maintainable code.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of modern VueJS
+- To see if you can use the Composition API effectively
+
+## What is the Composition API?
+
+- A new way to organize logic in Vue components
+- Uses setup(), ref, reactive, computed, watch, etc.
+- Encourages code reuse and modularity
+
+## Example
+
+```js
+import { ref, computed } from 'vue'
+export default {
+  setup() {
+    const count = ref(0)
+    const double = computed(() => count.value * 2)
+    return { count, double }
+  },
+}
+```
+
+## Interview Tips
+
+- Compare with Options API
+- Mention benefits: code reuse, better TypeScript support
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- The Composition API allows ...
+- Compared to the Options API ...
+- For example, ...
+
+## Sample Answer
+
+> The Composition API in VueJS allows me to organize component logic by feature rather than by option. It makes code more modular and reusable, and works better with TypeScript compared to the Options API.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

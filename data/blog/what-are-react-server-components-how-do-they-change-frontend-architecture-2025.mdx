@@ -1,0 +1,61 @@
+﻿---
+title: 'What are React Server Components? How do they change frontend architecture? (2025)'
+date: '2025-06-06'
+tags: ['interview', 'react', 'server components', 'architecture']
+draft: false
+summary: 'A practical guide to React Server Components and their impact on frontend architecture, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What are React Server Components? How do they change frontend architecture? (2025)
+
+React Server Components (RSC) are a new feature that changes how we build React apps. Interviewers want to know if you understand their benefits and impact.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of new React features
+- To see if you understand server/client boundaries
+
+## What are React Server Components?
+
+- Components rendered on the server, sent as payload to the client
+- No client-side JS needed for RSCs
+- Can fetch data and render markup on the server
+
+## How They Change Architecture
+
+- Reduce client bundle size
+- Enable better data fetching patterns
+- Split logic between server and client
+
+## Example
+
+```js
+// app/page.js (NextJS 13+)
+export default function Page() {
+  return <MyServerComponent />
+}
+```
+
+## Interview Tips
+
+- Mention benefits: performance, bundle size
+- Discuss server/client boundaries
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- React Server Components allow ...
+- They change frontend architecture by ...
+- For example, ...
+
+## Sample Answer
+
+> React Server Components are rendered on the server and sent to the client as HTML, reducing the client bundle size and improving performance. They change frontend architecture by allowing us to split logic between server and client more effectively.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

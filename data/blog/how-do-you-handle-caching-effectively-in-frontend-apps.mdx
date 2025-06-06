@@ -1,0 +1,57 @@
+﻿---
+title: 'How do you handle caching effectively in frontend apps?'
+date: '2025-06-06'
+tags: ['interview', 'caching', 'frontend', 'performance']
+draft: false
+summary: 'Best practices for effective caching in frontend apps, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you handle caching effectively in frontend apps?
+
+Effective caching improves performance and user experience. Interviewers want to know if you can use caching strategies wisely.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of caching strategies
+- To see if you can balance freshness and performance
+
+## Best Practices
+
+- Use HTTP caching headers (Cache-Control, ETag)
+- Service worker caching for offline support
+- In-memory and localStorage caching
+- Cache invalidation strategies
+
+## Example
+
+```js
+// Service worker cache
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => response || fetch(event.request))
+  )
+})
+```
+
+## Interview Tips
+
+- Mention trade-offs: freshness vs performance
+- Discuss cache invalidation
+
+## Useful English Phrases & Sentence Starters
+
+- I handle caching by ...
+- For example, ...
+- The main challenge is ...
+
+## Sample Answer
+
+> I handle caching in frontend apps using HTTP headers, service workers for offline support, and localStorage for client-side data. The main challenge is balancing data freshness with performance.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

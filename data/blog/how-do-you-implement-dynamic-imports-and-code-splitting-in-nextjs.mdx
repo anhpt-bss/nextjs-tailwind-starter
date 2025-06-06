@@ -1,0 +1,57 @@
+﻿---
+title: 'How do you implement dynamic imports and code splitting in NextJS?'
+date: '2025-06-06'
+tags: ['interview', 'nextjs', 'dynamic import', 'code splitting']
+draft: false
+summary: 'A practical guide to dynamic imports and code splitting in NextJS, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you implement dynamic imports and code splitting in NextJS?
+
+Dynamic imports and code splitting are important for optimizing performance in large NextJS apps. Interviewers want to know if you can use these features to improve load times.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of performance optimization
+- To see if you can use NextJS features effectively
+
+## Dynamic Imports
+
+- Use `next/dynamic` for component-level code splitting
+- Use `import()` for loading modules on demand
+
+## Example
+
+```js
+import dynamic from 'next/dynamic';
+const DynamicComponent = dynamic(() => import('./MyComponent'));
+
+// or
+if (condition) {
+  import('./module').then(...);
+}
+```
+
+## Interview Tips
+
+- Mention benefits: faster initial load, smaller bundles
+- Be ready to show code examples
+- Explain when to use dynamic imports
+
+## Useful English Phrases & Sentence Starters
+
+- Dynamic imports allow ...
+- Code splitting helps ...
+- For example, ...
+
+## Sample Answer
+
+> Dynamic imports in NextJS allow me to load components or modules only when needed, reducing the initial bundle size. I use next/dynamic for component-level code splitting and import() for loading modules on demand.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

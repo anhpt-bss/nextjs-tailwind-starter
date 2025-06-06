@@ -1,0 +1,68 @@
+﻿---
+title: 'What are the key differences between Vue 2 and Vue 3?'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'vue2', 'vue3']
+draft: false
+summary: 'A summary of the key differences between Vue 2 and Vue 3, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What are the key differences between Vue 2 and Vue 3?
+
+Vue 3 introduced several major improvements over Vue 2. Interviewers want to know if you are up to date with the latest features and migration strategies.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of VueJS evolution
+- To see if you can work with both versions
+
+## Key Differences
+
+- Composition API (new in Vue 3)
+- Reactivity system (Proxy in Vue 3 vs Object.defineProperty in Vue 2)
+- Improved TypeScript support
+- Better performance and smaller bundle size
+- Fragment, Teleport, Suspense components
+
+## Example
+
+```js
+// Vue 2: Options API
+export default {
+  data() { return { count: 0 }; },
+  methods: { increment() { this.count++; } }
+};
+
+// Vue 3: Composition API
+import { ref } from 'vue';
+export default {
+  setup() {
+    const count = ref(0);
+    const increment = () => count.value++;
+    return { count, increment };
+  }
+};
+```
+
+## Interview Tips
+
+- Mention migration tools and compatibility
+- Discuss why Vue 3 is preferred for new projects
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- Vue 3 introduces ...
+- The main difference is ...
+- For example, ...
+
+## Sample Answer
+
+> The main differences between Vue 2 and Vue 3 are the new Composition API, improved reactivity system, and better TypeScript support. Vue 3 also offers better performance and new built-in components like Fragment and Suspense.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

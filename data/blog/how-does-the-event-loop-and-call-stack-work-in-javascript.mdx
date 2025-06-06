@@ -1,0 +1,60 @@
+﻿---
+title: 'How does the event loop and call stack work in JavaScript?'
+date: '2025-06-06'
+tags: ['interview', 'javascript', 'event loop', 'call stack', 'frontend']
+draft: false
+summary: 'A clear explanation of the JavaScript event loop and call stack, with diagrams, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How does the event loop and call stack work in JavaScript?
+
+Understanding the event loop and call stack is essential for writing efficient asynchronous JavaScript. This topic is a favorite in interviews for testing your knowledge of concurrency and async behavior.
+
+## Why Interviewers Ask This Question
+
+- To assess your understanding of JavaScript's concurrency model
+- To see if you can explain async code execution and common pitfalls
+
+## The Call Stack
+
+The call stack is a data structure that keeps track of function calls. When a function is called, it is pushed onto the stack; when it returns, it is popped off.
+
+## The Event Loop
+
+The event loop is responsible for handling asynchronous callbacks. It checks the call stack and the message queue, pushing tasks from the queue to the stack when the stack is empty.
+
+## Example
+
+```js
+console.log('Start')
+setTimeout(() => {
+  console.log('Timeout')
+}, 0)
+console.log('End')
+// Output: Start, End, Timeout
+```
+
+## Interview Tips
+
+- Draw or describe the stack and queue
+- Explain how async tasks (setTimeout, Promises) are handled
+- Mention the single-threaded nature of JS
+
+## Useful English Phrases & Sentence Starters
+
+- The call stack is ...
+- The event loop is ...
+- In JavaScript, asynchronous tasks are handled by ...
+- For example, ...
+
+## Sample Answer
+
+> The call stack keeps track of function calls in JavaScript. The event loop manages asynchronous tasks by moving them from the message queue to the call stack when the stack is empty. This allows JavaScript to handle async operations even though it is single-threaded.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

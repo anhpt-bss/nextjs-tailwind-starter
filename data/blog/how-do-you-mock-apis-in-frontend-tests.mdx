@@ -1,0 +1,60 @@
+﻿---
+title: 'How do you mock APIs in frontend tests?'
+date: '2025-06-06'
+tags: ['interview', 'testing', 'mock api', 'frontend']
+draft: false
+summary: 'A practical guide to mocking APIs in frontend tests, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you mock APIs in frontend tests?
+
+Mocking APIs is essential for reliable and fast tests. Interviewers want to know if you can isolate your tests from real backend dependencies.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of test isolation
+- To see if you can use mocking tools effectively
+
+## Mocking Strategies
+
+- Mock fetch/axios with libraries (jest-fetch-mock, msw, nock)
+- Use service worker mocks (msw)
+- Stub HTTP requests in Angular (HttpTestingController)
+
+## Example
+
+```js
+// Jest fetch mock
+import fetchMock from 'jest-fetch-mock';
+fetchMock.mockResponseOnce(JSON.stringify({ data: 123 }));
+
+// msw
+import { setupServer } from 'msw/node';
+const server = setupServer(...);
+
+// Angular
+const httpMock = TestBed.inject(HttpTestingController);
+```
+
+## Interview Tips
+
+- Mention why mocking is important
+- Discuss tools and libraries
+
+## Useful English Phrases & Sentence Starters
+
+- I mock APIs by ...
+- For example, ...
+- This helps ...
+
+## Sample Answer
+
+> I mock APIs in frontend tests using libraries like msw or jest-fetch-mock for React, and HttpTestingController for Angular. This helps me isolate tests from backend dependencies and ensure consistent, fast test runs.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)
