@@ -1,0 +1,67 @@
+﻿---
+title: 'Context API vs Redux: differences and use cases?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'context api', 'redux', 'state management']
+draft: false
+summary: 'A clear comparison of Context API and Redux in React, with use cases, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Context API vs Redux: differences and use cases?
+
+State management is a key topic in React interviews. Interviewers want to know if you understand the trade-offs between Context API and Redux.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of state management
+- To see if you can choose the right tool for the job
+
+## Context API
+
+- Built-in React feature for passing data through the component tree
+- Best for simple or medium-sized state
+
+## Redux
+
+- External library for managing global state
+- Best for complex, large-scale apps with advanced needs (middleware, devtools)
+
+## Example
+
+```js
+// Context API
+const MyContext = React.createContext();
+<MyContext.Provider value={...}>
+  <Child />
+</MyContext.Provider>
+
+// Redux
+import { Provider } from 'react-redux';
+<Provider store={store}>
+  <App />
+</Provider>
+```
+
+## Interview Tips
+
+- Compare performance, scalability, and boilerplate
+- Mention when to use each
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- Context API is ...
+- Redux is ...
+- I use Context API when ...
+- I use Redux when ...
+
+## Sample Answer
+
+> Context API is great for simple or medium-sized state sharing, while Redux is better for complex, large-scale applications. I use Context for theme or auth state, and Redux for apps with lots of shared or deeply nested state.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

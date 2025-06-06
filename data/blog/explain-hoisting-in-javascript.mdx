@@ -1,0 +1,79 @@
+﻿---
+title: 'Explain hoisting in JavaScript'
+date: '2025-06-06'
+tags: ['interview', 'javascript', 'hoisting', 'es6', 'frontend']
+draft: false
+summary: 'A comprehensive guide to hoisting in JavaScript: what it is, how it works, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Explain hoisting in JavaScript
+
+Hoisting is a fundamental concept in JavaScript that often appears in interviews. Understanding how variable and function declarations are hoisted helps you avoid common bugs and write more predictable code.
+
+## Why Interviewers Ask This Question
+
+- To assess your understanding of JavaScript internals
+- To see if you know the difference between `var`, `let`, `const`, and function declarations
+- To check if you can explain potential pitfalls and best practices
+
+## What is Hoisting?
+
+Hoisting is JavaScript's default behavior of moving declarations to the top of the current scope (function or global) before code execution. This means you can use certain variables and functions before they are declared in the code.
+
+## How Hoisting Works
+
+- **Function Declarations** are fully hoisted: you can call them before their definition.
+- **var Declarations** are hoisted and initialized as `undefined`.
+- **let/const Declarations** are hoisted but not initialized. Accessing them before declaration results in a ReferenceError (Temporal Dead Zone - TDZ).
+- **Function Expressions** and **arrow functions** assigned to variables are not hoisted as functions, only the variable declaration is hoisted.
+
+## Code Examples
+
+```js
+// Function declaration hoisting
+foo() // Works
+function foo() {
+  console.log('Hello from foo')
+}
+
+// var hoisting
+console.log(a) // undefined
+var a = 5
+
+// let/const hoisting
+console.log(b) // ReferenceError: Cannot access 'b' before initialization
+let b = 10
+
+// Function expression hoisting
+bar() // TypeError: bar is not a function
+var bar = function () {
+  console.log('Hello from bar')
+}
+```
+
+## Interview Tips
+
+- Always declare variables at the top of their scope.
+- Prefer `let` and `const` to avoid accidental bugs from hoisting.
+- Be ready to explain the difference between hoisting for `var`, `let`, `const`, and functions.
+- Mention the Temporal Dead Zone (TDZ) for `let` and `const`.
+
+## Useful English Phrases & Sentence Starters
+
+- Hoisting is JavaScriptâ€™s behavior of moving declarations to the top of the scope.
+- Function declarations are hoisted and can be called before they are defined.
+- Variables declared with `var` are hoisted and initialized as `undefined`.
+- `let` and `const` are hoisted but not initialized, leading to a ReferenceError if accessed before declaration.
+- In interviews, I always mention the Temporal Dead Zone when discussing hoisting with `let` and `const`.
+
+## Sample Answer
+
+> Hoisting in JavaScript means that variable and function declarations are moved to the top of their scope before code execution. Function declarations are fully hoisted, so you can call them before they appear in the code. Variables declared with `var` are hoisted and initialized as `undefined`, while `let` and `const` are hoisted but not initialized, resulting in a ReferenceError if accessed before declaration. Understanding hoisting helps prevent bugs and write more predictable code.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

@@ -1,0 +1,54 @@
+﻿---
+title: 'How do generics work in TypeScript?'
+date: '2025-06-06'
+tags: ['interview', 'typescript', 'generics', 'frontend']
+draft: false
+summary: 'A practical guide to generics in TypeScript, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do generics work in TypeScript?
+
+Generics are a powerful feature in TypeScript that allow you to write reusable and type-safe code. Interviewers often ask about generics to test your understanding of advanced TypeScript features.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of advanced TypeScript
+- To see if you can write reusable, type-safe code
+
+## What are Generics?
+
+Generics allow you to define functions, classes, and types that work with any data type, while maintaining type safety.
+
+## Example
+
+```ts
+function identity<T>(arg: T): T {
+  return arg
+}
+const num = identity<number>(42)
+const str = identity<string>('hello')
+```
+
+## Interview Tips
+
+- Explain the syntax: `&lt;T&gt;`
+- Mention use cases: functions, classes, interfaces
+- Be ready to write a generic function
+
+## Useful English Phrases & Sentence Starters
+
+- Generics allow ...
+- For example, ...
+- I use generics when ...
+
+## Sample Answer
+
+> Generics in TypeScript let you write functions and types that work with any data type while preserving type safety. For example, a generic identity function can accept and return any type. I use generics to create reusable and flexible code.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

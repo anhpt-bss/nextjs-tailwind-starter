@@ -1,0 +1,76 @@
+﻿---
+title: 'How do you manage state in VueJS (Vuex, Pinia)?'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'vuex', 'pinia', 'state management']
+draft: false
+summary: 'A practical guide to state management in VueJS using Vuex and Pinia, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you manage state in VueJS (Vuex, Pinia)?
+
+State management is crucial for large VueJS apps. Interviewers want to know if you can use Vuex or Pinia effectively.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of state management patterns
+- To see if you can choose the right tool for the job
+
+## Vuex
+
+- Official state management library for Vue 2/3
+- Centralized store, mutations, actions, getters
+
+## Pinia
+
+- Newer, recommended for Vue 3
+- Simpler API, better TypeScript support
+- Modular stores
+
+## Example
+
+```js
+// Vuex
+const store = new Vuex.Store({
+  state: { count: 0 },
+  mutations: {
+    increment(state) {
+      state.count++
+    },
+  },
+})
+
+// Pinia
+import { defineStore } from 'pinia'
+const useCounter = defineStore('counter', {
+  state: () => ({ count: 0 }),
+  actions: {
+    increment() {
+      this.count++
+    },
+  },
+})
+```
+
+## Interview Tips
+
+- Compare Vuex and Pinia
+- Mention migration from Vuex to Pinia
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- Vuex is ...
+- Pinia is ...
+- I use Pinia when ...
+
+## Sample Answer
+
+> Vuex is the official state management library for Vue, but Pinia is now recommended for Vue 3 due to its simpler API and better TypeScript support. I use Pinia for new projects and migrate from Vuex when possible.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

@@ -1,0 +1,57 @@
+﻿---
+title: 'What is tree shaking? When does it not work?'
+date: '2025-06-06'
+tags: ['interview', 'tree shaking', 'optimization', 'frontend']
+draft: false
+summary: 'A practical guide to tree shaking in frontend projects, with examples, limitations, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What is tree shaking? When does it not work?
+
+Tree shaking is a technique for removing unused code from bundles. Interviewers want to know if you understand how it works and its limitations.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of build tools and optimization
+- To see if you can identify when tree shaking fails
+
+## What is Tree Shaking?
+
+- Removes unused exports from bundles
+- Relies on ES modules (import/export)
+
+## When Does It Not Work?
+
+- With CommonJS modules (require/module.exports)
+- When code has side effects
+- Dynamic imports or re-exports
+
+## Example
+
+```js
+// Only used exports are included in the bundle
+import { used } from 'lib'
+```
+
+## Interview Tips
+
+- Mention ES modules vs CommonJS
+- Discuss side effects and configuration
+
+## Useful English Phrases & Sentence Starters
+
+- Tree shaking is ...
+- It does not work when ...
+- For example, ...
+
+## Sample Answer
+
+> Tree shaking is a process that removes unused code from bundles, but it only works with ES modules and can fail if code has side effects or uses CommonJS. I always check my build config to ensure tree shaking is effective.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

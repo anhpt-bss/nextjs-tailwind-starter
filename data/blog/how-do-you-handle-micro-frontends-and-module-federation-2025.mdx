@@ -1,0 +1,64 @@
+﻿---
+title: 'How do you handle micro-frontends and module federation? (2025)'
+date: '2025-06-06'
+tags: ['interview', 'micro-frontends', 'module federation', 'frontend', '2025']
+draft: false
+summary: 'A practical guide to micro-frontends and module federation in 2025, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you handle micro-frontends and module federation? (2025)
+
+Micro-frontends and module federation are modern approaches to scaling frontend development. Interviewers want to know if you can architect and manage distributed frontend systems.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of scalable frontend architectures
+- To see if you can use modern tools like Webpack Module Federation
+
+## Micro-Frontends
+
+- Split frontend into independent, deployable apps
+- Teams can work autonomously
+
+## Module Federation
+
+- Webpack 5 feature for sharing code between apps at runtime
+- Enables true micro-frontend architecture
+
+## Example
+
+```js
+// webpack.config.js
+module.exports = {
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'app1',
+      remotes: { app2: 'app2@url/remoteEntry.js' },
+      exposes: { './Component': './src/Component' },
+    }),
+  ],
+}
+```
+
+## Interview Tips
+
+- Mention pros/cons: autonomy, complexity, shared dependencies
+- Discuss real-world use cases
+
+## Useful English Phrases & Sentence Starters
+
+- Micro-frontends allow ...
+- Module Federation enables ...
+- For example, ...
+
+## Sample Answer
+
+> Micro-frontends allow teams to build and deploy features independently. Module Federation in Webpack 5 enables sharing code between apps at runtime. I use these patterns for large, distributed frontend projects.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

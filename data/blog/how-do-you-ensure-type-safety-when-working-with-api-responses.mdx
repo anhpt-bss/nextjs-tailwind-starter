@@ -1,0 +1,58 @@
+﻿---
+title: 'How do you ensure type safety when working with API responses?'
+date: '2025-06-06'
+tags: ['interview', 'typescript', 'type safety', 'api', 'frontend']
+draft: false
+summary: 'Best practices for ensuring type safety with API responses in TypeScript, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you ensure type safety when working with API responses?
+
+Ensuring type safety with API responses is crucial for building robust TypeScript applications. This question tests your knowledge of type checking, validation, and best practices.
+
+## Why Interviewers Ask This Question
+
+- To see if you know how to handle untyped or dynamic data
+- To check your approach to error handling and validation
+
+## Best Practices
+
+- Define TypeScript interfaces/types for API responses
+- Use runtime validation libraries (e.g., zod, yup, io-ts)
+- Validate data before using it in your app
+
+## Example
+
+```ts
+type User = { id: number; name: string }
+async function fetchUser(): Promise<User> {
+  const res = await fetch('/api/user')
+  const data = await res.json()
+  // Optionally validate data here
+  return data as User
+}
+```
+
+## Interview Tips
+
+- Mention both compile-time and runtime validation
+- Be ready to discuss libraries and patterns
+- Explain why type safety matters
+
+## Useful English Phrases & Sentence Starters
+
+- I ensure type safety by ...
+- I use libraries like ...
+- For example, ...
+
+## Sample Answer
+
+> I ensure type safety with API responses by defining TypeScript interfaces for the expected data and using runtime validation libraries like zod or yup. This helps catch errors early and prevents bugs from unexpected data shapes.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

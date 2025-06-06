@@ -1,0 +1,53 @@
+﻿---
+title: 'How do you use Service Workers for offline support?'
+date: '2025-06-06'
+tags: ['interview', 'service worker', 'offline', 'frontend']
+draft: false
+summary: 'A practical guide to using Service Workers for offline support in frontend apps, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you use Service Workers for offline support?
+
+Service Workers enable offline support and background tasks in web apps. Interviewers want to know if you can implement and manage them effectively.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of Service Workers
+- To see if you can build offline-capable apps
+
+## How Service Workers Work
+
+- Intercept network requests and serve cached responses
+- Enable background sync, push notifications
+
+## Example
+
+```js
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+}
+```
+
+## Interview Tips
+
+- Mention cache strategies (cache-first, network-first)
+- Discuss lifecycle and updates
+
+## Useful English Phrases & Sentence Starters
+
+- Service Workers allow ...
+- For offline support, I ...
+- For example, ...
+
+## Sample Answer
+
+> Service Workers allow me to intercept network requests and serve cached content, enabling offline support. I use them to cache assets and API responses, and handle updates carefully to avoid stale data.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

@@ -1,0 +1,62 @@
+﻿---
+title: 'What is a closure? Give a real-world use case.'
+date: '2025-06-06'
+tags: ['interview', 'javascript', 'closure', 'frontend']
+draft: false
+summary: 'Understand closures in JavaScript with real-world examples, explanations, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What is a closure? Give a real-world use case.
+
+Closures are a core concept in JavaScript and are frequently asked about in interviews. They allow functions to access variables from an outer scope even after that scope has finished executing.
+
+## Why Interviewers Ask This Question
+
+- To check your understanding of JavaScript's function scope and lexical environment
+- To see if you can apply closures to solve real-world problems
+
+## What is a Closure?
+
+A closure is a function that remembers and can access variables from outside its own scope, even after the outer function has finished executing.
+
+## Real-World Use Case
+
+A common use case for closures is data privacy, such as creating private variables in JavaScript modules or factories.
+
+```js
+function makeCounter() {
+  let count = 0
+  return function () {
+    count++
+    return count
+  }
+}
+const counter = makeCounter()
+console.log(counter()) // 1
+console.log(counter()) // 2
+```
+
+## Interview Tips
+
+- Explain that closures "close over" their environment
+- Mention use cases: data privacy, event handlers, callbacks, etc.
+- Be ready to write a simple closure example
+
+## Useful English Phrases & Sentence Starters
+
+- A closure is a function that ...
+- Closures allow functions to ...
+- A real-world example of a closure is ...
+- Closures are useful for ...
+
+## Sample Answer
+
+> A closure is a function that retains access to variables from its outer scope even after that scope has finished executing. For example, closures are often used to create private variables in JavaScript. This is useful for encapsulation and data privacy.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

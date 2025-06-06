@@ -1,0 +1,60 @@
+﻿---
+title: 'How do you implement authentication/authorization in NextJS?'
+date: '2025-06-06'
+tags: ['interview', 'nextjs', 'authentication', 'authorization']
+draft: false
+summary: 'A practical guide to implementing authentication and authorization in NextJS, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you implement authentication/authorization in NextJS?
+
+Authentication and authorization are essential for secure web apps. Interviewers want to know if you can implement these features in NextJS.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of auth patterns
+- To see if you can use NextJS features for security
+
+## Best Practices
+
+- Use libraries like next-auth or Auth0
+- Protect API routes and pages
+- Store tokens securely (HTTP-only cookies)
+- Handle redirects and session management
+
+## Example
+
+```js
+import { getSession } from 'next-auth/react'
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  if (!session) {
+    return { redirect: { destination: '/login', permanent: false } }
+  }
+  return { props: { session } }
+}
+```
+
+## Interview Tips
+
+- Mention SSR/SSG and API route protection
+- Discuss token storage and session management
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- To implement authentication, I ...
+- I use next-auth/Auth0 for ...
+- For example, ...
+
+## Sample Answer
+
+> To implement authentication in NextJS, I use next-auth for session management and secure API routes. I store tokens in HTTP-only cookies and protect pages with getServerSideProps or middleware.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

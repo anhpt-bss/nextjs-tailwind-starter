@@ -1,0 +1,68 @@
+﻿---
+title: 'How do you handle error boundaries and fallback UI in React?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'error boundary', 'fallback ui']
+draft: false
+summary: 'A practical guide to error boundaries and fallback UI in React, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you handle error boundaries and fallback UI in React?
+
+Error boundaries are essential for robust React apps. Interviewers want to know if you can handle errors gracefully and provide a good user experience.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of error handling in React
+- To see if you can build resilient UIs
+
+## Error Boundaries
+
+- Special components that catch JS errors in child components
+- Implemented with class components (componentDidCatch, getDerivedStateFromError)
+
+## Fallback UI
+
+- UI shown when an error is caught
+- Can be a message, retry button, etc.
+
+## Example
+
+```js
+class ErrorBoundary extends React.Component {
+  state = { hasError: false }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  componentDidCatch(error, info) {
+    /* log error */
+  }
+  render() {
+    if (this.state.hasError) return <div>Something went wrong.</div>
+    return this.props.children
+  }
+}
+```
+
+## Interview Tips
+
+- Mention error boundaries are class-only (as of React 18)
+- Discuss fallback UI and user experience
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- Error boundaries are ...
+- Fallback UI is ...
+- For example, ...
+
+## Sample Answer
+
+> Error boundaries are special React components that catch errors in their child components and display fallback UI. I use them to prevent the entire app from crashing and to provide a better user experience when errors occur.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

@@ -1,0 +1,60 @@
+﻿---
+title: 'How do you organize modules and implement lazy loading in Angular?'
+date: '2025-06-06'
+tags: ['interview', 'angular', 'modules', 'lazy loading']
+draft: false
+summary: 'A practical guide to organizing modules and implementing lazy loading in Angular, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you organize modules and implement lazy loading in Angular?
+
+Organizing modules and implementing lazy loading are key for scalable Angular apps. Interviewers want to know if you can structure large projects efficiently.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of Angular architecture
+- To see if you can optimize performance with lazy loading
+
+## Organizing Modules
+
+- Feature modules, shared modules, core modules
+- Keep code modular and maintainable
+
+## Lazy Loading
+
+- Load feature modules only when needed (via routing)
+- Reduces initial bundle size
+
+## Example
+
+```ts
+// app-routing.module.ts
+{
+  path: 'feature',
+  loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule)
+}
+```
+
+## Interview Tips
+
+- Mention benefits: performance, maintainability
+- Be ready to give code examples
+- Discuss best practices for module structure
+
+## Useful English Phrases & Sentence Starters
+
+- I organize Angular modules by ...
+- Lazy loading helps ...
+- For example, ...
+
+## Sample Answer
+
+> I organize Angular apps using feature, shared, and core modules. I implement lazy loading via the router to load feature modules only when needed, which improves performance and keeps the codebase maintainable.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

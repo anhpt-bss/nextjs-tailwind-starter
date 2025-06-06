@@ -1,0 +1,79 @@
+﻿---
+title: 'Describe the React component lifecycle (class vs function components)'
+date: '2025-06-06'
+tags: ['interview', 'react', 'lifecycle', 'class component', 'function component']
+draft: false
+summary: 'A detailed guide to the React component lifecycle for both class and function components, with diagrams, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Describe the React component lifecycle (class vs function components)
+
+Understanding the React component lifecycle is essential for building robust applications. Interviewers often ask about lifecycle methods and hooks to assess your knowledge of React internals.
+
+## Why Interviewers Ask This Question
+
+- To check your understanding of React's rendering and update process
+- To see if you know the differences between class and function components
+
+## Class Component Lifecycle
+
+- **Mounting:** constructor, static getDerivedStateFromProps, render, componentDidMount
+- **Updating:** static getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate, componentDidUpdate
+- **Unmounting:** componentWillUnmount
+
+## Function Component Lifecycle (with Hooks)
+
+- useEffect replaces most lifecycle methods
+- useLayoutEffect, useMemo, useCallback for advanced cases
+
+## Example
+
+```js
+// Class component
+class MyComponent extends React.Component {
+  componentDidMount() {
+    /* ... */
+  }
+  componentDidUpdate() {
+    /* ... */
+  }
+  componentWillUnmount() {
+    /* ... */
+  }
+  render() {
+    return <div />
+  }
+}
+
+// Function component
+function MyComponent() {
+  React.useEffect(() => {
+    /* ... */
+  }, []) // mount
+  return <div />
+}
+```
+
+## Interview Tips
+
+- Compare lifecycle methods to hooks
+- Mention cleanup in useEffect
+- Be ready to draw or describe the lifecycle flow
+
+## Useful English Phrases & Sentence Starters
+
+- In class components, the lifecycle includes ...
+- In function components, hooks like useEffect ...
+- For example, ...
+
+## Sample Answer
+
+> In class components, the lifecycle includes mounting, updating, and unmounting phases, with methods like componentDidMount and componentWillUnmount. In function components, hooks like useEffect handle side effects and lifecycle events. I prefer function components for their simplicity and flexibility.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

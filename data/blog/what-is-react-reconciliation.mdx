@@ -1,0 +1,52 @@
+﻿---
+title: 'What is React reconciliation?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'reconciliation', 'virtual dom']
+draft: false
+summary: 'A clear explanation of React reconciliation, with diagrams, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What is React reconciliation?
+
+Reconciliation is a core concept in React's rendering process. Interviewers ask about it to see if you understand how React updates the DOM efficiently.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of React internals
+- To see if you understand the virtual DOM and diffing algorithm
+
+## What is Reconciliation?
+
+- The process React uses to update the DOM when state or props change
+- Uses a virtual DOM to compare previous and next trees
+- Applies minimal changes to the real DOM
+
+## Example
+
+```js
+// When state changes, React creates a new virtual DOM tree and diffs it with the previous one
+```
+
+## Interview Tips
+
+- Mention virtual DOM and diffing
+- Explain why reconciliation improves performance
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- Reconciliation is ...
+- React uses the virtual DOM to ...
+- For example, ...
+
+## Sample Answer
+
+> Reconciliation is the process React uses to update the DOM efficiently. It compares the previous and next virtual DOM trees and only applies the minimal set of changes to the real DOM. This makes updates fast and efficient.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

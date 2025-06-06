@@ -1,0 +1,60 @@
+﻿---
+title: 'What is a Progressive Web App (PWA)? How do you implement one?'
+date: '2025-06-06'
+tags: ['interview', 'pwa', 'progressive web app', 'frontend']
+draft: false
+summary: 'A practical guide to Progressive Web Apps (PWAs), with implementation steps, examples, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# What is a Progressive Web App (PWA)? How do you implement one?
+
+PWAs combine the best of web and mobile apps. Interviewers want to know if you can build installable, offline-capable web apps.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of modern web app features
+- To see if you can implement offline support and app-like UX
+
+## What is a PWA?
+
+- Web app with offline support, installability, push notifications
+- Uses service workers, manifest.json, HTTPS
+
+## How to Implement
+
+- Add manifest.json
+- Register a service worker
+- Serve over HTTPS
+- Optimize for performance and accessibility
+
+## Example
+
+```js
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+}
+```
+
+## Interview Tips
+
+- Mention Lighthouse PWA audit
+- Discuss benefits: offline, installable, push notifications
+
+## Useful English Phrases & Sentence Starters
+
+- A PWA is ...
+- To implement a PWA, I ...
+- For example, ...
+
+## Sample Answer
+
+> A Progressive Web App is a web app that works offline, can be installed, and provides a native-like experience. I implement PWAs by adding a manifest, registering a service worker, and optimizing for performance and accessibility.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

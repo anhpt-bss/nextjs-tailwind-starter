@@ -1,0 +1,78 @@
+﻿---
+title: 'Compare Promise, async/await, and callback patterns. When to use each?'
+date: '2025-06-06'
+tags: ['interview', 'javascript', 'promise', 'async', 'callback', 'frontend']
+draft: false
+summary: 'A practical comparison of Promise, async/await, and callback patterns in JavaScript, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Compare Promise, async/await, and callback patterns. When to use each?
+
+Handling asynchronous operations is a key skill in JavaScript. Interviewers often ask about the differences between callbacks, Promises, and async/await to assess your understanding of async code and best practices.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of async programming patterns
+- To see if you know when to use each approach
+
+## Callback Pattern
+
+- Functions passed as arguments to handle async results
+- Can lead to "callback hell" if nested
+
+## Promise Pattern
+
+- Introduced in ES6 to handle async operations more cleanly
+- Supports chaining with `.then()` and `.catch()`
+
+## async/await Pattern
+
+- Syntactic sugar over Promises (ES2017+)
+- Makes async code look synchronous
+
+## Example
+
+```js
+// Callback
+fs.readFile('file.txt', (err, data) => { ... });
+
+// Promise
+fetch('url').then(res => res.json()).then(data => ...);
+
+// async/await
+async function getData() {
+  const res = await fetch('url');
+  const data = await res.json();
+}
+```
+
+## When to Use Each
+
+- Use callbacks for simple, single async tasks
+- Use Promises for chaining and better error handling
+- Use async/await for readable, sequential async code
+
+## Interview Tips
+
+- Mention error handling differences
+- Discuss readability and maintainability
+- Be ready to write examples of each
+
+## Useful English Phrases & Sentence Starters
+
+- Callbacks are ...
+- Promises provide ...
+- async/await makes ...
+- I prefer to use ... when ...
+
+## Sample Answer
+
+> Callbacks are the original way to handle async operations in JavaScript, but can become hard to manage. Promises provide a cleaner way to chain async tasks and handle errors. async/await makes async code easier to read and write. I use async/await for most modern code, but understand when callbacks or Promises are more appropriate.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

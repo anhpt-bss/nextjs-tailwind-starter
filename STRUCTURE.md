@@ -165,3 +165,96 @@
 - [Prettier Plugin Tailwind](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 
 ---
+
+### 7. Hướng dẫn viết file MDX cho blog
+
+#### 7.1. Tổng quan & Công nghệ hỗ trợ
+
+- **MDX** cho phép kết hợp Markdown và JSX, giúp bạn vừa viết nội dung vừa nhúng component React.
+- **Contentlayer**: Quét, validate, và chuyển đổi file `.mdx` thành dữ liệu type-safe cho Next.js.
+- **Các plugin đã cấu hình:**
+  - remark: `remark-gfm`, `remark-math`, `remark-github-blockquote-alert`, `remark-code-titles`, `remark-img-to-jsx`, ...
+  - rehype: `rehype-slug`, `rehype-autolink-headings`, `rehype-katex`, `rehype-citation`, `rehype-prism-plus`, ...
+
+#### 7.2. Cấu trúc file MDX & Frontmatter
+
+- Mỗi file blog đặt trong `data/blog/`, mỗi tác giả trong `data/authors/`.
+- Đầu file cần có frontmatter dạng YAML:
+
+```mdx
+---
+title: 'Tiêu đề bài viết'
+date: 'YYYY-MM-DD'
+tags: ['tag1', 'tag2']
+draft: false
+summary: 'Tóm tắt ngắn gọn'
+layout: PostLayout # hoặc PostSimple, PostBanner
+images: ['/static/images/demo.jpg']
+authors: ['default', 'sparrowhawk']
+bibliography: references-data.bib # (nếu dùng citation)
+---
+```
+
+- Các trường phổ biến: `title`, `date`, `tags`, `draft`, `summary`, `layout`, `images`, `authors`, `bibliography`, ...
+
+#### 7.3. Markdown & Feature mở rộng
+
+- **Markdown chuẩn:** Hỗ trợ đầy đủ heading, list, table, image, link, blockquote, code block, ...
+- **GFM:** Checklist, table, strikethrough, task list, ...
+- **Math:** Viết công thức toán với LaTeX giữa `$...$` hoặc `$$...$$`.
+- **Code block:**
+  - Hỗ trợ highlight, line number, line highlight, copy button.
+  - Ví dụ:
+    ```js {1,3-4} showLineNumbers
+    const x = 1
+    // ...
+    ```
+- **Citation:**
+  - Thêm trường `bibliography` vào frontmatter, dùng cú pháp `[@ref]` để trích dẫn.
+- **TOC (Table of Contents):**
+  - Thêm `<TOCInline toc={props.toc} />` để tự động sinh mục lục.
+- **Newsletter:**
+  - Thêm `<BlogNewsletterForm title="Like what you are reading?" />` để nhúng form đăng ký.
+- **Comment:**
+  - Được cấu hình qua `siteMetadata.js`, hỗ trợ Giscus, Utterances, Disqus.
+- **Import component:**
+  - Có thể import component React từ `components/` và dùng trực tiếp trong MDX:
+    ```jsx
+    import PageTitle from '../components/PageTitle'
+    ;<PageTitle>Tiêu đề tuỳ biến</PageTitle>
+    ```
+- **Image:**
+  - Dùng cú pháp markdown hoặc component tuỳ chỉnh để tối ưu ảnh với Next.js.
+
+#### 7.4. Quy tắc & Best Practice
+
+- Đặt tên file không dấu, dùng `-`.
+- Mỗi bài viết nên có `summary` để tối ưu SEO và preview.
+- Sử dụng layout phù hợp qua trường `layout`.
+- Đặt ảnh vào `public/static/images/` và tham chiếu bằng đường dẫn tuyệt đối.
+- Không nên dùng các component phụ thuộc state toàn cục hoặc lifecycle đặc biệt trong MDX.
+- Có thể lồng JSX và markdown tự do.
+- Sử dụng các feature nâng cao như math, citation, TOC, ... để tăng giá trị nội dung.
+
+## ⚠️ Lưu ý về định dạng dòng (Line Endings: LF/CRLF)
+
+Khi tạo hoặc chỉnh sửa file Markdown/MDX, hãy đảm bảo toàn bộ file sử dụng một kiểu xuống dòng duy nhất (ưu tiên LF - Line Feed, \n).
+
+- Việc trộn lẫn hoặc sử dụng CRLF (\r\n) không nhất quán, đặc biệt ở các dòng `---` đầu/cuối frontmatter, có thể khiến Contentlayer/MDX parser không nhận diện đúng frontmatter, gây lỗi khi build hoặc render (ví dụ: "Element type is invalid").
+- Nên thiết lập editor (VSCode, v.v.) tự động lưu file với LF.
+- Nếu gặp lỗi không rõ nguyên nhân, hãy kiểm tra và chuyển toàn bộ file về LF để loại trừ vấn đề này.
+
+> **Tip:** Trong VSCode, nhấn vào chỉ báo CRLF/LF ở góc phải dưới và chọn "LF" để chuyển đổi.
+
+---
+
+#### 7.5. Tài liệu tham khảo
+
+- [MDX Docs](https://mdxjs.com/)
+- [Contentlayer Docs](https://www.contentlayer.dev/docs/getting-started)
+- [Pliny Docs](https://pliny.dev/docs/mdx-features)
+- [Remark Plugins](https://github.com/remarkjs/remark/blob/main/doc/plugins.md)
+- [Rehype Plugins](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md)
+- [KaTeX](https://katex.org/), [rehype-citation](https://github.com/timlrx/rehype-citation), [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus)
+
+---

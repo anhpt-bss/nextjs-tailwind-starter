@@ -1,0 +1,60 @@
+﻿---
+title: 'How do you use Suspense and concurrent features in React 18+?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'suspense', 'concurrent', 'react 18']
+draft: false
+summary: 'A practical guide to Suspense and concurrent features in React 18+, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you use Suspense and concurrent features in React 18+?
+
+React 18 introduced new concurrent features and improved Suspense. Interviewers want to know if you can use these to build responsive apps.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of React 18 features
+- To see if you can use Suspense and concurrency for better UX
+
+## Suspense
+
+- Lets you show fallback UI while loading data/components
+- Works with lazy loading and data fetching libraries
+
+## Concurrent Features
+
+- Automatic batching, startTransition, useDeferredValue
+- Improve responsiveness and scheduling
+
+## Example
+
+```js
+import React, { Suspense } from 'react'
+const LazyComponent = React.lazy(() => import('./LazyComponent'))
+;<Suspense fallback={<div>Loading...</div>}>
+  <LazyComponent />
+</Suspense>
+```
+
+## Interview Tips
+
+- Mention fallback UI and lazy loading
+- Discuss startTransition and useDeferredValue
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- Suspense allows ...
+- Concurrent features help ...
+- For example, ...
+
+## Sample Answer
+
+> Suspense lets me show fallback UI while loading components or data. In React 18, concurrent features like startTransition and useDeferredValue help keep the UI responsive during heavy updates. I use Suspense for lazy loading and data fetching.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

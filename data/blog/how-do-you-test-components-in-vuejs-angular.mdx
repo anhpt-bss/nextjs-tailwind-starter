@@ -1,0 +1,65 @@
+﻿---
+title: 'How do you test components in VueJS/Angular?'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'angular', 'testing']
+draft: false
+summary: 'A practical guide to testing components in VueJS and Angular, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you test components in VueJS/Angular?
+
+Testing is essential for reliable apps. Interviewers want to know if you can write and run tests for VueJS and Angular components.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of testing tools and strategies
+- To see if you can write maintainable tests
+
+## VueJS Testing
+
+- Use Vue Test Utils, Jest
+- Test rendering, events, props, state
+
+## Angular Testing
+
+- Use TestBed, Jasmine, Karma
+- Test component logic, templates, services
+
+## Example
+
+```js
+// VueJS
+import { mount } from '@vue/test-utils'
+const wrapper = mount(MyComponent)
+expect(wrapper.text()).toContain('Hello')
+
+// Angular
+import { TestBed } from '@angular/core/testing'
+TestBed.configureTestingModule({ declarations: [MyComponent] })
+const fixture = TestBed.createComponent(MyComponent)
+expect(fixture.nativeElement.textContent).toContain('Hello')
+```
+
+## Interview Tips
+
+- Mention tools and libraries
+- Discuss unit vs integration tests
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- In VueJS, I use ...
+- In Angular, I use ...
+- For example, ...
+
+## Sample Answer
+
+> In VueJS, I use Vue Test Utils and Jest to test components, checking rendering and events. In Angular, I use TestBed with Jasmine and Karma to test component logic and templates.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

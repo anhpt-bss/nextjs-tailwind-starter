@@ -1,0 +1,64 @@
+﻿---
+title: 'Compare the reactivity systems of VueJS and ReactJS.'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'reactjs', 'reactivity']
+draft: false
+summary: 'A comparison of the reactivity systems in VueJS and ReactJS, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Compare the reactivity systems of VueJS and ReactJS.
+
+Reactivity is at the core of both VueJS and ReactJS, but each framework implements it differently. Interviewers want to know if you understand these differences and their implications.
+
+## Why Interviewers Ask This Question
+
+- To check your understanding of state management and reactivity
+- To see if you can choose the right tool for a project
+
+## VueJS Reactivity
+
+- Uses a dependency-tracking system (Proxy in Vue 3, Object.defineProperty in Vue 2)
+- Automatically tracks dependencies and updates the DOM when data changes
+- Supports reactive primitives (ref, reactive)
+
+## ReactJS Reactivity
+
+- Uses a virtual DOM and explicit state updates (setState/useState)
+- Re-renders components when state or props change
+- No automatic dependency tracking; relies on hooks and component structure
+
+## Example
+
+```js
+// Vue 3
+const count = ref(0);
+watch(count, (newVal) => { ... });
+
+// React
+const [count, setCount] = useState(0);
+useEffect(() => { ... }, [count]);
+```
+
+## Interview Tips
+
+- Mention dependency tracking vs explicit updates
+- Discuss performance and developer experience
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- VueJS uses ...
+- ReactJS relies on ...
+- For example, ...
+
+## Sample Answer
+
+> VueJS uses a dependency-tracking system for reactivity, automatically updating the DOM when data changes. ReactJS relies on explicit state updates and re-renders components when state or props change. Both approaches have their strengths, but Vue's system can feel more automatic, while React gives you more control.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

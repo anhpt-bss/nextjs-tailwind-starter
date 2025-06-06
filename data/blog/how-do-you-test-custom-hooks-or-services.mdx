@@ -1,0 +1,63 @@
+﻿---
+title: 'How do you test custom hooks or services?'
+date: '2025-06-06'
+tags: ['interview', 'testing', 'custom hook', 'service', 'react', 'angular']
+draft: false
+summary: 'A practical guide to testing custom hooks and services in React and Angular, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you test custom hooks or services?
+
+Testing custom hooks and services ensures reusable logic works as expected. Interviewers want to know if you can write maintainable, reliable tests for these abstractions.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of advanced testing
+- To see if you can test reusable logic
+
+## React Custom Hooks
+
+- Use @testing-library/react-hooks or render hooks in a test component
+- Mock dependencies as needed
+
+## Angular Services
+
+- Use TestBed to inject and test services
+- Mock HTTP and other dependencies
+
+## Example
+
+```js
+// React
+import { renderHook, act } from '@testing-library/react-hooks';
+const { result } = renderHook(() => useCounter());
+act(() => result.current.increment());
+expect(result.current.count).toBe(1);
+
+// Angular
+const service = TestBed.inject(MyService);
+expect(service.method()).toEqual(...);
+```
+
+## Interview Tips
+
+- Mention mocking dependencies
+- Discuss isolation and coverage
+
+## Useful English Phrases & Sentence Starters
+
+- To test custom hooks, I ...
+- For services, I ...
+- For example, ...
+
+## Sample Answer
+
+> To test custom hooks in React, I use @testing-library/react-hooks or render them in a test component, mocking dependencies as needed. For Angular services, I use TestBed to inject and test the service in isolation.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

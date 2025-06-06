@@ -1,0 +1,61 @@
+﻿---
+title: 'Explain Angular lifecycle hooks and dependency injection.'
+date: '2025-06-06'
+tags: ['interview', 'angular', 'lifecycle hooks', 'dependency injection']
+draft: false
+summary: 'A practical guide to Angular lifecycle hooks and dependency injection, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# Explain Angular lifecycle hooks and dependency injection.
+
+Lifecycle hooks and dependency injection are core concepts in Angular. Interviewers want to know if you can use them to build robust, maintainable apps.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of Angular internals
+- To see if you can use DI and lifecycle hooks effectively
+
+## Lifecycle Hooks
+
+- ngOnInit, ngOnChanges, ngOnDestroy, ngAfterViewInit, etc.
+- Allow you to run code at specific points in a component's life
+
+## Dependency Injection (DI)
+
+- Angular's built-in system for providing services to components
+- Promotes modularity and testability
+
+## Example
+
+```ts
+@Component({ ... })
+export class MyComponent implements OnInit, OnDestroy {
+  constructor(private myService: MyService) {}
+  ngOnInit() { /* ... */ }
+  ngOnDestroy() { /* ... */ }
+}
+```
+
+## Interview Tips
+
+- List common hooks and their use cases
+- Explain DI benefits
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- ngOnInit is used for ...
+- Dependency injection allows ...
+- For example, ...
+
+## Sample Answer
+
+> Angular lifecycle hooks like ngOnInit and ngOnDestroy let me run code at specific points in a component's life. Dependency injection allows me to provide services to components, making my code more modular and testable.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)

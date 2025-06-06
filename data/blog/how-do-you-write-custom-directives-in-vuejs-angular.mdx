@@ -1,0 +1,66 @@
+﻿---
+title: 'How do you write custom directives in VueJS/Angular?'
+date: '2025-06-06'
+tags: ['interview', 'vuejs', 'angular', 'custom directive']
+draft: false
+summary: 'A practical guide to writing custom directives in VueJS and Angular, with examples and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do you write custom directives in VueJS/Angular?
+
+Custom directives extend the functionality of HTML. Interviewers want to know if you can create and use them in VueJS and Angular.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of framework extensibility
+- To see if you can write reusable code
+
+## VueJS Custom Directives
+
+- Use `Vue.directive` (Vue 2) or `app.directive` (Vue 3)
+- Define hooks: bind, inserted, updated, unbind
+
+## Angular Custom Directives
+
+- Use `@Directive` decorator
+- Implement logic in the directive class
+
+## Example
+
+```js
+// Vue 3
+directives: {
+  focus: {
+    mounted(el) { el.focus(); }
+  }
+}
+
+// Angular
+@Directive({ selector: '[appHighlight]' })
+export class HighlightDirective {
+  constructor(el: ElementRef) { el.nativeElement.style.background = 'yellow'; }
+}
+```
+
+## Interview Tips
+
+- Compare syntax and use cases
+- Be ready to give code examples
+
+## Useful English Phrases & Sentence Starters
+
+- In VueJS, I create a custom directive by ...
+- In Angular, I use ...
+- For example, ...
+
+## Sample Answer
+
+> In VueJS, I create custom directives using the directive API and define hooks like mounted or updated. In Angular, I use the @Directive decorator to create reusable logic that can be attached to elements.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-developer-interview-questions)

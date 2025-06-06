@@ -1,0 +1,62 @@
+﻿---
+title: 'How do useMemo and useCallback work? When should you use them?'
+date: '2025-06-06'
+tags: ['interview', 'react', 'useMemo', 'useCallback', 'performance']
+draft: false
+summary: 'A practical guide to useMemo and useCallback in React, with examples, use cases, and interview tips.'
+authors: ['default']
+layout: PostSimple
+---
+
+# How do useMemo and useCallback work? When should you use them?
+
+useMemo and useCallback are React hooks for optimizing performance. Interviewers ask about them to see if you can prevent unnecessary renders and understand React's rendering behavior.
+
+## Why Interviewers Ask This Question
+
+- To check your knowledge of React performance optimization
+- To see if you know when to use memoization
+
+## useMemo
+
+- Memoizes the result of a computation
+- Only recalculates when dependencies change
+
+## useCallback
+
+- Memoizes a function reference
+- Useful for passing stable callbacks to child components
+
+## Example
+
+```js
+const memoizedValue = React.useMemo(() => computeExpensiveValue(a, b), [a, b])
+const memoizedCallback = React.useCallback(() => doSomething(a), [a])
+```
+
+## When to Use
+
+- useMemo: expensive calculations, derived data
+- useCallback: stable function props for children
+
+## Interview Tips
+
+- Explain dependency arrays
+- Mention premature optimization
+- Be ready to give examples
+
+## Useful English Phrases & Sentence Starters
+
+- useMemo is used for ...
+- useCallback is useful when ...
+- For example, ...
+
+## Sample Answer
+
+> useMemo is used to memoize expensive calculations so they only run when dependencies change. useCallback memoizes function references to prevent unnecessary re-renders. I use them when optimizing performance in components with heavy computations or many children.
+
+---
+
+> **See also:**
+>
+> - [50 Senior Frontend Developer Interview Questions](./50-frontend-senior-interview-questions)
