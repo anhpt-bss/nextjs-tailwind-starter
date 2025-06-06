@@ -7,7 +7,7 @@ const siteMetadata = {
     'Personal blog & knowledge hub by Phạm Tuấn Anh — sharing web development, technology insights, and creative solutions for modern digital experiences.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://nextjs-tailwind-starter-ecru.vercel.app',
+  siteUrl: 'https://apt.ddns.net',
   siteRepo: 'https://github.com/anhpt-bss/nextjs-tailwind-starter',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/app/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/app/banner.png`,
