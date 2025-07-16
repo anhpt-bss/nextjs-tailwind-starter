@@ -18,8 +18,6 @@ export default function BlogEdit() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    if (!sessionStorage.getItem('admin_auth')) router.push('/admin/login')
-
     fetch(`/api/admin/blog?slug=${slug}`, {
       headers: { Authorization: 'Basic ' + sessionStorage.getItem('admin_auth') },
     })
