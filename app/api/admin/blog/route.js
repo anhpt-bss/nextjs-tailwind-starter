@@ -1,19 +1,14 @@
+import { withAuth } from '@/middlewares/withAuth'
 import fs from 'fs'
 import path from 'path'
 
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog')
 
 function auth(req) {
-  const username = process.env.ADMIN_USERNAME
-  const password = process.env.ADMIN_PASSWORD
-  const authHeader = req.headers.get('authorization') || ''
-  if (!authHeader.startsWith('Basic ')) return false
-  const base64 = authHeader.split(' ')[1]
-  const [user, pass] = Buffer.from(base64, 'base64').toString().split(':')
-  return user === username && pass === password
+  return req.userId && req.isAdmin
 }
 
-export async function POST(req) {
+export const POST = withAuth(async (req) => {
   if (!auth(req)) return new Response('Unauthorized', { status: 401 })
   const { title, date, tags, summary, content, draft } = await req.json()
   const slug = title
@@ -33,9 +28,9 @@ export async function POST(req) {
   ].join('\n')
   fs.writeFileSync(filePath, frontmatter + content, 'utf8')
   return new Response(JSON.stringify({ success: true, slug }), { status: 201 })
-}
+})
 
-export async function GET(req) {
+export const GET = withAuth(async (req) => {
   if (!auth(req)) return new Response('Unauthorized', { status: 401 })
   const url = new URL(req.url)
   const slug = url.searchParams.get('slug')
@@ -86,9 +81,9 @@ export async function GET(req) {
   })
 
   return new Response(JSON.stringify({ posts }), { status: 200 })
-}
+})
 
-export async function PUT(req) {
+export const PUT = withAuth(async (req) => {
   if (!auth(req)) return new Response('Unauthorized', { status: 401 })
   const url = new URL(req.url)
   const slug = url.searchParams.get('slug')
@@ -108,9 +103,9 @@ export async function PUT(req) {
   ].join('\n')
   fs.writeFileSync(filePath, frontmatter + content, 'utf8')
   return new Response(JSON.stringify({ success: true, slug }), { status: 200 })
-}
+})
 
-export async function DELETE(req) {
+export const DELETE = withAuth(async (req) => {
   if (!auth(req)) return new Response('Unauthorized', { status: 401 })
   const url = new URL(req.url)
   const slug = url.searchParams.get('slug')
@@ -119,4 +114,4 @@ export async function DELETE(req) {
   if (!fs.existsSync(filePath)) return new Response('Not found', { status: 404 })
   fs.unlinkSync(filePath)
   return new Response(JSON.stringify({ success: true, slug }), { status: 200 })
-}
+})

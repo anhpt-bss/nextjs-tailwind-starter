@@ -9,8 +9,6 @@ export default function BlogList() {
   const router = useRouter()
 
   useEffect(() => {
-    if (!sessionStorage.getItem('admin_auth')) router.push('/admin/login')
-
     fetch('/api/admin/blog', {
       headers: { Authorization: 'Basic ' + sessionStorage.getItem('admin_auth') },
     })

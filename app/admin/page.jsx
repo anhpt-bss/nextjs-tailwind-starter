@@ -6,11 +6,11 @@ import Link from 'next/link'
 export default function AdminDashboard() {
   const router = useRouter()
 
-  useEffect(() => {
-    if (!sessionStorage.getItem('admin_auth')) {
-      router.push('/admin/login')
-    }
-  }, [router])
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem('admin_auth')) {
+  //     router.push('/admin/login')
+  //   }
+  // }, [router])
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
@@ -38,12 +38,11 @@ export default function AdminDashboard() {
         <div className="flex justify-center">
           <button
             onClick={() => {
-              sessionStorage.removeItem('admin_auth')
-              router.push('/admin/login')
+              router.push('/')
             }}
             className="mt-2 cursor-pointer rounded bg-red-100 px-3 py-1 text-xs text-red-700 transition hover:bg-red-700 dark:bg-red-900/60 dark:text-red-300"
           >
-            Logout
+            Back to Home Page
           </button>
         </div>
       </div>

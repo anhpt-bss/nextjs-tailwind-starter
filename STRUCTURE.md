@@ -6,6 +6,8 @@
 
 ## 2. Cấu trúc thư mục chính
 
+Client:
+
 - `app/` — Routing chính, chứa các page (blog, about, projects, tags, ...), layout, SEO, sitemap, API routes.
 - `components/` — Các React component tái sử dụng: Header, Footer, Card, Comments, ThemeSwitch, ...
 - `layouts/` — Các layout cho bài viết/blog list: PostLayout, PostSimple, PostBanner, ListLayout, ...
@@ -258,3 +260,160 @@ Khi tạo hoặc chỉnh sửa file Markdown/MDX, hãy đảm bảo toàn bộ f
 - [KaTeX](https://katex.org/), [rehype-citation](https://github.com/timlrx/rehype-citation), [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus)
 
 ---
+
+## 2.2. Cấu trúc & Quy ước import alias cho API Server
+
+Server:
+.
+├── app/
+│ └── api/
+│ ├── auth/
+│ │ ├── login/route.ts
+│ │ ├── register/route.ts
+│ │ └── logout/route.ts
+│ └── users/
+│ ├── [id]/route.ts
+│ └── route.ts
+├── lib/ ← Hàm tiện ích, config
+│ ├── db.ts ← Kết nối MongoDB
+│ ├── auth.ts ← Xác thực JWT, cookie, ...
+│ └── hash.ts ← Mã hoá mật khẩu
+├── models/ ← Mongoose schema/model
+│ ├── user.model.ts
+│ └── token.model.ts
+├── services/ ← Business logic
+│ ├── auth.service.ts
+│ └── user.service.ts
+├── middlewares/ ← Middleware xử lý request
+│ ├── withAuth.ts
+│ └── rateLimit.ts
+├── types/ ← Kiểu dữ liệu dùng chung
+│ └── user.ts
+├── validators/ ← Zod/Joi validator (nếu dùng)
+│ └── auth.schema.ts
+└── utils/ ← Các hàm tiện ích nhỏ
+└── response.ts
+
+- Các thư mục server sử dụng alias để import code dễ dàng, ví dụ:
+  - `@/hooks/*` → `hooks/*`: Custom React hooks (nếu dùng cho SSR hoặc API logic riêng).
+  - `@/lib/*` → `lib/*`: Hàm tiện ích, config, kết nối DB, xác thực JWT/cookie, mã hoá mật khẩu.
+  - `@/middlewares/*` → `middlewares/*`: Middleware xử lý request (auth, rate limit, ...).
+  - `@/requests/*` → `requests/*`: Hàm gọi API từ client hoặc SSR (nếu dùng).
+  - `@/models/*` → `models/*`: Mongoose schema/model cho MongoDB.
+  - `@/services/*` → `services/*`: Business logic, xử lý nghiệp vụ.
+  - `@/types/*` → `types/*`: Kiểu dữ liệu dùng chung (interface, type).
+  - `@/utils/*` → `utils/*`: Hàm tiện ích nhỏ, xử lý response, ...
+  - `@/validators/*` → `validators/*`: Zod/Joi schema validate dữ liệu đầu vào.
+
+### Quy trình tạo mới một API server (Next.js App Router)
+
+1. **Tạo route API:**
+
+   - Tạo file mới trong `app/api/[resource]/[action]/route.ts`.
+   - Đặt tên rõ ràng: `login`, `register`, `users`, ...
+   - Sử dụng các method HTTP phù hợp: GET, POST, PUT, DELETE.
+
+2. **Xử lý logic:**
+
+   - Import business logic từ `services/`.
+   - Validate dữ liệu đầu vào bằng schema trong `validators/`.
+   - Sử dụng model từ `models/` để thao tác DB.
+   - Sử dụng middleware từ `middlewares/` để xác thực, kiểm soát truy cập, rate limit.
+   - Sử dụng hàm tiện ích từ `lib/` và `utils/` cho các thao tác phụ trợ (kết nối DB, trả response chuẩn, ...).
+
+3. **Quy ước import:**
+
+   - Sử dụng alias để import, ví dụ:
+     ```ts
+     import { verifyToken } from '@/lib/auth'
+     import { UserModel } from '@/models/user.model'
+     import { validateLogin } from '@/validators/auth.schema'
+     import { withAuth } from '@/middlewares/withAuth'
+     import { loginService } from '@/services/auth.service'
+     import { response } from '@/utils/response'
+     ```
+
+4. **Kiểm thử:**
+
+   - Viết test cho service logic (nếu có).
+   - Kiểm thử API bằng Postman, Thunder Client, hoặc test tự động.
+
+5. **Cập nhật docs:**
+   - Mô tả rõ endpoint, method, input, output, middleware, business logic liên quan.
+   - Cập nhật tài liệu trong README.md hoặc STRUCTURE.md.
+
+### Ví dụ tạo API đăng nhập:
+
+- Tạo file: `app/api/auth/login/route.ts`
+- Import các hàm cần thiết từ các thư mục alias.
+- Validate input, xử lý logic, trả response chuẩn.
+
+```ts
+import { NextRequest, NextResponse } from 'next/server'
+import { validateLogin } from '@/validators/auth.schema'
+import { loginService } from '@/services/auth.service'
+import { response } from '@/utils/response'
+
+export async function POST(req: NextRequest) {
+  const body = await req.json()
+  const parsed = validateLogin.safeParse(body)
+  if (!parsed.success) {
+    return response(400, { error: 'Invalid input', details: parsed.error })
+  }
+  const result = await loginService(parsed.data)
+  if (!result.success) {
+    return response(401, { error: result.error })
+  }
+  return response(200, { user: result.user, token: result.token })
+}
+```
+
+---
+
+> Xem thêm chi tiết về các alias và quy trình mở rộng API server trong README.md và tài liệu từng thư mục.
+
+### Cây cấu trúc thực tế & mô tả chi tiết API Server
+
+```
+app/
+└── api/
+    ├── admin/
+    │   ├── blog/route.js         # Quản lý blog cho admin
+    │   └── login/route.js        # Đăng nhập admin
+    ├── auth/
+    │   ├── login/route.ts        # Đăng nhập (set cookie, trả user/token)
+    │   ├── logout/route.ts       # Đăng xuất (remove cookie)
+    │   └── register/route.ts     # Đăng ký (set cookie, trả user/token)
+    ├── newsletter/route.ts       # Đăng ký nhận newsletter (Pliny provider)
+    ├── users/
+    │   ├── me/route.ts           # Lấy/cập nhật thông tin user hiện tại (GET, PUT, require auth)
+    │   ├── [id]/route.ts         # Lấy user theo id (GET, require auth)
+    │   └── route.ts              # Lấy danh sách user (GET, require auth)
+    ...
+```
+
+#### Mô tả chi tiết các endpoint/phần:
+
+- **admin/**: Endpoint cho quản trị, ví dụ quản lý blog, đăng nhập admin (có thể dùng riêng quyền).
+- **auth/**: Đăng nhập, đăng ký, đăng xuất. Sử dụng cookie để lưu token, trả về user/token. Validate input bằng schema, xử lý logic qua service, trả response chuẩn.
+- **newsletter/**: Đăng ký nhận newsletter, tích hợp provider ngoài (Pliny).
+- **users/**:
+  - `me/route.ts`: Lấy/cập nhật thông tin user hiện tại. Require auth, lấy userId từ middleware.
+  - `[id]/route.ts`: Lấy user theo id. Require auth, trả lỗi nếu không tìm thấy.
+  - `route.ts`: Lấy danh sách user. Require auth.
+- **Middleware**: Sử dụng `withAuth` để xác thực, gắn userId vào request, bảo vệ các endpoint cần đăng nhập.
+- **Response**: Sử dụng hàm `successResponse`, `errorResponse` để trả về dữ liệu chuẩn hóa (body, status, error code).
+- **Cookie**: Sử dụng hàm set/remove cookie khi login/logout/register.
+- **Provider ngoài**: Newsletter dùng Pliny, có thể mở rộng cho các dịch vụ khác.
+
+#### Quy trình xử lý API thực tế:
+
+1. **Nhận request** từ client (Next.js App Router).
+2. **Kết nối DB** nếu cần (MongoDB qua connectDB).
+3. **Middleware xác thực** (withAuth) kiểm tra token, gắn userId vào request.
+4. **Validate input** bằng schema (Zod/Joi).
+5. **Gọi service** để xử lý logic (login, register, getUser, ...).
+6. **Trả response** chuẩn hóa (success/error, status code, dữ liệu).
+7. **Set/remove cookie** nếu cần (login/logout/register).
+
+> Tổ chức này giúp API rõ ràng, bảo mật, dễ mở rộng, dễ test. Khi thêm resource mới, chỉ cần tạo thêm route, service, model, validator, và cập nhật middleware nếu cần.

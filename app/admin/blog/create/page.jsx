@@ -15,10 +15,6 @@ export default function BlogCreate() {
   const [message, setMessage] = useState('')
   const router = useRouter()
 
-  useEffect(() => {
-    if (!sessionStorage.getItem('admin_auth')) router.push('/admin/login')
-  }, [router])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const tags = form.tags
