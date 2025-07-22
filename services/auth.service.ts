@@ -3,7 +3,7 @@ import api from '@/lib/axios'
 import UserModel from '@/models/user.model'
 import { signJwt } from '@/lib/jwt'
 import { compareCharacter } from '@/lib/hash'
-import { LoginPayload, RegisterPayload, UserResponse } from '@/types/user.ts'
+import { LoginPayload, RegisterPayload, UserResponse } from '@/types/user'
 import { clearAllCookiesClient, setUniversalCookie } from '@/lib/cookie'
 import { getQueryClient } from '@/lib/react-query'
 

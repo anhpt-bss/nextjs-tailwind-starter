@@ -37,7 +37,7 @@ const GalleryPage: React.FC = () => {
     storage: undefined,
     sort: undefined,
     skip: 0,
-    limit: 10,
+    limit: 50,
   })
 
   // Multi-select state

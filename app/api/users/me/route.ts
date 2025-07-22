@@ -4,7 +4,7 @@ import { withAuth } from '@/middlewares/withAuth'
 import { connectDB } from '@/lib/db'
 import UserModel from '@/models/user.model'
 import { successResponse, errorResponse } from '@/utils/response'
-import { RegisterPayload } from '@/types/user.ts'
+import { RegisterPayload } from '@/types/user'
 
 export const GET = withAuth(async (req: NextRequest) => {
   try {

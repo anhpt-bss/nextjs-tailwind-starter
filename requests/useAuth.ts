@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { logoutAndClearSession, saveAuthCookies } from '@/services/auth.service'
 import { requestLogin, requestRegister, requestLogout } from '@/services/auth.service'
-import { UserResponse } from '@/types/user.ts'
+import { UserResponse } from '@/types/user'
 
 export function useLogin(options?: { successMessage?: string; redirectUrl?: string }) {
   const router = useRouter()
