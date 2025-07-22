@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { logoutAndClearSession, saveAuthCookies } from '@/services/auth.service'
 import { requestLogin, requestRegister, requestLogout } from '@/services/auth.service'
-import { UserResponse } from '@/types/user'
+import { UserResponse } from '@/types/user.ts'
 
 export function useLogin(options?: { successMessage?: string; redirectUrl?: string }) {
   const router = useRouter()
@@ -13,7 +13,7 @@ export function useLogin(options?: { successMessage?: string; redirectUrl?: stri
     { email: string; password: string }
   >(requestLogin, {
     onSuccess: (data) => {
-      toast.success(options?.successMessage || 'Login successful!')
+      toast.success(options?.successMessage || 'Login successfully!')
 
       saveAuthCookies(data.token, data.user)
 
@@ -30,7 +30,7 @@ export function useRegister(options?: { successMessage?: string; redirectUrl?: s
     { name: string; email: string; password: string }
   >(requestRegister, {
     onSuccess: (data) => {
-      toast.success(options?.successMessage || 'Registration successful!')
+      toast.success(options?.successMessage || 'Registration successfully!')
 
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },

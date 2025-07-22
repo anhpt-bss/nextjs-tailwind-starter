@@ -1,6 +1,6 @@
 // hooks/useApiErrorHandler.ts
 import { logoutAndClearSession } from '@/services/auth.service'
-import { ApiResponse } from '@/utils/response'
+import { ApiResponse } from '@/types/common'
 import { toast } from 'sonner'
 
 export function handleApiError(error: any) {

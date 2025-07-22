@@ -2,7 +2,7 @@
 import UserModel from '@/models/user.model'
 import { IUser } from '@/models/user.model'
 import api from '@/lib/axios'
-import { UserResponse } from '@/types/user'
+import { UserResponse } from '@/types/user.ts'
 
 export async function getUserById(id: string): Promise<IUser | null> {
   return UserModel.findById(id).lean<IUser>().exec()
