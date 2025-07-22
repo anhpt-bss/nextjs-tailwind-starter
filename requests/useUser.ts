@@ -2,7 +2,7 @@
 import api from '@/lib/axios'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
-import { UserResponse } from '@/types/user.ts'
+import { UserResponse } from '@/types/user'
 import { useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
