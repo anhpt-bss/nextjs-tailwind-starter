@@ -2,8 +2,8 @@
 import api from '@/lib/axios'
 import UserModel from '@/models/user.model'
 import { signJwt } from '@/lib/jwt'
-import { comparePassword } from '@/lib/hash'
-import { LoginPayload, RegisterPayload, UserResponse } from '@/types/user'
+import { compareCharacter } from '@/lib/hash'
+import { LoginPayload, RegisterPayload, UserResponse } from '@/types/user.ts'
 import { clearAllCookiesClient, setUniversalCookie } from '@/lib/cookie'
 import { getQueryClient } from '@/lib/react-query'
 
@@ -11,7 +11,7 @@ export async function login(data: LoginPayload) {
   const user = await UserModel.findOne({ email: data.email })
   if (!user || !user.password) throw new Error('Invalid credentials')
 
-  const isMatch = await comparePassword(data.password, user.password)
+  const isMatch = await compareCharacter(data.password, user.password)
 
   if (!isMatch) throw new Error('Invalid credentials')
 

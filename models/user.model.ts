@@ -1,5 +1,5 @@
 // models/user.model.ts
-import { hashPassword } from '@/lib/hash'
+import { hashCharacter } from '@/lib/hash'
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
 export interface IUser extends Document {
@@ -34,7 +34,7 @@ const UserSchema = new Schema<IUser>({
 
 UserSchema.pre('save', async function (next) {
   if (!this.isModified('password') || !this.password) return next()
-  this.password = await hashPassword(this.password)
+  this.password = await hashCharacter(this.password)
   next()
 })
 

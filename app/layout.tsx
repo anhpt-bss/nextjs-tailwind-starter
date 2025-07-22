@@ -12,6 +12,7 @@ import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
+import { DialogProvider } from 'app/dialog-provider'
 import { Metadata } from 'next'
 import { ReactQueryProvider } from './react-query-provider'
 import { AppToaster } from './app-toaster'
@@ -102,14 +103,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <ReactQueryProvider>
-            <AppToaster />
-            <SectionContainer>
-              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                <Header />
-                <main className="mb-auto">{children}</main>
-              </SearchProvider>
-              <Footer />
-            </SectionContainer>
+            <DialogProvider>
+              <AppToaster />
+              <SectionContainer>
+                <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+                  <Header />
+                  <main className="mb-auto">{children}</main>
+                </SearchProvider>
+                <Footer />
+              </SectionContainer>
+            </DialogProvider>
           </ReactQueryProvider>
         </ThemeProviders>
       </body>
