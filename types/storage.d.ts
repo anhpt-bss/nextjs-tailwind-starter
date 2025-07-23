@@ -49,3 +49,13 @@ export type UploadFilePayload = {
   content_type: string
   size: number
 }
+
+export type UploadLargeFilePayload = {
+  storage: StorageResponse
+  base64_content: string
+  file_path: string
+  file_name: string
+  file_extension: string
+  content_type: string
+  size: number
+}

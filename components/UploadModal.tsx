@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import { DocumentIcon, XMarkIcon, PhotoIcon } from '@heroicons/react/24/outline'
-import { useUploadFile } from '@/requests/useStoredFile'
+import { useUploadLargeFiles } from '@/requests/useStoredFile'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { uploadFileSchema } from '@/validators/storage.schema'
 import InputField from '@/components/headlessui/Input'
 import SelectField from '@/components/headlessui/Select'
-import { StorageResponse, UploadFilePayload } from '@/types/storage'
+import { StorageResponse, UploadLargeFilePayload } from '@/types/storage'
 import { fileToBase64 } from '@/utils/helper'
 
 interface UploadModalProps {
@@ -23,7 +23,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
   defaultFiles,
   onClose,
 }) => {
-  const { mutate: uploadFile, isPending } = useUploadFile()
+  const { mutate: uploadLargeFile, isPending } = useUploadLargeFiles()
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
 
   const {
@@ -57,11 +57,11 @@ const UploadModal: React.FC<UploadModalProps> = ({
       setError('base64_content', { message: 'File is required' })
       return
     }
-    const payloads: UploadFilePayload[] = []
+    const payloads: UploadLargeFilePayload[] = []
     for (const file of selectedFiles) {
       const base64_content = await fileToBase64(file)
       payloads.push({
-        storage: values.storage,
+        storage: storages.find((s) => s._id === values.storage) as StorageResponse,
         file_path: values.file_path,
         base64_content,
         file_name: file.name,
@@ -70,7 +70,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
         size: file.size,
       })
     }
-    uploadFile(payloads, {
+    uploadLargeFile(payloads, {
       onSuccess: () => {
         reset()
         setSelectedFiles([])
