@@ -10,6 +10,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { useLogout } from '@/requests/useAuth'
 import { Fragment, useEffect, useState } from 'react'
 import { getUniversalCookie } from '@/lib/cookie'
+import Image from 'next/image'
+import { getAvatarUrl } from '@/utils/helper'
 
 const Header = () => {
   let headerClass = 'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-10'
@@ -72,61 +74,65 @@ const Header = () => {
                 {link.title}
               </Link>
             ))}
+
+          {user && (
+            <Link
+              key={'gallery'}
+              href={'/gallery'}
+              className="hover:text-primary-500 dark:hover:text-primary-400 m-1 font-medium text-gray-900 dark:text-gray-100"
+            >
+              Gallery
+            </Link>
+          )}
         </div>
+
         <SearchButton />
+
         <ThemeSwitch />
 
         {/* User actions */}
         <div className="flex items-center gap-2">
           {user ? (
-            <>
-              <Link
-                key={'gallery'}
-                href={'/gallery'}
-                className="hover:text-primary-500 dark:hover:text-primary-400 m-1 font-medium text-gray-900 dark:text-gray-100"
+            <Menu as="div" className="relative">
+              <MenuButton className="hover:border-primary-400 dark:hover:border-primary-500 group flex items-center gap-2 rounded-2xl border border-transparent px-4 py-2 font-semibold transition hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800">
+                <span className="from-primary-500 hidden bg-gradient-to-r via-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:text-transparent group-focus:text-transparent md:inline">
+                  {user.name}
+                </span>
+                <Image
+                  src={getAvatarUrl(user.avatar)}
+                  alt="Avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full border-2 border-blue-400 bg-white object-contain shadow-lg"
+                />
+              </MenuButton>
+              <MenuItems
+                anchor="bottom end"
+                className="absolute right-0 z-50 mt-2 w-40 rounded-2xl bg-gray-200 py-1 shadow-lg ring-1 ring-black/10 focus:outline-none dark:bg-gray-700"
               >
-                Gallery
-              </Link>
-
-              <Menu as="div" className="relative">
-                <MenuButton className="hover:border-primary-400 dark:hover:border-primary-500 group flex items-center gap-2 rounded-2xl border border-transparent px-4 py-2 font-semibold transition hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800">
-                  <span className="from-primary-500 hidden bg-gradient-to-r via-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:text-transparent group-focus:text-transparent md:inline">
-                    {user.name}
-                  </span>
-                  <img
-                    src={user.avatar || '/static/images/default-avatar.jpg'}
-                    className="h-8 w-8 rounded-full border border-blue-400 object-cover"
-                    alt="avatar"
-                  />
-                </MenuButton>
-                <MenuItems
-                  anchor="bottom end"
-                  className="absolute right-0 z-50 mt-2 w-40 rounded-2xl bg-gray-200 py-1 shadow-lg ring-1 ring-black/10 focus:outline-none dark:bg-gray-700"
-                >
-                  <MenuItem as={Fragment}>
-                    {({ focus }) => (
-                      <Link
-                        href="/profile"
-                        className={`block rounded-2xl px-4 py-2 font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-primary-100 dark:bg-primary-700' : ''}`}
-                      >
-                        Profile
-                      </Link>
-                    )}
-                  </MenuItem>
-                  <MenuItem as={Fragment}>
-                    {({ focus }) => (
-                      <button
-                        onClick={() => logout()}
-                        className={`block w-full rounded-2xl px-4 py-2 text-left font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-red-100 dark:bg-red-700' : ''}`}
-                        disabled={isLogoutPending}
-                      >
-                        {isLogoutPending ? 'Signing out...' : 'Logout'}
-                      </button>
-                    )}
-                  </MenuItem>
-                </MenuItems>
-              </Menu>
-            </>
+                <MenuItem as={Fragment}>
+                  {({ focus }) => (
+                    <Link
+                      href="/profile"
+                      className={`block rounded-2xl px-4 py-2 font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-primary-100 dark:bg-primary-700' : ''}`}
+                    >
+                      Profile
+                    </Link>
+                  )}
+                </MenuItem>
+                <MenuItem as={Fragment}>
+                  {({ focus }) => (
+                    <button
+                      onClick={() => logout()}
+                      className={`block w-full rounded-2xl px-4 py-2 text-left font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-red-100 dark:bg-red-700' : ''}`}
+                      disabled={isLogoutPending}
+                    >
+                      {isLogoutPending ? 'Signing out...' : 'Logout'}
+                    </button>
+                  )}
+                </MenuItem>
+              </MenuItems>
+            </Menu>
           ) : (
             <Link
               href="/login"
@@ -137,7 +143,7 @@ const Header = () => {
           )}
         </div>
 
-        <MobileNav />
+        <MobileNav user={user} />
       </div>
     </header>
   )

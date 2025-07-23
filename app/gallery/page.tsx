@@ -5,15 +5,17 @@ import GalleryGrid from '@/components/GalleryGrid'
 import GalleryList from '@/components/GalleryList'
 import UploadModal from '@/components/UploadModal'
 import FilePreviewModal from '@/components/FilePreviewModal'
-import { useStorages } from '@/requests/useStorage'
+import { useFolders, useStorages } from '@/requests/useStorage'
 import { useLazyStorageFiles, useDeleteFile, useDeleteMultipleFile } from '@/requests/useStoredFile'
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { StoredFileResponse } from '@/types/storage'
 import { useDialog } from 'app/dialog-provider'
 import { InfiniteData } from '@tanstack/react-query'
 import { PaginatedResponse } from '@/types/common'
 import Dropzone from '@/components/Dropzone'
 import Loading from '@/components/Loading'
+import clsx from 'clsx'
 
 import {
   TrashIcon,
@@ -21,29 +23,38 @@ import {
   CheckCircleIcon,
   XCircleIcon,
 } from '@heroicons/react/24/outline'
+import Folders from '@/components/Folders'
 import { handleDownload } from '@/utils/helper'
 
 type GalleryFilters = ToolbarFiltersType & {
+  folder?: string
   skip?: number
   limit?: number
+}
+
+const defaultFilters: GalleryFilters = {
+  search: undefined,
+  storage: undefined,
+  folder: undefined,
+  sort: 'newest',
+  skip: 0,
+  limit: 50,
 }
 
 const GalleryPage: React.FC = () => {
   const { openDialog, closeDialog } = useDialog()
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [filters, setFilters] = useState<GalleryFilters>({
-    search: undefined,
-    storage: undefined,
-    sort: undefined,
-    skip: 0,
-    limit: 50,
-  })
+  const [filters, setFilters] = useState<GalleryFilters | undefined>(undefined)
 
   // Multi-select state
   const [selectedFiles, setSelectedFiles] = useState<StoredFileResponse[]>([])
 
   const { data: storages = [] } = useStorages()
+  const { data: folders = [] } = useFolders()
   const {
     data: lazyFilesData,
     fetchNextPage,
@@ -52,9 +63,63 @@ const GalleryPage: React.FC = () => {
     isLoading: loadingFiles,
     isError,
     error,
-  } = useLazyStorageFiles(filters)
+  } = useLazyStorageFiles(filters, {
+    enabled: !!filters,
+  })
   const deleteFileMutation = useDeleteFile()
   const deleteMultiFileMutation = useDeleteMultipleFile()
+
+  useEffect(() => {
+    // Sync state from query params on mount and when query changes
+    const viewModeParam = (searchParams.get('view') as 'grid' | 'list') || 'grid'
+    const search = searchParams.get('search')
+    const storage = searchParams.get('storage')
+    const sort = searchParams.get('sort') || 'newest'
+    const skip = searchParams.get('skip')
+    const limit = searchParams.get('limit')
+    const folder = searchParams.get('folder')
+
+    if (!skip && !limit) {
+      updateQuery(defaultFilters, viewModeParam)
+    } else {
+      setViewMode(viewModeParam)
+      setFilters({
+        search: search || undefined,
+        storage: storage || undefined,
+        folder: folder || undefined,
+        sort: sort,
+        skip: Number(skip),
+        limit: Number(limit),
+      })
+    }
+  }, [searchParams])
+
+  // Helper to update query string
+  const updateQuery = (newFilters: GalleryFilters | undefined, newViewMode: 'grid' | 'list') => {
+    const params = new URLSearchParams(searchParams.toString())
+
+    if (newFilters?.search) params.set('search', newFilters?.search)
+    else params.delete('search')
+    if (newFilters?.storage) params.set('storage', newFilters?.storage)
+    else params.delete('storage')
+    if (newFilters?.folder) params.set('folder', newFilters?.folder)
+    else params.delete('folder')
+    if (newFilters?.sort) params.set('sort', newFilters?.sort)
+    else params.delete('sort')
+    if (newFilters?.skip !== undefined) params.set('skip', String(newFilters?.skip))
+    else params.delete('skip')
+    if (newFilters?.limit !== undefined) params.set('limit', String(newFilters?.limit))
+    else params.delete('limit')
+
+    params.set('view', newViewMode)
+
+    router.replace(`?${params.toString()}`)
+  }
+
+  const handleSetFilters = (newFilter = filters, newViewMode = viewMode) => {
+    const updated = { ...newFilter, offset: 0 }
+    updateQuery(updated, newViewMode)
+  }
 
   // --- Infinite Scroll Logic ---
   const infiniteFiles = lazyFilesData as
@@ -128,7 +193,7 @@ const GalleryPage: React.FC = () => {
       content: (
         <UploadModal
           storages={storages}
-          selectedStorage={filters.storage}
+          selectedStorage={filters?.storage}
           defaultFiles={files}
           onClose={() => closeDialog()}
         />
@@ -184,19 +249,23 @@ const GalleryPage: React.FC = () => {
     })
   }
 
+  if (!filters)
+    return (
+      <div className="h-[50vh]">
+        <Loading text="Loading..." />
+      </div>
+    )
   return (
     <div className="w-full">
       <Toolbar
         filters={filters}
-        setFilters={(name, value) => {
-          setFilters((prev) => ({
-            ...prev,
-            [name]: value,
-            offset: 0, // Reset offset when any filter changes
-          }))
+        setFilters={(newFilter) => {
+          handleSetFilters(newFilter)
         }}
         viewMode={viewMode}
-        setViewMode={setViewMode}
+        setViewMode={(mode) => {
+          handleSetFilters(filters, mode)
+        }}
         onUpload={handleUploadFile}
         storages={storages}
       />
@@ -210,6 +279,12 @@ const GalleryPage: React.FC = () => {
                 <div className="rounded bg-gray-300 px-2 py-1 text-sm dark:bg-gray-700">
                   {`Total: ${allFiles?.length}/${totalItems}`}
                 </div>
+
+                <Folders
+                  folders={folders}
+                  selected={filters?.folder}
+                  onSelect={(folder) => handleSetFilters({ ...filters, folder })}
+                />
               </div>
 
               {viewMode === 'grid' ? (
