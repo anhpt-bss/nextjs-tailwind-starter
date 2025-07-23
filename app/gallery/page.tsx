@@ -7,7 +7,7 @@ import UploadModal from '@/components/UploadModal'
 import FilePreviewModal from '@/components/FilePreviewModal'
 import { useFolders, useStorages } from '@/requests/useStorage'
 import { useLazyStorageFiles, useDeleteFile, useDeleteMultipleFile } from '@/requests/useStoredFile'
-import { useEffect, useState, useRef, useCallback } from 'react'
+import { useEffect, useState, useRef, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { StoredFileResponse } from '@/types/storage'
 import { useDialog } from 'app/dialog-provider'
@@ -255,108 +255,117 @@ const GalleryPage: React.FC = () => {
         <Loading text="Loading..." />
       </div>
     )
+
   return (
-    <div className="w-full">
-      <Toolbar
-        filters={filters}
-        setFilters={(newFilter) => {
-          handleSetFilters(newFilter)
-        }}
-        viewMode={viewMode}
-        setViewMode={(mode) => {
-          handleSetFilters(filters, mode)
-        }}
-        onUpload={handleUploadFile}
-        storages={storages}
-      />
-      <Dropzone onUpload={(files) => handleUploadFile(files)}>
-        <div className="relative w-full">
-          {isError ? (
-            <div>Error loading files: {error?.message}</div>
-          ) : (
-            <>
-              <div className="my-2 flex flex-wrap items-center gap-2">
-                <div className="rounded bg-gray-300 px-2 py-1 text-sm dark:bg-gray-700">
-                  {`Total: ${allFiles?.length}/${totalItems}`}
-                </div>
-
-                <Folders
-                  folders={folders}
-                  selected={filters?.folder}
-                  onSelect={(folder) => handleSetFilters({ ...filters, folder })}
-                />
-              </div>
-
-              {viewMode === 'grid' ? (
-                <GalleryGrid
-                  files={allFiles}
-                  loading={loadingFiles && allFiles.length === 0}
-                  onPreview={handlePreviewFile}
-                  onDeleteFile={handleDeleteFile}
-                  selectedFiles={selectedFiles}
-                  onSelectFile={handleSelectFile}
-                />
-              ) : (
-                <GalleryList
-                  files={allFiles}
-                  loading={loadingFiles && allFiles.length === 0}
-                  onPreview={handlePreviewFile}
-                  onDeleteFile={handleDeleteFile}
-                  selectedFiles={selectedFiles}
-                  onSelectFile={handleSelectFile}
-                />
-              )}
-
-              {/* Infinite scroll sentinel */}
-              <div ref={observerElem} className="h-1 bg-transparent"></div>
-              {isFetchingNextPage && <Loading text="Loading more..." />}
-              {!hasNextPage && allFiles.length > 0 && (
-                <div className="p-4 text-center text-gray-500">
-                  You've reached the end of the list.
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Bottom bar for selected files */}
-          {selectedFiles.length > 0 && (
-            <div className="animate-fade-in fixed bottom-0 left-0 z-50 flex w-full items-center justify-center gap-4 border-t border-gray-300 bg-white px-4 py-2 shadow dark:border-gray-700 dark:bg-gray-900">
-              <button
-                className="flex gap-2 rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                title="Deselect all"
-                onClick={handleDeselectAll}
-              >
-                <XCircleIcon className="h-5 w-5" />
-                <span className="text-sm font-semibold">
-                  {selectedFiles.length} file(s) selected
-                </span>
-              </button>
-              <button
-                className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                title="Select all"
-                onClick={handleSelectAll}
-              >
-                <CheckCircleIcon className="h-5 w-5" />
-              </button>
-              <button
-                className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                title="Delete selected"
-                onClick={handleDeleteSelected}
-              >
-                <TrashIcon className="h-5 w-5" />
-              </button>
-              <button
-                className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                title="Download all"
-                onClick={handleDownloadSelected}
-              >
-                <ArrowDownTrayIcon className="h-5 w-5" />
-              </button>
-            </div>
-          )}
+    <Suspense
+      fallback={
+        <div className="h-[50vh]">
+          <Loading text="Loading..." />
         </div>
-      </Dropzone>
-    </div>
+      }
+    >
+      <div className="w-full">
+        <Toolbar
+          filters={filters}
+          setFilters={(newFilter) => {
+            handleSetFilters(newFilter)
+          }}
+          viewMode={viewMode}
+          setViewMode={(mode) => {
+            handleSetFilters(filters, mode)
+          }}
+          onUpload={handleUploadFile}
+          storages={storages}
+        />
+        <Dropzone onUpload={(files) => handleUploadFile(files)}>
+          <div className="relative w-full">
+            {isError ? (
+              <div>Error loading files: {error?.message}</div>
+            ) : (
+              <>
+                <div className="my-2 flex flex-wrap items-center gap-2">
+                  <div className="rounded bg-gray-300 px-2 py-1 text-sm dark:bg-gray-700">
+                    {`Total: ${allFiles?.length}/${totalItems}`}
+                  </div>
+
+                  <Folders
+                    folders={folders}
+                    selected={filters?.folder}
+                    onSelect={(folder) => handleSetFilters({ ...filters, folder })}
+                  />
+                </div>
+
+                {viewMode === 'grid' ? (
+                  <GalleryGrid
+                    files={allFiles}
+                    loading={loadingFiles && allFiles.length === 0}
+                    onPreview={handlePreviewFile}
+                    onDeleteFile={handleDeleteFile}
+                    selectedFiles={selectedFiles}
+                    onSelectFile={handleSelectFile}
+                  />
+                ) : (
+                  <GalleryList
+                    files={allFiles}
+                    loading={loadingFiles && allFiles.length === 0}
+                    onPreview={handlePreviewFile}
+                    onDeleteFile={handleDeleteFile}
+                    selectedFiles={selectedFiles}
+                    onSelectFile={handleSelectFile}
+                  />
+                )}
+
+                {/* Infinite scroll sentinel */}
+                <div ref={observerElem} className="h-1 bg-transparent"></div>
+                {isFetchingNextPage && <Loading text="Loading more..." />}
+                {!hasNextPage && allFiles.length > 0 && (
+                  <div className="p-4 text-center text-gray-500">
+                    You've reached the end of the list.
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Bottom bar for selected files */}
+            {selectedFiles.length > 0 && (
+              <div className="animate-fade-in fixed bottom-0 left-0 z-50 flex w-full items-center justify-center gap-4 border-t border-gray-300 bg-white px-4 py-2 shadow dark:border-gray-700 dark:bg-gray-900">
+                <button
+                  className="flex gap-2 rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  title="Deselect all"
+                  onClick={handleDeselectAll}
+                >
+                  <XCircleIcon className="h-5 w-5" />
+                  <span className="text-sm font-semibold">
+                    {selectedFiles.length} file(s) selected
+                  </span>
+                </button>
+                <button
+                  className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  title="Select all"
+                  onClick={handleSelectAll}
+                >
+                  <CheckCircleIcon className="h-5 w-5" />
+                </button>
+                <button
+                  className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  title="Delete selected"
+                  onClick={handleDeleteSelected}
+                >
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+                <button
+                  className="rounded p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  title="Download all"
+                  onClick={handleDownloadSelected}
+                >
+                  <ArrowDownTrayIcon className="h-5 w-5" />
+                </button>
+              </div>
+            )}
+          </div>
+        </Dropzone>
+      </div>
+    </Suspense>
   )
 }
 
