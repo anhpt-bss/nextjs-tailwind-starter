@@ -1,7 +1,13 @@
+import { uploadFileSchema } from '@/validators/storage.schema'
 import StoredFile from '@/models/storedFile.model'
 import Storage from '@/models/storage.model'
 import { connectDB } from '@/lib/db'
-import { StoredFileResponse, UploadFilePayload, StoredFilePayload } from '@/types/storage'
+import {
+  StoredFileResponse,
+  UploadFilePayload,
+  UploadLargeFilePayload,
+  StoredFilePayload,
+} from '@/types/storage'
 import { uploadFileToGithub, deleteFileFromGithub } from '@/lib/github'
 import mongoose, { SortOrder } from 'mongoose'
 import api from '@/lib/axios'
@@ -58,6 +64,57 @@ export async function uploadFileToStorage(data: UploadFilePayload): Promise<Stor
     platform: storage.platform,
     metadata: githubRes?.metadata?.content?.url,
   })
+}
+
+export async function uploadLargeFilesToStorage(files: UploadLargeFilePayload[]) {
+  const storedFilePayload: StoredFilePayload[] = []
+  const errors: { file: UploadLargeFilePayload; error: any }[] = []
+
+  for (let i = 0; i < files.length; i++) {
+    const fileData = files[i]
+    const storage = fileData.storage
+
+    try {
+      const githubRes = await uploadFileToGithub({
+        owner: storage.owner,
+        repo: storage.repo,
+        token: decrypt(storage.token),
+        path: `${fileData.file_path}/${fileData.file_name}`,
+        fileContent: fileData.base64_content,
+        fileName: fileData.file_name,
+      })
+
+      storedFilePayload.push({
+        storage: storage._id,
+        file_name: fileData.file_name,
+        file_extension: fileData.file_extension,
+        content_type: fileData.content_type,
+        size: fileData.size,
+        file_path: `${fileData.file_path}/${fileData.file_name}`,
+        sha: githubRes.sha,
+        download_url: githubRes.download_url,
+        preview_url: githubRes.preview_url,
+        platform: storage.platform,
+        metadata: githubRes?.metadata?.content?.url,
+        uploaded_by: storage.user,
+      })
+    } catch (e: any) {
+      errors.push({ file: fileData, error: e.message })
+    }
+  }
+
+  if (storedFilePayload.length === 0) {
+    const error = {
+      message: 'All files failed to upload',
+      code: 'UPLOAD_FAILED',
+      status: 400,
+      errors: errors,
+    }
+    throw error
+  }
+
+  const res = await api.post('/api/file/save-files', storedFilePayload)
+  return { success: res.data.data, failed: errors }
 }
 
 interface GetFilesOptions {

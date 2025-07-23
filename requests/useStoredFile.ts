@@ -1,4 +1,4 @@
-import { requestDeleteMultipleFile } from '@/services/storedFile.service'
+import { requestDeleteMultipleFile, uploadLargeFilesToStorage } from '@/services/storedFile.service'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
 import { toast } from 'sonner'
@@ -9,7 +9,12 @@ import {
   requestDeleteFile,
   requestUpdateFile,
 } from '@/services/storedFile.service'
-import { StoredFilePayload, StoredFileResponse, UploadFilePayload } from '@/types/storage'
+import {
+  StoredFilePayload,
+  StoredFileResponse,
+  UploadFilePayload,
+  UploadLargeFilePayload,
+} from '@/types/storage'
 import { useCustomInfiniteQuery } from '@/hooks/useCustomInfiniteQuery'
 import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { PaginatedResponse } from '@/types/common'
@@ -24,6 +29,31 @@ export function useUploadFile(options?: any) {
   const queryClient = useQueryClient()
   return useCustomMutation<StoredFileResponse, UploadFilePayload[], unknown, MutationContext>(
     requestUploadFile,
+    {
+      ...options,
+      onMutate: () => {
+        const toastId = toast.loading('Uploading file...')
+        return { toastId }
+      },
+      onSuccess: (data, variables, context) => {
+        toast.success('Upload file successfully!', {
+          id: context?.toastId,
+        })
+        queryClient.invalidateQueries({ queryKey: ['files'] })
+      },
+      onError: (error, variables, context) => {
+        toast.error('Failed to Upload file!', {
+          id: context?.toastId,
+        })
+      },
+    }
+  )
+}
+
+export function useUploadLargeFiles(options?: any) {
+  const queryClient = useQueryClient()
+  return useCustomMutation<unknown, UploadLargeFilePayload[], unknown, MutationContext>(
+    uploadLargeFilesToStorage,
     {
       ...options,
       onMutate: () => {
