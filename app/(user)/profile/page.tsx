@@ -5,6 +5,8 @@ import IconEdit from '@/components/IconEdit'
 import { useLogout } from '@/requests/useAuth'
 import Link from 'next/link'
 import Loading from '@/components/Loading'
+import Image from 'next/image'
+import { getAvatarUrl } from '@/utils/helper'
 
 const initialProfile = {
   name: '',
@@ -89,12 +91,13 @@ export default function ProfilePage() {
       <div className="w-full max-w-lg space-y-8 rounded-2xl bg-white/90 p-8 shadow-2xl backdrop-blur-md dark:bg-gray-900/90">
         <div className="mb-6 flex flex-col items-center">
           <div className="relative">
-            <img
-              src={data?.avatar || '/static/images/default-avatar.jpg'}
+            <Image
+              src={getAvatarUrl(data?.avatar)}
               alt="Avatar"
-              className="h-24 w-24 rounded-full border-4 border-blue-400 bg-white object-cover shadow-lg"
+              width={100}
+              height={100}
+              className="rounded-full border-4 border-blue-400 bg-white object-contain shadow-lg"
             />
-            {/* Avatar edit icon (optional) */}
           </div>
           <h2 className="mt-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-3xl font-bold text-transparent dark:from-blue-300 dark:via-purple-300 dark:to-pink-300">
             {form.name}

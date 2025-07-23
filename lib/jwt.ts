@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET || 'secret'
 
-export function signJwt(payload: object, expiresIn = '1d') {
+export function signJwt(payload: object, expiresIn = '30d') {
   return jwt.sign(payload, JWT_SECRET, { expiresIn })
 }
 

@@ -1,4 +1,4 @@
-import { uploadFileSchema } from '@/validators/storage.schema'
+// services/storedFile.service.ts
 import StoredFile from '@/models/storedFile.model'
 import Storage from '@/models/storage.model'
 import { connectDB } from '@/lib/db'
@@ -200,4 +200,34 @@ export async function deleteFile(id: string, userId: string): Promise<boolean | 
   }
   await file.deleteOne()
   return true
+}
+
+export async function getDistinctFoldersByUser(userId: string) {
+  await connectDB()
+  const result = await StoredFile.aggregate([
+    { $match: { uploaded_by: new mongoose.Types.ObjectId(userId) } },
+    {
+      $project: {
+        idx: { $indexOfBytes: ['$file_path', '/'] },
+        file_path: 1,
+      },
+    },
+    {
+      $project: {
+        folder: {
+          $cond: [{ $gt: ['$idx', 0] }, { $substrBytes: ['$file_path', 0, '$idx'] }, ''],
+        },
+      },
+    },
+    { $match: { folder: { $ne: '' } } },
+    { $group: { _id: '$folder' } },
+    { $replaceRoot: { newRoot: { folder: '$_id' } } },
+  ])
+  return result.map((r: any) => r.folder)
+}
+
+export const requestGetFolders = async () => {
+  const res = await api.get('/api/file/folders')
+  if (!res.data.success) throw res.data
+  return res.data.data as string[]
 }

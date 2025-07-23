@@ -25,7 +25,12 @@ export const GET = withAuth(async (req: NextRequest) => {
         [field]: { $regex: searchValue, $options: 'i' },
       }))
     }
+
     if (params.get('storage')) filters.storage = params.get('storage')
+
+    if (params.get('folder'))
+      filters.file_path = { $regex: `^${params.get('folder')}`, $options: 'i' }
+
     return filters
   }
 
@@ -50,9 +55,10 @@ export const GET = withAuth(async (req: NextRequest) => {
   let sort: any = undefined
   const searchValue = searchParams.get('search')
   const storageValue = searchParams.get('storage')
+  const folderValue = searchParams.get('folder')
   const sortParam = searchParams.get('sort')
 
-  if (searchValue || storageValue) {
+  if (searchValue || storageValue || folderValue) {
     filters = buildFilters(searchParams)
   }
   if (sortParam) {

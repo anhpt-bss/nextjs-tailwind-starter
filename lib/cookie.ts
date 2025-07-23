@@ -15,10 +15,21 @@ export function setUniversalCookie(
   options: any = {},
   ctx?: NextPageContext | NextResponse | null
 ) {
+  const defaultOptions = {
+    path: '/',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+    // expires: new Date(Date.now() + 60 * 60 * 24 * 7 * 1000),
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: false,
+  }
+
+  const finalOptions = { ...defaultOptions, ...options }
+
   if (isServerRes(ctx)) {
-    ctx.cookies.set(key, value, { path: '/', ...options })
+    ctx.cookies.set(key, value, finalOptions)
   } else {
-    setCookie(null, key, value, { path: '/', sameSite: 'lax', ...options })
+    setCookie(null, key, value, finalOptions)
   }
 }
 

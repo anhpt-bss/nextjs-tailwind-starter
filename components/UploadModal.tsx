@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { DocumentIcon, XMarkIcon, PhotoIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import { useUploadLargeFiles } from '@/requests/useStoredFile'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,7 +8,7 @@ import { uploadFileSchema } from '@/validators/storage.schema'
 import InputField from '@/components/headlessui/Input'
 import SelectField from '@/components/headlessui/Select'
 import { StorageResponse, UploadLargeFilePayload } from '@/types/storage'
-import { fileToBase64 } from '@/utils/helper'
+import { fileToBase64, formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 
 interface UploadModalProps {
   storages: StorageResponse[]
@@ -144,24 +144,17 @@ const UploadModal: React.FC<UploadModalProps> = ({
                 key={file.name + idx}
                 className="flex items-center gap-3 overflow-hidden rounded-xl border border-gray-100 bg-white p-2 shadow-md transition hover:shadow-lg dark:border-gray-800 dark:bg-gray-900"
               >
-                {/* Icon or image */}
-                {file.type.startsWith('image') ? (
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
-                    className="h-8 w-8 rounded object-cover"
-                  />
-                ) : (
-                  <DocumentIcon className="h-6 w-6 text-gray-400" />
-                )}
-                <div className="flex-1">
-                  <div className="text-sm font-medium text-gray-800 dark:text-white">
+                {getFilePreviewIconOrImage(file, 32)}
+
+                <div className="w-[calc(100%-85px)] flex-1">
+                  <div className="truncate text-sm font-medium text-gray-800 dark:text-white">
                     {file.name}
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-300">
-                    {(file.size / 1024).toFixed(1)} KB
+                    {formatSize(file.size)} - {file.type}
                   </div>
                 </div>
+
                 <button
                   type="button"
                   className="ml-2 text-gray-400 hover:text-red-500"

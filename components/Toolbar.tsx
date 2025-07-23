@@ -27,8 +27,8 @@ export type ToolbarFiltersType = {
 }
 
 interface ToolbarProps {
-  filters: ToolbarFiltersType
-  setFilters: (name: string, value: string | null | undefined) => void
+  filters?: ToolbarFiltersType
+  setFilters: (filters: ToolbarFiltersType) => void
   viewMode: 'grid' | 'list'
   setViewMode: (mode: 'grid' | 'list') => void
   onUpload: () => void
@@ -43,12 +43,12 @@ const Toolbar: React.FC<ToolbarProps> = ({
   onUpload,
   storages,
 }) => {
-  const [searchInput, setSearchInput] = React.useState(filters.search || '')
+  const [searchInput, setSearchInput] = React.useState(filters?.search || '')
 
   const handleSearch = React.useMemo(
     () =>
       debounce((value: string) => {
-        setFilters('search', value)
+        onSetFilters('search', value)
       }, 300),
     []
   )
@@ -71,6 +71,13 @@ const Toolbar: React.FC<ToolbarProps> = ({
     [storages]
   )
 
+  const onSetFilters = React.useCallback(
+    (name: string, value: string | null | undefined) => {
+      setFilters({ ...filters, [name]: value })
+    },
+    [filters, setFilters]
+  )
+
   return (
     <div className="flex flex-wrap items-center gap-4 rounded-sm border border-gray-200 bg-gray-100 p-4 md:flex-nowrap dark:border-gray-700 dark:bg-gray-800">
       <div className="flex w-full flex-col gap-2 md:w-auto md:flex-row md:gap-4">
@@ -90,9 +97,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
         <div className="flex w-full items-center gap-2 md:w-auto">
           <ComboboxField
             options={storageOptions}
-            selected={filters.storage || null}
+            selected={filters?.storage || null}
             onChange={(val) => {
-              setFilters('storage', val)
+              onSetFilters('storage', val)
             }}
             placeholder="Select a storage"
             className="w-full md:w-auto"
@@ -106,19 +113,19 @@ const Toolbar: React.FC<ToolbarProps> = ({
           </Link>
         </div>
       </div>
-      <div className="mt-2 flex flex-1 items-center justify-end gap-2 md:mt-0">
+      <div className="mt-2 flex flex-1 flex-wrap items-center justify-end gap-2 md:mt-0">
         <button
           className="flex items-center gap-1 rounded-md bg-green-600 px-2 py-1 text-white hover:bg-green-700"
           onClick={onUpload}
         >
           <ArrowUpTrayIcon className="h-5 w-5" />
-          <span className="hidden lg:inline">Upload</span>
+          <span className="inline">Upload</span>
         </button>
 
-        <Listbox value={filters.sort || 'newest'} onChange={(val) => setFilters('sort', val)}>
+        <Listbox value={filters?.sort || 'newest'} onChange={(val) => onSetFilters('sort', val)}>
           <div className="relative">
             <ListboxButton className="w-full rounded-md border border-gray-300 px-2 py-1 md:w-auto dark:border-gray-700 dark:bg-gray-700 dark:text-white">
-              Sort: {sortOptions.find((o) => o.value === (filters.sort || 'newest'))?.label}
+              Sort: {sortOptions.find((o) => o.value === (filters?.sort || 'newest'))?.label}
             </ListboxButton>
             <ListboxOptions className="absolute z-10 mt-1 w-32 rounded border border-gray-300 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
               {sortOptions.map((option) => (
