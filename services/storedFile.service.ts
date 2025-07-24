@@ -12,6 +12,7 @@ import { uploadFileToGithub, deleteFileFromGithub } from '@/lib/github'
 import mongoose, { SortOrder } from 'mongoose'
 import api from '@/lib/axios'
 import { decrypt } from '@/lib/encrypt'
+import { toast } from 'sonner'
 
 export const requestGetFiles = async (params: any) => {
   const res = await api.get('/api/file', { params })
@@ -70,6 +71,8 @@ export async function uploadLargeFilesToStorage(files: UploadLargeFilePayload[])
   const storedFilePayload: StoredFilePayload[] = []
   const errors: { file: UploadLargeFilePayload; error: any }[] = []
 
+  const toastId = toast.loading('Uploading files...')
+
   for (let i = 0; i < files.length; i++) {
     const fileData = files[i]
     const storage = fileData.storage
@@ -98,22 +101,46 @@ export async function uploadLargeFilesToStorage(files: UploadLargeFilePayload[])
         metadata: githubRes?.metadata?.content?.url,
         uploaded_by: storage.user,
       })
+
+      toast.loading(`🎉(${i + 1}/${files.length}) Uploaded files successfully`, {
+        id: toastId,
+        description: null,
+      })
     } catch (e: any) {
+      toast.loading(`🚫(${i + 1}/${files.length}) Failed to upload ${fileData.file_name}`, {
+        id: toastId,
+        description: e.message,
+      })
       errors.push({ file: fileData, error: e.message })
     }
   }
 
   if (storedFilePayload.length === 0) {
-    const error = {
+    toast.error('All files failed to upload', {
+      id: toastId,
+      description: `${errors.map((err) => `${err.error}\n`)}`,
+      duration: 6000,
+    })
+
+    throw {
       message: 'All files failed to upload',
       code: 'UPLOAD_FAILED',
       status: 400,
-      errors: errors,
+      errors,
     }
-    throw error
   }
 
   const res = await api.post('/api/file/save-files', storedFilePayload)
+
+  toast.success(`Uploaded (${storedFilePayload.length} / ${files.length}) files successfully`, {
+    id: toastId,
+    description:
+      errors.length > 0
+        ? `🚫 ${errors.length} file(s) failed to upload (${errors.map((err) => `${err.error}\n`)})`
+        : null,
+    duration: 6000,
+  })
+
   return { success: res.data.data, failed: errors }
 }
 

@@ -1,4 +1,8 @@
-import { requestDeleteMultipleFile, uploadLargeFilesToStorage } from '@/services/storedFile.service'
+import {
+  requestDeleteMultipleFile,
+  requestGetFolders,
+  uploadLargeFilesToStorage,
+} from '@/services/storedFile.service'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
 import { toast } from 'sonner'
@@ -56,20 +60,11 @@ export function useUploadLargeFiles(options?: any) {
     uploadLargeFilesToStorage,
     {
       ...options,
-      onMutate: () => {
-        const toastId = toast.loading('Uploading file...')
-        return { toastId }
-      },
       onSuccess: (data, variables, context) => {
-        toast.success('Upload file successfully!', {
-          id: context?.toastId,
-        })
         queryClient.invalidateQueries({ queryKey: ['files'] })
       },
       onError: (error, variables, context) => {
-        toast.error('Failed to Upload file!', {
-          id: context?.toastId,
-        })
+        console.error(error)
       },
     }
   )
@@ -159,4 +154,8 @@ export function useLazyStorageFiles(
       ...options,
     }
   )
+}
+
+export function useFolders(options = {}) {
+  return useCustomQuery<string[]>(['folders'], requestGetFolders, options)
 }

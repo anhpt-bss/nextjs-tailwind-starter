@@ -2,6 +2,7 @@
 import nookies, { parseCookies, setCookie, destroyCookie } from 'nookies'
 import type { NextPageContext } from 'next'
 import type { NextResponse } from 'next/server'
+import { verifyJwt } from '@/lib/jwt'
 
 // Check if the context is a NextResponse (server-side)
 function isServerRes(ctx: any): ctx is NextResponse {
@@ -66,4 +67,10 @@ export function clearAllCookiesClient() {
   Object.keys(allCookies).forEach((cookieName) => {
     destroyCookie(null, cookieName, { path: '/' })
   })
+}
+
+export function getUserIdFromCookie(cookieStore): string | undefined {
+  const token = cookieStore.get('token')?.value
+  const payload = token ? verifyJwt(token) : null
+  return payload?.userId
 }

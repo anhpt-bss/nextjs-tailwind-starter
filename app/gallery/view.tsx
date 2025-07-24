@@ -5,8 +5,13 @@ import GalleryGrid from '@/components/GalleryGrid'
 import GalleryList from '@/components/GalleryList'
 import UploadModal from '@/components/UploadModal'
 import FilePreviewModal from '@/components/FilePreviewModal'
-import { useFolders, useStorages } from '@/requests/useStorage'
-import { useLazyStorageFiles, useDeleteFile, useDeleteMultipleFile } from '@/requests/useStoredFile'
+import { useStorages } from '@/requests/useStorage'
+import {
+  useLazyStorageFiles,
+  useDeleteFile,
+  useDeleteMultipleFile,
+  useFolders,
+} from '@/requests/useStoredFile'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { StoredFileResponse } from '@/types/storage'
