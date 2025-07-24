@@ -138,7 +138,7 @@ export function ComboboxField<T>({
                     disabled={option.disabled}
                     className={({ focus, disabled }) =>
                       clsx(
-                        'relative cursor-default py-2 pr-4 pl-10 select-none',
+                        'relative cursor-default p-2 select-none',
                         focus ? 'bg-blue-600 text-white' : 'text-gray-900 dark:text-white',
                         disabled && 'cursor-not-allowed opacity-50'
                       )

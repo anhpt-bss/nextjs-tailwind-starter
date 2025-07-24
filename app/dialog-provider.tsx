@@ -49,8 +49,6 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     dialog.onConfirm?.()
   }
 
-  const computedWidth = dialog.width || '30%'
-
   return (
     <DialogContext.Provider value={{ openDialog, closeDialog }}>
       {children}
@@ -88,7 +86,7 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             </div>
 
             {/* Body */}
-            <div className="mb-2 max-h-[90vh] flex-1 overflow-y-auto px-4 py-2">
+            <div className="mb-2 max-h-[80vh] flex-1 overflow-y-auto px-4 py-2">
               {dialog.description && (
                 <Description className="mb-4 text-gray-600 dark:text-gray-300">
                   {dialog.description}
