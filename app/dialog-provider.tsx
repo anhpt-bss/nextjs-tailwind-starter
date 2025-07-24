@@ -69,9 +69,9 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
             'max-w-full', // base
             'sm:max-w-[90%]', // ≥ 640px
             'md:max-w-[70%]', // ≥ 768px
-            dialog.width ? `lg:max-w-[${dialog.width}]` : 'lg:max-w-[50%]', // ≥ 1024px
-            dialog.width ? `xl:max-w-[${dialog.width}]` : 'xl:max-w-[50%]', // ≥ 1280px
-            dialog.width ? `2xl:max-w-[${dialog.width}]` : '2xl:max-w-[50%]' // 1536px
+            dialog.width ? `lg:max-w-[${dialog.width}]` : 'lg:max-w-[30%]', // ≥ 1024px
+            dialog.width ? `xl:max-w-[${dialog.width}]` : 'xl:max-w-[30%]', // ≥ 1280px
+            dialog.width ? `2xl:max-w-[${dialog.width}]` : '2xl:max-w-[30%]' // 1536px
           )}
         >
           <DialogPanel className="mx-auto flex w-full flex-col rounded-xl bg-white shadow-2xl transition-colors duration-300 dark:bg-gray-900">

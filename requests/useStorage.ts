@@ -1,5 +1,4 @@
 // requests/useStorage.ts
-import { requestGetFolders } from '@/services/storedFile.service'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
 import { toast } from 'sonner'
@@ -41,8 +40,4 @@ export function useUpdateStorage(options = {}) {
 
 export function useDeleteStorage(options = {}) {
   return useCustomMutation<StorageResponse, string>(requestDeleteStorage, options)
-}
-
-export function useFolders(options = {}) {
-  return useCustomQuery<string[]>(['folders'], requestGetFolders, options)
 }

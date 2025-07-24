@@ -24,6 +24,11 @@ export const POST = withAuth(async (req: NextRequest) => {
 
 export const GET = withAuth(async (req: NextRequest) => {
   const userId = (req as any).userId
+  if (!userId) {
+    return NextResponse.json(errorResponse('Missing userId', 'MISSING_USER_ID', 400).body, {
+      status: 400,
+    })
+  }
   try {
     const storages = await getStoragesByUser(userId)
     return NextResponse.json(successResponse(storages).body, { status: 200 })

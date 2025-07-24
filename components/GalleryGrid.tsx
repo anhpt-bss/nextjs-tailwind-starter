@@ -1,5 +1,4 @@
 import { StoredFileResponse } from '@/types/storage'
-import { DocumentIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Image from 'next/image'
 import dayjs from 'dayjs'
