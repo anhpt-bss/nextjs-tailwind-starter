@@ -65,7 +65,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   const storageOptions: ComboboxOption<string>[] = React.useMemo(
     () =>
       storages.map((storage) => ({
-        label: storage.name,
+        label: `${storage.name} (${storage.owner})`,
         value: storage._id,
       })),
     [storages]

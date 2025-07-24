@@ -88,7 +88,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
         required
         options={[
           { label: 'Choose storage...', value: '' },
-          ...storages.map((s: any) => ({ label: s.name, value: s._id })),
+          ...storages.map((s: any) => ({ label: `${s.name} (${s.owner})`, value: s._id })),
         ]}
       />
       <InputField
