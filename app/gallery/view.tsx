@@ -30,6 +30,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Folders from '@/components/Folders'
 import { handleDownload } from '@/utils/helper'
+import FilePreviewer from '@/components/FilePreviewer'
 
 type GalleryFilters = ToolbarFiltersType & {
   folder?: string
@@ -54,6 +55,8 @@ const View: React.FC = () => {
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [filters, setFilters] = useState<GalleryFilters | undefined>(undefined)
+  const [currentFileSelected, setCurrentFileSelected] = useState<StoredFileResponse | null>(null)
+  const [openFilePreviewer, setOpenFilePreviewer] = useState(false)
 
   // Multi-select state
   const [selectedFiles, setSelectedFiles] = useState<StoredFileResponse[]>([])
@@ -177,14 +180,19 @@ const View: React.FC = () => {
     })
   }
 
-  const handlePreviewFile = (file: StoredFileResponse) => {
-    openDialog({
-      title: file.file_name,
-      showCancel: false,
-      showConfirm: false,
-      width: '80%',
-      content: <FilePreviewModal file={file} />,
-    })
+  const handlePreviewFile = (file: StoredFileResponse, type = 'previewer') => {
+    if (type === 'dialog') {
+      openDialog({
+        title: file.file_name,
+        showCancel: false,
+        showConfirm: false,
+        width: '80%',
+        content: <FilePreviewModal file={file} />,
+      })
+    } else {
+      setCurrentFileSelected(file)
+      setOpenFilePreviewer(true)
+    }
   }
 
   const handleUploadFile = (files?: FileList) => {
@@ -207,8 +215,17 @@ const View: React.FC = () => {
   }
 
   // Multi-select handlers
+  const lastSelectedIndexRef = useRef<number | null>(null)
   const handleSelectFile = (file: StoredFileResponse, event: React.MouseEvent) => {
-    if (event.ctrlKey || event.metaKey) {
+    const allIds = allFiles.map((f) => f._id)
+    const clickedIndex = allIds.indexOf(file._id)
+
+    if (event.shiftKey && selectedFiles.length > 0 && lastSelectedIndexRef.current !== null) {
+      const start = Math.min(lastSelectedIndexRef.current, clickedIndex)
+      const end = Math.max(lastSelectedIndexRef.current, clickedIndex)
+      const rangeFiles = allFiles.slice(start, end + 1)
+      setSelectedFiles(rangeFiles)
+    } else if (event.ctrlKey || event.metaKey) {
       setSelectedFiles((prev) => {
         const exists = prev.find((f) => f._id === file._id)
         if (exists) {
@@ -217,15 +234,10 @@ const View: React.FC = () => {
           return [...prev, file]
         }
       })
+      lastSelectedIndexRef.current = clickedIndex
     } else {
-      setSelectedFiles((prev) => {
-        const exists = prev.find((f) => f._id === file._id)
-        if (exists) {
-          return prev.filter((f) => f._id !== file._id)
-        } else {
-          return [file]
-        }
-      })
+      setSelectedFiles([file])
+      lastSelectedIndexRef.current = clickedIndex
     }
   }
 
@@ -362,6 +374,13 @@ const View: React.FC = () => {
           )}
         </div>
       </Dropzone>
+
+      <FilePreviewer
+        open={openFilePreviewer}
+        setOpen={setOpenFilePreviewer}
+        files={allFiles}
+        currentFile={currentFileSelected || allFiles[0]}
+      />
     </div>
   )
 }

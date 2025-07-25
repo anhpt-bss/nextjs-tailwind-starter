@@ -48,8 +48,7 @@ export const getFilePreviewIconOrImage = (
   }
   if (type.startsWith('video')) return <VideoCameraIcon style={style} className="text-purple-400" />
   if (type.startsWith('audio')) return <SpeakerWaveIcon style={style} className="text-pink-400" />
-  if (type.startsWith('text') || type === 'application/pdf')
-    return <CodeBracketIcon style={style} className="text-blue-400" />
+  if (type.startsWith('text')) return <CodeBracketIcon style={style} className="text-blue-400" />
   if (type.includes('zip') || type.includes('rar') || type.includes('tar'))
     return <ArchiveBoxIcon style={style} className="text-yellow-500" />
   if (type.startsWith('audio') || type.startsWith('music'))

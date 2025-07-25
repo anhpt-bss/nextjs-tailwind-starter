@@ -3,6 +3,7 @@ import * as React from 'react'
 import type { StoredFileResponse } from '../types/storage'
 import MoreAction from './MoreAction'
 import Loading from './Loading'
+import Empty from './Empty'
 import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 import dayjs from 'dayjs'
 
@@ -28,7 +29,7 @@ const GalleryList: React.FC<GalleryListProps> = ({
       {loading ? (
         <Loading text="Loading files..." />
       ) : files.length === 0 ? (
-        <div className="py-4 text-center text-gray-400">No files found.</div>
+        <Empty title="No Files Found" description="There are no files in this list." />
       ) : (
         files.map((file, index) => {
           const isSelected = selectedFiles.some((f) => f._id === file._id)
@@ -39,7 +40,7 @@ const GalleryList: React.FC<GalleryListProps> = ({
               className={clsx(
                 `flex items-center gap-2 rounded-sm border bg-white px-2 py-2 transition hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800`,
                 isSelected
-                  ? 'border-blue-500 ring-2 ring-blue-400 dark:ring-blue-500'
+                  ? 'border-blue-500 bg-blue-100 ring-2 ring-blue-400 select-none dark:bg-blue-900 dark:ring-blue-500'
                   : 'border-transparent'
               )}
               role={onSelectFile ? 'button' : undefined}

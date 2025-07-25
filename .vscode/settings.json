@@ -1,30 +1,45 @@
 {
-  "editor.formatOnSave": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.alwaysShowStatus": true,
+  "eslint.run": "onType", // Run ESLint on typing, but this can be adjusted to "onSave" if preferred
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "prettier.requireConfig": true, // Ensures Prettier only formats files when there is a config
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.autoSave": "onWindowChange", // Auto-save when window loses focus
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": false, // Ensure node_modules is visible for any reason (adjust as needed)
+    "**/.vscode": false
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always", // Automatically update import paths when files are moved
+  "typescript.updateImportsOnFileMove.enabled": "always", // Same for TypeScript
+  "typescript.tsdk": "node_modules/typescript/lib", // Use workspace TypeScript version
+  "files.associations": {
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact",
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Prettier is the default formatter
+  "eslint.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "always",
     "source.fixAll.eslint": "always"
   },
-  "eslint.validate": ["javascript", "typescript", "typescriptreact", "javascriptreact"],
-  "eslint.options": {
-    "extensions": [".js", ".jsx", ".ts", ".tsx"]
-  },
-  "prettier.enable": true,
-  "prettier.requireConfig": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.alwaysShowStatus": true,
-  "eslint.run": "onType",
-  "files.exclude": {
-    "**/.next": true,
-    "**/.contentlayer": true,
-    "**/.yarn": true
-  },
-  "search.exclude": {
-    "**/.next": true,
-    "**/.contentlayer": true,
-    "**/.yarn": true
-  },
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-  "editor.trimAutoWhitespace": true,
-  "editor.renderWhitespace": "boundary"
+  "files.eol": "\n", // Use LF line endings
+  "cSpell.words": ["Adherencerule"] // Enable ESLint formatting
 }

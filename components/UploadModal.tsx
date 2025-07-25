@@ -157,7 +157,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
 
                 <button
                   type="button"
-                  className="ml-2 text-gray-400 hover:text-red-500"
+                  className="ml-2 cursor-pointer text-gray-400 hover:text-red-500"
                   onClick={() => setSelectedFiles((files) => files.filter((_, i) => i !== idx))}
                 >
                   <XMarkIcon className="h-5 w-5" />
@@ -169,7 +169,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
       </div>
       <button
         type="submit"
-        className="w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+        className="w-full cursor-pointer rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
         disabled={isPending}
       >
         {isPending ? 'Uploading...' : 'Upload'}

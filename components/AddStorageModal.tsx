@@ -123,7 +123,7 @@ const AddStorageModal: React.FC<AddStorageModalProps> = ({ onClose, defaultValue
       <div className="mt-4 flex justify-end gap-2">
         <button
           type="button"
-          className="rounded bg-gray-300 px-3 py-1 font-semibold dark:bg-gray-700"
+          className="cursor-pointer rounded bg-gray-300 px-3 py-1 font-semibold dark:bg-gray-700"
           onClick={onClose}
           disabled={isCreating || isUpdating}
         >
@@ -131,7 +131,7 @@ const AddStorageModal: React.FC<AddStorageModalProps> = ({ onClose, defaultValue
         </button>
         <button
           type="submit"
-          className="rounded bg-blue-600 px-3 py-1 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+          className="cursor-pointer rounded bg-blue-600 px-3 py-1 font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
           disabled={isCreating || isUpdating}
         >
           {isEdit ? (isUpdating ? 'Saving...' : 'Save') : isCreating ? 'Adding...' : 'Add'}
