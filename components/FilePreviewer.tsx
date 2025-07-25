@@ -131,7 +131,7 @@ export default function FilePreviewer({ open, setOpen, files, currentFile }: Fil
         doubleClickMaxStops: 10, // số bước zoom tối đa khi double click
         keyboardMoveDistance: 500, // khi bấm phím mũi tên sẽ di chuyển xa hơn
         wheelZoomDistanceFactor: 1, // càng nhỏ thì zoom càng mạnh khi cuộn chuột
-        pinchZoomDistanceFactor: 5, // càng nhỏ thì zoom càng mạnh khi pinch
+        pinchZoomDistanceFactor: 10, // càng nhỏ thì zoom càng mạnh khi pinch
         scrollToZoom: true, // bật zoom bằng cuộn chuột
       }}
       render={{
