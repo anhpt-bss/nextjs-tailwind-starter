@@ -89,7 +89,7 @@ export function ComboboxField<T>({
             )}
           >
             <ComboboxInput
-              className="w-full border-none bg-transparent px-0 py-0 focus:ring-0"
+              className="w-[calc(100%-25px)] border-none bg-transparent px-0 py-0 focus:ring-0"
               displayValue={(option: ComboboxOption<T>) => option?.label || ''}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={placeholder}
@@ -151,6 +151,7 @@ export function ComboboxField<T>({
                             'block truncate',
                             selected ? 'font-medium' : 'font-normal'
                           )}
+                          title={option.label}
                         >
                           {option.label}
                         </span>

@@ -115,7 +115,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
       </div>
       <div className="mt-2 flex flex-1 flex-wrap items-center justify-end gap-2 md:mt-0">
         <button
-          className="flex items-center gap-1 rounded-md bg-green-600 px-2 py-1 text-white hover:bg-green-700"
+          className="flex cursor-pointer items-center gap-1 rounded-md bg-green-600 px-2 py-1 text-white hover:bg-green-700"
           onClick={onUpload}
         >
           <ArrowUpTrayIcon className="h-5 w-5" />
@@ -124,7 +124,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
         <Listbox value={filters?.sort || 'newest'} onChange={(val) => onSetFilters('sort', val)}>
           <div className="relative">
-            <ListboxButton className="w-full rounded-md border border-gray-300 px-2 py-1 md:w-auto dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+            <ListboxButton className="w-full cursor-pointer rounded-md border border-gray-300 px-2 py-1 md:w-auto dark:border-gray-700 dark:bg-gray-700 dark:text-white">
               Sort: {sortOptions.find((o) => o.value === (filters?.sort || 'newest'))?.label}
             </ListboxButton>
             <ListboxOptions className="absolute z-10 mt-1 w-32 rounded border border-gray-300 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
@@ -143,13 +143,13 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
         <div className="flex gap-2">
           <button
-            className={`rounded-md px-2 py-1 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white'} w-full md:w-auto`}
+            className={`cursor-pointer rounded-md px-2 py-1 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white'} w-full md:w-auto`}
             onClick={() => setViewMode('grid')}
           >
             <Squares2X2Icon className="h-5 w-5" />
           </button>
           <button
-            className={`rounded-md px-2 py-1 ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white'} w-full md:w-auto`}
+            className={`cursor-pointer rounded-md px-2 py-1 ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white'} w-full md:w-auto`}
             onClick={() => setViewMode('list')}
           >
             <Bars3Icon className="h-5 w-5" />

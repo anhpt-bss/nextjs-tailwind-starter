@@ -6,10 +6,10 @@ let client: QueryClient | null = null
 // Recommended default query options for performance & UX balance
 const defaultQueryOptions = {
   // Time in ms before cached data is considered "stale"
-  staleTime: 1000 * 60 * 10, // 10 minute
+  staleTime: 1000 * 60 * 5, // 5 minute
 
   // Time in ms to keep inactive cache data before garbage collection
-  cacheTime: 1000 * 60 * 60, // 60 minutes
+  cacheTime: 1000 * 60 * 30, // 30 minutes
 
   // Retry failed queries up to 1 time (can be false to disable)
   retry: 1,

@@ -124,7 +124,7 @@ const Header = () => {
                   {({ focus }) => (
                     <button
                       onClick={() => logout()}
-                      className={`block w-full rounded-2xl px-4 py-2 text-left font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-red-100 dark:bg-red-700' : ''}`}
+                      className={`block w-full cursor-pointer rounded-2xl px-4 py-2 text-left font-semibold text-gray-900 transition-colors dark:text-gray-100${focus ? 'bg-red-100 dark:bg-red-700' : ''}`}
                       disabled={isLogoutPending}
                     >
                       {isLogoutPending ? 'Signing out...' : 'Logout'}

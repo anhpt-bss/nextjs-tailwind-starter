@@ -29,7 +29,7 @@ export function cacheServerFn<Args extends any[], Return>(
   }
 
   const cached = unstable_cache(fnWithLog, key, {
-    revalidate: options.revalidate ?? 600,
+    revalidate: options.revalidate ?? 300, // Default to 5 minutes
     tags,
   })
 

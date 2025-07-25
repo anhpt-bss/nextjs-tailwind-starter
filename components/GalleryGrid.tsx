@@ -4,6 +4,7 @@ import Image from 'next/image'
 import dayjs from 'dayjs'
 import MoreAction from './MoreAction'
 import Loading from './Loading'
+import Empty from './Empty'
 import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 
 interface GalleryGridProps {
@@ -28,7 +29,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
       {loading ? (
         <Loading text="Loading files..." />
       ) : files.length === 0 ? (
-        <div className="col-span-full text-center text-gray-400">No files found.</div>
+        <Empty title="No Files Found" description="There are no files in this gallery." />
       ) : (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
           {files?.map((file, index) => {
@@ -40,7 +41,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
                 className={
                   `flex flex-col overflow-hidden rounded-xl border bg-white shadow-md transition hover:shadow-lg dark:bg-gray-900 ` +
                   (isSelected
-                    ? 'border-blue-500 ring-2 ring-blue-400 dark:ring-blue-500'
+                    ? 'border-blue-500 bg-blue-100 ring-2 ring-blue-400 select-none dark:bg-blue-900 dark:ring-blue-500'
                     : 'border-gray-100 dark:border-gray-800')
                 }
                 role={onSelectFile ? 'button' : undefined}
@@ -85,9 +86,13 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
                   className="flex min-h-[140px] flex-1 cursor-pointer items-center justify-center bg-gray-50 dark:bg-gray-800"
                   role="button"
                   tabIndex={0}
-                  onClick={() => onPreview(file)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onPreview(file)
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
+                      e.stopPropagation()
                       onPreview(file)
                     }
                   }}
