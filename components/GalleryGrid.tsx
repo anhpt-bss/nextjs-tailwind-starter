@@ -39,9 +39,9 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
               <div
                 key={`${file._id}-${index}`}
                 className={
-                  `flex flex-col overflow-hidden rounded-xl border bg-white shadow-md transition hover:shadow-lg dark:bg-gray-900 ` +
+                  `flex flex-col overflow-hidden rounded-xl border bg-gray-200 shadow-md transition hover:shadow-lg dark:bg-gray-900 ` +
                   (isSelected
-                    ? 'border-blue-500 bg-blue-100 ring-2 ring-blue-400 select-none dark:bg-blue-900 dark:ring-blue-500'
+                    ? 'border-blue-500 ring-2 ring-blue-400 select-none dark:ring-blue-500'
                     : 'border-gray-100 dark:border-gray-800')
                 }
                 role={onSelectFile ? 'button' : undefined}
@@ -114,7 +114,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
                 </div>
 
                 {/* Card Footer */}
-                <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50 px-2 py-2 text-xs text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400">
+                <div className="flex items-center justify-between border-t border-gray-100 px-2 py-2 text-xs text-gray-500 dark:border-gray-800 dark:text-gray-400">
                   <span>{formatSize(file.size || 0)}</span>
                   <span>{dayjs(file?.updated_at)?.format('DD/MM/YYYY HH:mm:ss')}</span>
                 </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import dayjs from 'dayjs'
 import Lightbox, { Slide } from 'yet-another-react-lightbox'
 import Captions from 'yet-another-react-lightbox/plugins/captions'
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen'
@@ -14,10 +15,7 @@ import 'yet-another-react-lightbox/plugins/counter.css'
 import 'yet-another-react-lightbox/plugins/captions.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import 'yet-another-react-lightbox/styles.css'
-import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
-import dayjs from 'dayjs'
-import { DocumentIcon } from '@heroicons/react/24/outline'
 import { StoredFileResponse } from '@/types/storage'
 
 const breakpoints = [3840, 1920, 1080, 640, 384, 256, 128]
@@ -122,6 +120,18 @@ export default function FilePreviewer({ open, setOpen, files, currentFile }: Fil
       }}
       counter={{ container: { style: { top: 'unset', bottom: 20, right: 0, left: 'unset' } } }}
       slideshow={{ autoplay: false, delay: 3000 }}
+      thumbnails={{
+        position: 'bottom',
+        width: 40,
+        height: 30,
+        border: 1,
+        borderRadius: 4,
+        padding: 2,
+        gap: 8,
+        imageFit: 'contain',
+        vignette: true,
+        showToggle: true,
+      }}
       zoom={{
         minZoom: 1, // không đổi - mức zoom nhỏ nhất là 1x (đúng gốc)
         maxZoomPixelRatio: 10, // mặc định là 1 – tăng lên để zoom sâu hơn (zoom 10x pixel)
