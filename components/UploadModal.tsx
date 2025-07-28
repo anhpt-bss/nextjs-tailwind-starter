@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { XMarkIcon, PhotoIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon, PhotoIcon, FolderIcon } from '@heroicons/react/24/outline'
 import { useUploadLargeFiles } from '@/requests/useStoredFile'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,9 +9,11 @@ import InputField from '@/components/headlessui/Input'
 import SelectField from '@/components/headlessui/Select'
 import { StorageResponse, UploadLargeFilePayload } from '@/types/storage'
 import { fileToBase64, formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 
 interface UploadModalProps {
   storages: StorageResponse[]
+  folders: string[]
   selectedStorage?: StorageResponse['_id'] | null
   defaultFiles?: FileList | File[]
   onClose?: () => void
@@ -19,6 +21,7 @@ interface UploadModalProps {
 
 const UploadModal: React.FC<UploadModalProps> = ({
   storages,
+  folders,
   selectedStorage,
   defaultFiles,
   onClose,
@@ -32,6 +35,7 @@ const UploadModal: React.FC<UploadModalProps> = ({
     reset,
     setError,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: zodResolver(uploadFileSchema),
     defaultValues: {
@@ -91,13 +95,36 @@ const UploadModal: React.FC<UploadModalProps> = ({
           ...storages.map((s: any) => ({ label: `${s.name} (${s.owner})`, value: s._id })),
         ]}
       />
-      <InputField
-        control={control}
-        name="file_path"
-        label="File Path"
-        placeholder="e.g. folder/filename.txt"
-        required
-      />
+
+      <div className="flex w-full items-end gap-2">
+        <InputField
+          control={control}
+          name="file_path"
+          label="File Path"
+          placeholder="e.g. folder/filename.txt"
+          required
+          containerClassName="w-full"
+        />
+
+        <Listbox value={''} onChange={(val) => setValue('file_path', val)}>
+          <div className="relative">
+            <ListboxButton className="mb-4 w-full cursor-pointer rounded-md border border-gray-300 px-2 py-1 md:w-auto dark:border-gray-700 dark:bg-gray-700 dark:text-white">
+              <FolderIcon className="h-8 w-8"></FolderIcon>
+            </ListboxButton>
+            <ListboxOptions className="absolute right-0 z-10 mt-1 w-32 rounded border border-gray-300 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
+              {folders.map((folder, index) => (
+                <ListboxOption
+                  key={index}
+                  value={folder}
+                  className="cursor-pointer px-2 py-1 hover:bg-blue-100 dark:hover:bg-blue-900"
+                >
+                  {folder}
+                </ListboxOption>
+              ))}
+            </ListboxOptions>
+          </div>
+        </Listbox>
+      </div>
       <div className="mb-4">
         <label htmlFor="file-input" className="mb-1 block font-medium">
           Files <span className="text-red-500">*</span>

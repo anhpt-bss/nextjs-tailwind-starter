@@ -206,6 +206,7 @@ const View: React.FC = () => {
       content: (
         <UploadModal
           storages={storages}
+          folders={folders}
           selectedStorage={filters?.storage}
           defaultFiles={files}
           onClose={() => closeDialog()}
@@ -293,7 +294,7 @@ const View: React.FC = () => {
             <div>Error loading files: {error?.message}</div>
           ) : (
             <>
-              <div className="my-2 flex flex-wrap items-center gap-2">
+              <div className="my-3 flex flex-wrap items-center gap-2">
                 <div className="rounded bg-gray-300 px-2 py-1 text-sm dark:bg-gray-700">
                   {`Total: ${allFiles?.length}/${totalItems}`}
                 </div>

@@ -38,9 +38,9 @@ const GalleryList: React.FC<GalleryListProps> = ({
             <div
               key={`${file._id}-${index}`}
               className={clsx(
-                `flex items-center gap-2 rounded-sm border bg-white px-2 py-2 transition hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800`,
+                `flex items-center gap-2 rounded-sm border bg-gray-200 px-2 py-2 transition hover:bg-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800`,
                 isSelected
-                  ? 'border-blue-500 bg-blue-100 ring-2 ring-blue-400 select-none dark:bg-blue-900 dark:ring-blue-500'
+                  ? 'border-blue-500 ring-2 ring-blue-400 select-none dark:ring-blue-500'
                   : 'border-transparent'
               )}
               role={onSelectFile ? 'button' : undefined}

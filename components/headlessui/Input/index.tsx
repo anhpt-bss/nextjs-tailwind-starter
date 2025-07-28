@@ -13,6 +13,7 @@ interface InputFieldProps {
   description?: string
   required?: boolean
   className?: string
+  containerClassName?: string
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>
 }
 
@@ -29,6 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({ control, name, ...props }) => {
           description={props.description}
           required={props.required}
           className={props.className}
+          containerClassName={props.containerClassName}
           type={props.type}
           error={fieldState.error?.message}
         />
