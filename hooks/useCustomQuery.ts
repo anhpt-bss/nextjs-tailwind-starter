@@ -7,16 +7,18 @@ export function useCustomQuery<TData = unknown, TError = unknown>(
   queryFn: () => Promise<TData>,
   options?: Omit<UseQueryOptions<TData, TError, TData, QueryKey>, 'queryKey' | 'queryFn'>
 ) {
-  return useQuery<TData, TError>({
+  const safeQueryFn = async () => {
+    try {
+      return await queryFn()
+    } catch (err) {
+      handleApiError(err)
+      throw err
+    }
+  }
+
+  return useQuery<TData, TError, TData, QueryKey>({
     queryKey,
-    queryFn: async () => {
-      try {
-        return await queryFn()
-      } catch (err) {
-        handleApiError(err)
-        throw err
-      }
-    },
+    queryFn: safeQueryFn,
     ...options,
   })
 }
