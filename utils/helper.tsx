@@ -99,3 +99,11 @@ export const getAvatarUrl = (avatar: string | undefined) => {
   }
   return avatar
 }
+
+export function normalizeText(text: string) {
+  return text
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-zA-Z0-9 ]/g, '')
+    .toLowerCase()
+}
