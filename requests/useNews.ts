@@ -16,7 +16,7 @@ export function useNews(options?: any) {
   const deduplicate = (items: NewsItemResponse[]): NewsItemResponse[] => {
     const seen = new Set<string>()
     return items.filter((item) => {
-      const guid = getGuid(item)
+      const guid = item.link || getGuid(item)
       if (!guid) return true // fallback: keep
       if (seen.has(guid)) return false
       seen.add(guid)
