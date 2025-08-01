@@ -177,10 +177,16 @@ export default function NewsPage() {
                         title={item.title}
                         className="no-scrollbar mb-2 flex-1 overflow-auto text-sm text-neutral-700 dark:text-neutral-300"
                         dangerouslySetInnerHTML={{
-                          __html: item.description.replace(
-                            /<a\b[^>]*>(.*?)<\/a>/gi,
-                            '<div class="pointer-events-none select-none mb-2">$1</div>'
-                          ),
+                          __html: item.description
+                            .replace(
+                              /<a\b[^>]*>(.*?)<\/a>/gi,
+                              '<div class="pointer-events-none select-none mb-2">$1</div>'
+                            )
+                            .replace(
+                              /<img([^>]+)src=["']([^"']+)["']/gi,
+                              (match, attrs, src) =>
+                                `<img${attrs}src="/api/image-proxy?url=${encodeURIComponent(src)}"`
+                            ),
                         }}
                       />
                     )}

@@ -6,37 +6,60 @@ import { useQueryClient } from '@tanstack/react-query'
 export function useNews(options?: any) {
   const queryClient = useQueryClient()
 
-  const getGuid = (item: NewsItemResponse): string => {
-    if (typeof item.guid === 'string') return item.guid
-    if (item.guid && typeof item.guid === 'object' && '#text' in item.guid)
-      return item.guid['#text']
-    return item.link
-  }
-
-  const deduplicate = (items: NewsItemResponse[]): NewsItemResponse[] => {
-    const seen = new Set<string>()
-    return items.filter((item) => {
-      const guid = item.link || getGuid(item)
-      if (!guid) return true // fallback: keep
-      if (seen.has(guid)) return false
-      seen.add(guid)
-      return true
-    })
-  }
-
   const fetchAndMergeNews = async () => {
     const newData = await requestGetNews()
-    const oldData = queryClient.getQueryData<NewsItemResponse[]>(['news'])
+    const oldData = queryClient.getQueryData<NewsItemResponse[]>(['news']) || []
 
-    let mergedData: NewsItemResponse[]
-    if (oldData) {
-      const tempMerged = [...oldData, ...newData]
-      mergedData = deduplicate(tempMerged)
-    } else {
-      mergedData = deduplicate(newData)
+    const result: NewsItemResponse[] = []
+    const seen = new Set<string>()
+
+    let i = 0 // pointer for oldData
+    let j = 0 // pointer for newData
+
+    const getGuid = (item: NewsItemResponse): string => {
+      if (typeof item.guid === 'string') return item.guid
+      if (item.guid && typeof item.guid === 'object' && '#text' in item.guid)
+        return item.guid['#text']
+      return item.link
     }
 
-    return mergedData
+    const getTime = (item: NewsItemResponse) => {
+      return new Date(item?.pubDate || '').getTime() || 0
+    }
+
+    while (i < oldData.length || j < newData.length) {
+      const a = oldData[i]
+      const b = newData[j]
+
+      let pick: NewsItemResponse | null = null
+
+      if (i >= oldData.length) {
+        pick = b
+        j++
+      } else if (j >= newData.length) {
+        pick = a
+        i++
+      } else {
+        const aTime = getTime(a)
+        const bTime = getTime(b)
+
+        if (aTime >= bTime) {
+          pick = a
+          i++
+        } else {
+          pick = b
+          j++
+        }
+      }
+
+      const guid = getGuid(pick!)
+      if (!seen.has(guid)) {
+        seen.add(guid)
+        result.push(pick!)
+      }
+    }
+
+    return result
   }
 
   return useCustomQuery<NewsItemResponse[]>(['news'], fetchAndMergeNews, {
