@@ -14,12 +14,11 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 dayjs.extend(relativeTime)
 import { RSS_SOURCES } from '@/lib/news'
-import Image from 'next/image'
 
 export default function NewsPage() {
   const parentRef = useRef<HTMLDivElement>(null)
 
-  const { data, isLoading, refetch, isFetching } = useNews?.() ?? {}
+  const { data, isLoading, refetch, isFetching } = useNews?.({}) ?? {}
 
   // Responsive: 1 col (mobile), 2 col (sm), 3 col (lg)
   const getColCount = () => {

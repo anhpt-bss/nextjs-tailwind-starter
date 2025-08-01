@@ -3,7 +3,7 @@ import type { NewsItemResponse } from '@/types/news.d'
 import { requestGetNews } from '@/services/news.service'
 import { useQueryClient } from '@tanstack/react-query'
 
-export function useNews(options?: any) {
+export function useNews(options) {
   const queryClient = useQueryClient()
 
   const fetchAndMergeNews = async () => {
