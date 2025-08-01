@@ -73,6 +73,31 @@ export default function NewsPage() {
     overscan: 6,
   })
 
+  useEffect(() => {
+    const observeImages = () => {
+      if (!parentRef.current) return
+      const images = parentRef.current.querySelectorAll('img:not([data-observed])')
+      images.forEach((el) => {
+        const img = el as HTMLImageElement
+        img.setAttribute('data-observed', 'true')
+
+        const handleError = () => {
+          const src = img.getAttribute('src')
+          if (src && !src.includes('/api/image-proxy')) {
+            img.src = `/api/image-proxy?url=${encodeURIComponent(src)}`
+          }
+        }
+
+        img.addEventListener('error', handleError, { once: true })
+      })
+    }
+
+    const observer = new MutationObserver(observeImages)
+    observeImages()
+    observer.observe(parentRef.current!, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="w-full">
       <div className="sticky top-0 z-20 mb-4 px-2 py-4 backdrop-blur-md">
@@ -177,16 +202,15 @@ export default function NewsPage() {
                         title={item.title}
                         className="no-scrollbar mb-2 flex-1 overflow-auto text-sm text-neutral-700 dark:text-neutral-300"
                         dangerouslySetInnerHTML={{
-                          __html: item.description
-                            .replace(
-                              /<a\b[^>]*>(.*?)<\/a>/gi,
-                              '<div class="pointer-events-none select-none mb-2">$1</div>'
-                            )
-                            .replace(
-                              /<img([^>]+)src=["']([^"']+)["']/gi,
-                              (match, attrs, src) =>
-                                `<img${attrs}src="/api/image-proxy?url=${encodeURIComponent(src)}"`
-                            ),
+                          __html: item.description.replace(
+                            /<a\b[^>]*>(.*?)<\/a>/gi,
+                            '<div class="pointer-events-none select-none mb-2">$1</div>'
+                          ),
+                          // .replace(
+                          //   /<img([^>]+)src=["']([^"']+)["']/gi,
+                          //   (match, attrs, src) =>
+                          //     `<img${attrs}src="/api/image-proxy?url=${encodeURIComponent(src)}"`
+                          // ),
                         }}
                       />
                     )}
