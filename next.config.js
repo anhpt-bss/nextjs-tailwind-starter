@@ -83,7 +83,6 @@ module.exports = () => {
           hostname: 'raw.githubusercontent.com',
         },
       ],
-      unoptimized,
     },
     async headers() {
       return [

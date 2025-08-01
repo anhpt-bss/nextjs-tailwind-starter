@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useNews } from '@/requests/useNews'
@@ -13,6 +14,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 dayjs.extend(relativeTime)
 import { RSS_SOURCES } from '@/lib/news'
+import Image from 'next/image'
 
 export default function NewsPage() {
   const parentRef = useRef<HTMLDivElement>(null)
@@ -73,31 +75,6 @@ export default function NewsPage() {
     overscan: 6,
   })
 
-  useEffect(() => {
-    const observeImages = () => {
-      if (!parentRef.current) return
-      const images = parentRef.current.querySelectorAll('img:not([data-observed])')
-      images.forEach((el) => {
-        const img = el as HTMLImageElement
-        img.setAttribute('data-observed', 'true')
-
-        const handleError = () => {
-          const src = img.getAttribute('src')
-          if (src && !src.includes('/api/image-proxy')) {
-            img.src = `/api/image-proxy?url=${encodeURIComponent(src)}`
-          }
-        }
-
-        img.addEventListener('error', handleError, { once: true })
-      })
-    }
-
-    const observer = new MutationObserver(observeImages)
-    observeImages()
-    observer.observe(parentRef.current!, { childList: true, subtree: true })
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <div className="w-full">
       <div className="sticky top-0 z-20 mb-4 px-2 py-4 backdrop-blur-md">
@@ -111,7 +88,7 @@ export default function NewsPage() {
             disabled={isFetching}
           >
             <ArrowPathIcon
-              className={`h-6 w-6 min-w-6 text-blue-500 dark:text-blue-400 ${isFetching ? 'animate-spin' : ''}`}
+              className={`h-6 w-6 min-w-6 text-blue-500 dark:text-blue-400 ${isFetching && !isLoading ? 'animate-spin' : ''}`}
             />
           </button>
           <button
@@ -200,19 +177,29 @@ export default function NewsPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title={item.title}
-                        className="no-scrollbar mb-2 flex-1 overflow-auto text-sm text-neutral-700 dark:text-neutral-300"
-                        dangerouslySetInnerHTML={{
-                          __html: item.description.replace(
-                            /<a\b[^>]*>(.*?)<\/a>/gi,
-                            '<div class="pointer-events-none select-none mb-2">$1</div>'
-                          ),
-                          // .replace(
-                          //   /<img([^>]+)src=["']([^"']+)["']/gi,
-                          //   (match, attrs, src) =>
-                          //     `<img${attrs}src="/api/image-proxy?url=${encodeURIComponent(src)}"`
-                          // ),
-                        }}
-                      />
+                        className="no-scrollbar mb-2 flex-1 overflow-auto"
+                      >
+                        {(() => {
+                          const imgMatch =
+                            item?.description &&
+                            item?.description.match(/<img[^>]+src=["']([^"']+)["']/)
+                          if (!imgMatch) return null
+                          const imgSrc = imgMatch[1]
+                          return <SmartImage src={imgSrc} alt={item.title} className="mb-2" />
+                        })()}
+
+                        <div
+                          className="text-sm text-neutral-700 dark:text-neutral-300"
+                          dangerouslySetInnerHTML={{
+                            __html: item.description
+                              .replace(
+                                /<a\b[^>]*>(.*?)<\/a>/gi,
+                                '<div class="pointer-events-none select-none">$1</div>'
+                              )
+                              .replace(/<img[^>]+>/gi, ''),
+                          }}
+                        />
+                      </a>
                     )}
 
                     <div className="mt-auto flex min-h-[20px] items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
@@ -258,6 +245,34 @@ export default function NewsPage() {
       </div>
 
       <ScrollTopAndComment />
+    </div>
+  )
+}
+
+interface SmartImageProps {
+  src: string
+  alt?: string
+  className?: string
+}
+
+function SmartImage({ src, alt = '', className }: SmartImageProps) {
+  const [imgSrc, setImgSrc] = useState(src)
+
+  const handleError = () => {
+    if (!imgSrc.startsWith('/api/image-proxy')) {
+      setImgSrc(`/api/image-proxy?url=${encodeURIComponent(src)}`)
+    }
+  }
+
+  return (
+    <div className={`relative aspect-video w-full overflow-hidden ${className}`}>
+      <img
+        src={imgSrc}
+        alt={alt}
+        className="h-full w-full rounded object-cover"
+        onError={handleError}
+        loading="lazy"
+      />
     </div>
   )
 }
