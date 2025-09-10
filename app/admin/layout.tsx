@@ -41,7 +41,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         router.push('/admin/dashboard')
       } else if (!user.isAdmin) {
         router.push('/')
-        toast.error('Bạn không có quyền truy cập trang quản trị!')
+        toast.error('You do not have permission to access the admin page!')
       }
     }
   }, [user, pathname])

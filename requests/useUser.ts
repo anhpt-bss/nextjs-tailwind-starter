@@ -78,7 +78,7 @@ export function useCreateUser(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<UserResponse, Partial<UserResponse>>(requestCreateUser, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['users'] })
-      toast.success(options?.successMessage || 'Tạo thành công!')
+      toast.success(options?.successMessage || 'Created successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })
@@ -90,7 +90,7 @@ export function useUpdateUser(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<UserResponse, Partial<UserResponse>>(requestUpdateUser, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['users'] })
-      toast.success(options?.successMessage || 'Cập nhật thành công!')
+      toast.success(options?.successMessage || 'Updated successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })
@@ -102,7 +102,7 @@ export function useDeleteUser(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<UserResponse, string>(requestDeleteUser, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['users'] })
-      toast.success(options?.successMessage || 'Xóa thành công!')
+      toast.success(options?.successMessage || 'Deleted successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })

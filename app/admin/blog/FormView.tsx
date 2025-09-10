@@ -38,12 +38,12 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
   return (
     <Form {...form}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <TextField control={form.control} name="title" label="Tiêu đề" placeholder="Nhập tiêu đề" />
+        <TextField control={form.control} name="title" label="Title" placeholder="Enter title" />
         <TextField
           control={form.control}
           name="summary"
-          label="Tóm tắt"
-          placeholder="Nhập tóm tắt"
+          label="Summary"
+          placeholder="Enter summary"
         />
         <FileField
           control={form.control}
@@ -57,7 +57,7 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
         <EditorField
           control={form.control}
           name="content"
-          label="Nội dung"
+          label="Content"
           uploadType="api"
           height={'auto'}
         />
@@ -69,10 +69,10 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
             variant="outline"
             onClick={() => router.push('/admin/blog')}
           >
-            Huỷ
+            Cancel
           </Button>
           <Button className="flex-1" type="submit" disabled={loading}>
-            Lưu
+            Save
           </Button>
         </div>
       </form>

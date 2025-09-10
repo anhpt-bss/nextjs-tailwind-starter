@@ -40,7 +40,12 @@ export function useLogin(options?: { successMessage?: string; redirectUrl?: stri
       saveAuthCookies(data.token, data.user)
 
       if (typeof window !== 'undefined') window.dispatchEvent(new Event('profile-changed'))
-      if (options?.redirectUrl) router.push(options.redirectUrl)
+
+      if (data.user.is_admin) {
+        router.push('/admin/dashboard')
+      } else if (options?.redirectUrl) {
+        router.push(options.redirectUrl)
+      }
     },
   })
 }

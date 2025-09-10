@@ -246,12 +246,12 @@ export function useLazyStorageFiles(
 
       const { items, total } = await requestGetFiles(params)
 
-      return { data: items, total }
+      return { items, total }
     },
     {
       initialPageParam: initialSkip,
       getNextPageParam: (lastPage, allPages) => {
-        const totalFetched = allPages.reduce((acc, page) => acc + page.data.length, 0)
+        const totalFetched = allPages.reduce((acc, page) => acc + page.items.length, 0)
         const nextSkip = initialSkip + totalFetched
 
         return nextSkip < lastPage.total ? nextSkip : undefined

@@ -52,7 +52,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ id: strin
     return <Loading />
   }
   if (!blogDetail) {
-    return <div>Không tìm thấy bài viết</div>
+    return <div>Post not found</div>
   }
   return (
     <FormView

@@ -77,7 +77,7 @@ export default function NewsPage() {
 
   return (
     <div className="w-full">
-      <div className="sticky top-0 z-20 mb-4 px-2 py-4 backdrop-blur-md">
+      <div className="sticky top-[66px] z-20 mb-4 px-2 py-4 backdrop-blur-md">
         <div className="mx-auto flex max-w-lg items-center gap-2">
           <SearchInput onSearch={handleSearch} placeholder="Search news..." />
           <button

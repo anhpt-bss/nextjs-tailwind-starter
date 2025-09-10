@@ -6,7 +6,6 @@ import React, { useRef } from 'react'
 import { useController, Control } from 'react-hook-form'
 
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
-import { LANG_VI } from '@/lib/jodit'
 import { getResourceUrl } from '@/utils/helper'
 
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false })
@@ -26,7 +25,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
   name,
   control,
   label,
-  placeholder = 'Nhập nội dung...',
+  placeholder = 'Enter content...',
   config,
   height = '50vh',
   uploadType = 'api',
@@ -116,7 +115,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
        * </script>
        * ```
        */
-      language: 'vi',
+      language: 'en',
       /**
        * Collection of language pack data `{en: {'Type something': 'Type something', ...}}`
        *
@@ -133,9 +132,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
        * console.log(editor.i18n('Type something')) //Начните что-либо вводить
        * ```
        */
-      i18n: {
-        vi: LANG_VI,
-      },
+      i18n: {},
       /**
        * Boolean, whether the toolbar should be shown.
        * Alternatively, a valid css-selector-string to use an element as toolbar container.
@@ -342,7 +339,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
       enableDragAndDropFileToEditor: true,
       uploader: {
         insertImageAsBase64URI: uploadType === 'base64',
-        url: uploadUrl, // URL của server để upload file
+        url: uploadUrl, // Server URL for file upload
         format: 'json',
         method: 'POST',
         isSuccess: (response) => {
@@ -367,7 +364,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
           if (response?.success === false) {
             const j = this.j || this
             if (!j) return
-            j.message.error('Tải lên không thành công')
+            j.message.error('Upload failed')
             return
           }
 
@@ -444,7 +441,7 @@ export const EditorField: React.FC<EditorFieldProps> = ({
           console.log(e)
           const j = this.j || this
           if (j) {
-            j.message.error('Tải lên không thành công')
+            j.message.error('Upload failed')
           }
         },
       },

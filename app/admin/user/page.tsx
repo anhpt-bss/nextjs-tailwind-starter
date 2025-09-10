@@ -21,7 +21,7 @@ export default function UserPage() {
 
   const handleOpenCreate = () => {
     dialog.openDialog({
-      title: 'Tạo mới người dùng',
+      title: 'Create new user',
       content: (
         <FormView
           onSubmit={(values) => {
@@ -38,7 +38,7 @@ export default function UserPage() {
 
   const handleOpenEdit = (user: UserResponse) => {
     dialog.openDialog({
-      title: 'Chỉnh sửa người dùng',
+      title: 'Edit user',
       content: (
         <FormView
           defaultValues={user}
@@ -83,14 +83,14 @@ export default function UserPage() {
 
   const handleDeleteUser = (user: UserResponse) => {
     dialog.openDialog({
-      title: 'Xác nhận xoá',
+      title: 'Delete confirmation',
       content: (
         <div className="py-4 text-center text-sm">
-          Bạn có chắc chắn muốn xoá người dùng <span className="font-bold">{user.name}</span>?
+          Are you sure you want to delete user <span className="font-bold">{user.name}</span>?
         </div>
       ),
-      confirmText: 'Xoá',
-      cancelText: 'Huỷ',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
       showCancel: true,
       showConfirm: true,
       width: '22%',
@@ -102,10 +102,10 @@ export default function UserPage() {
     <div className="mx-auto max-w-3xl py-4 sm:max-w-3xl">
       <div className="flex items-center justify-between">
         <h1 className="mb-4 text-xl font-bold text-gray-800 sm:text-2xl dark:text-gray-100">
-          Quản lý người dùng
+          User management
         </h1>
         <Button className="mb-4 px-3 py-1 text-sm" onClick={handleOpenCreate}>
-          Tạo mới
+          Create new
         </Button>
       </div>
       <div className="flex flex-col gap-3">

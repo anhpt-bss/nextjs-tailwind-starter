@@ -80,7 +80,7 @@ export const FileField: React.FC<FileFieldProps> = ({
               aria-hidden="true"
             >
               <div className="mb-2 text-gray-500">
-                {note || `Chỉ nhận file ${accept}, dung lượng tối đa ${maxSizeMB}MB.`}
+                {note || `Only accept files of type ${accept}, max size ${maxSizeMB}MB.`}
               </div>
               <Input
                 ref={inputRef}
@@ -90,7 +90,7 @@ export const FileField: React.FC<FileFieldProps> = ({
                 className="hidden"
                 onChange={handleFiles}
               />
-              <span className="font-medium text-blue-600">Chọn file tại đây</span>
+              <span className="font-medium text-blue-600">Choose file here</span>
             </div>
           </FormControl>
           <FormMessage />

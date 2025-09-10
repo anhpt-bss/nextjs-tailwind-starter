@@ -44,7 +44,7 @@ export function useCreateBlog(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<BlogResponse, FormData>(requestCreateBlog, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['blogs'] })
-      toast.success(options?.successMessage || 'Tạo thành công!')
+      toast.success(options?.successMessage || 'Created successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })
@@ -56,7 +56,7 @@ export function useUpdateBlog(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<BlogResponse, FormData>(requestUpdateBlog, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['blogs'] })
-      toast.success(options?.successMessage || 'Cập nhật thành công!')
+      toast.success(options?.successMessage || 'Updated successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })
@@ -68,7 +68,7 @@ export function useDeleteBlog(options?: { successMessage?: string; redirectUrl?:
   return useCustomMutation<BlogResponse, string>(requestDeleteBlog, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['blogs'] })
-      toast.success(options?.successMessage || 'Xoá thành công!')
+      toast.success(options?.successMessage || 'Deleted successfully!')
       if (options?.redirectUrl) router.push(options.redirectUrl)
     },
   })

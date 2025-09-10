@@ -31,28 +31,34 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
   return (
     <Form {...form}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <TextField control={form.control} name="name" label="Tên" placeholder="Nhập tên" required />
+        <TextField
+          control={form.control}
+          name="name"
+          label="Name"
+          placeholder="Enter name"
+          required
+        />
         <TextField
           control={form.control}
           name="email"
           label="Email"
           type="email"
-          placeholder="Nhập email"
+          placeholder="Enter email"
           required
         />
         {!defaultValues && (
           <TextField
             control={form.control}
             name="password"
-            label="Mật khẩu"
+            label="Password"
             type="password"
-            placeholder="Nhập mật khẩu"
+            placeholder="Enter password"
             required
           />
         )}
 
         <Button type="submit" disabled={loading}>
-          {defaultValues ? 'Lưu thay đổi' : 'Tạo mới'}
+          {defaultValues ? 'Save changes' : 'Create new'}
         </Button>
       </form>
     </Form>

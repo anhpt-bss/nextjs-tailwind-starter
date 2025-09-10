@@ -63,7 +63,7 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Trước</span>
+      <span className="hidden sm:block">Previous</span>
     </PaginationLink>
   )
 }
@@ -76,7 +76,7 @@ function PaginationNext({ className, ...props }: React.ComponentProps<typeof Pag
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       {...props}
     >
-      <span className="hidden sm:block">Sau</span>
+      <span className="hidden sm:block">Next</span>
       <ChevronRightIcon />
     </PaginationLink>
   )
@@ -91,7 +91,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">Các trang khác</span>
+      <span className="sr-only">Other pages</span>
     </span>
   )
 }

@@ -38,7 +38,7 @@ export const adminNavLinks: NavLink[] = [
 export const headerNavLinks: NavLink[] = [
   { href: '/news', title: 'News' },
   { href: '/blog', title: 'Blog' },
-  { href: '/tags', title: 'Tags' },
+  { href: '/feed', title: 'Feed' },
   { href: '/gallery', title: 'Gallery' },
   { href: '/about', title: 'About' },
   // {

@@ -36,14 +36,14 @@ export default function BlogPage() {
 
   const handleOpenDelete = (blog: BlogResponse) => {
     dialog.openDialog({
-      title: 'Xác nhận xoá',
+      title: 'Delete confirmation',
       content: (
         <div className="py-4 text-center text-sm">
-          Bạn có chắc chắn muốn xoá bài đăng <span className="font-bold">{blog?.title}</span>?
+          Are you sure you want to delete post <span className="font-bold">{blog?.title}</span>?
         </div>
       ),
-      confirmText: 'Xoá',
-      cancelText: 'Huỷ',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
       showCancel: true,
       showConfirm: true,
       width: '22%',
@@ -63,14 +63,14 @@ export default function BlogPage() {
     <div className="mx-auto max-w-full py-4 sm:max-w-full">
       <div className="mb-4 flex items-center justify-between">
         <h1 className="text-xl font-bold text-gray-800 sm:text-2xl dark:text-gray-100">
-          Quản lý bài đăng
+          Post management
         </h1>
         <div className="flex items-center gap-2">
           <SearchInput
             onSearch={(value) => setFilterParams((prev) => ({ ...prev, search: value }))}
           />
           <Button className="px-3 py-1 text-sm" onClick={handleOpenCreate}>
-            Tạo mới
+            Create new
           </Button>
         </div>
       </div>
@@ -81,14 +81,11 @@ export default function BlogPage() {
           (!blogs || !blogs.items || blogs.items.length === 0) &&
           (filterParams?.search ? (
             <Empty
-              title="Không tìm thấy kết quả phù hợp"
-              description="Vui lòng thử lại với từ khoá khác."
+              title="No matching results found"
+              description="Please try again with a different keyword."
             />
           ) : (
-            <Empty
-              title="Chưa có bài viết nào"
-              description="Hãy tạo bài viết đầu tiên cho blog của bạn."
-            />
+            <Empty title="No posts yet" description="Create your first blog post." />
           ))}
 
         {blogs?.items?.map((blog) => (

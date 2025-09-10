@@ -274,7 +274,7 @@ const View: React.FC = () => {
     )
 
   return (
-    <div className="w-full">
+    <div className="mt-4 w-full">
       <Toolbar
         filters={filters}
         setFilters={(newFilter) => {

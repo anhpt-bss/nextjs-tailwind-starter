@@ -89,7 +89,7 @@ const Storage: React.FC = () => {
   }
 
   return (
-    <div className="h-screen w-full">
+    <div className="mt-4 h-screen w-full">
       <Link
         href="/gallery"
         className="mb-4 flex w-fit rounded-md p-1 hover:bg-gray-100 dark:hover:bg-gray-800"
