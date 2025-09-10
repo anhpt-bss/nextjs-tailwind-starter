@@ -1,5 +1,4 @@
 // lib/classNames.ts
-import clsx from 'clsx'
 
 // BUTTON
 export const buttonBase =

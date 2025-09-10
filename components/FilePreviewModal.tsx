@@ -1,11 +1,7 @@
-import { StoredFileResponse } from '@/types/storage'
+import { DocumentIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import {
-  DocumentIcon,
-  PlayIcon,
-  VideoCameraIcon,
-  SpeakerWaveIcon,
-} from '@heroicons/react/24/outline'
+
+import { StoredFileResponse } from '@/types/storage'
 
 interface FilePreviewModalProps {
   file: StoredFileResponse

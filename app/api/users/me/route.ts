@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserById } from '@/services/user.service'
-import { withAuth } from '@/middlewares/withAuth'
+
 import { connectDB } from '@/lib/db'
+import { withAuth } from '@/middlewares/withAuth'
 import UserModel from '@/models/user.model'
-import { successResponse, errorResponse } from '@/utils/response'
+import { getUserById } from '@/services/user.service'
 import { RegisterPayload } from '@/types/user'
+import { successResponse, errorResponse } from '@/utils/response'
 
 export const GET = withAuth(async (req: NextRequest) => {
   try {

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserById } from '@/services/user.service'
-import { withAuth } from '@/middlewares/withAuth'
+
 import { connectDB } from '@/lib/db'
+import { withAuth } from '@/middlewares/withAuth'
+import { getUserById } from '@/services/user.service'
 import { successResponse, errorResponse } from '@/utils/response'
 
 export const GET = withAuth(async (req: NextRequest, { params }: { params: { id: string } }) => {

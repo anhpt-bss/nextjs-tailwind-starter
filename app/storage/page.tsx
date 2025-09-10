@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { TrashIcon } from '@heroicons/react/24/outline'
@@ -8,12 +7,14 @@ import { ServerStackIcon } from '@heroicons/react/24/outline'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import debounce from 'lodash/debounce'
 import Link from 'next/link'
+import { useState, useMemo, useEffect } from 'react'
+
 import AddStorageModal from '@/components/AddStorageModal'
-import { useDialog } from 'app/dialog-provider'
+import Empty from '@/components/Empty'
+import Loading from '@/components/Loading'
 import { useDeleteStorage, useStorages } from '@/requests/useStorage'
 import type { StorageResponse } from '@/types/storage'
-import Loading from '@/components/Loading'
-import Empty from '@/components/Empty'
+import { useDialog } from 'app/dialog-provider'
 
 const Storage: React.FC = () => {
   const { openDialog, closeDialog } = useDialog()

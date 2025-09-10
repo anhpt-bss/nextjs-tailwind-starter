@@ -1,4 +1,3 @@
-import { base64 } from 'node_modules/zod/v4/core/regexes.cjs'
 import { z } from 'zod'
 
 export const storageSchema = z.object({

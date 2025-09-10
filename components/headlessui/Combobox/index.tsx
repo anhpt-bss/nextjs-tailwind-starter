@@ -11,9 +11,9 @@ import {
   ComboboxButton,
   ComboboxOption,
 } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
 import { ChevronDownIcon, CheckIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
+import React, { Fragment, useState } from 'react'
 
 export type ComboboxOption<T> = {
   label: string

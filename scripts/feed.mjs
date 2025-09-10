@@ -2,11 +2,13 @@
 // Export blogs from MongoDB, save as blog.json and feed.xml inside Next.js folder
 
 import 'dotenv/config'
-import siteMetadata from '../data/siteMetadata.js'
 import fs from 'fs'
 import path from 'path'
-import mongoose, { Schema } from 'mongoose'
 import { fileURLToPath } from 'url'
+
+import mongoose, { Schema } from 'mongoose'
+
+import siteMetadata from '../data/siteMetadata.js'
 
 // Fix __dirname in ESM
 const __filename = fileURLToPath(import.meta.url)

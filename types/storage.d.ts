@@ -1,4 +1,3 @@
-import { Types } from 'mongoose'
 import { storageSchema, storedFileSchema } from '@/validators/storage.schema'
 
 export type StoragePayload = z.infer<typeof storageSchema>

@@ -1,10 +1,24 @@
 'use client'
 
-import Toolbar, { ToolbarFiltersType } from '@/components/Toolbar'
+import {
+  TrashIcon,
+  ArrowDownTrayIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+} from '@heroicons/react/24/outline'
+import { InfiniteData } from '@tanstack/react-query'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState, useRef, useCallback } from 'react'
+
+import Dropzone from '@/components/Dropzone'
+import FilePreviewer from '@/components/FilePreviewer'
+import FilePreviewModal from '@/components/FilePreviewModal'
+import Folders from '@/components/Folders'
 import GalleryGrid from '@/components/GalleryGrid'
 import GalleryList from '@/components/GalleryList'
+import Loading from '@/components/Loading'
+import Toolbar, { ToolbarFiltersType } from '@/components/Toolbar'
 import UploadModal from '@/components/UploadModal'
-import FilePreviewModal from '@/components/FilePreviewModal'
 import { useStorages } from '@/requests/useStorage'
 import {
   useLazyStorageFiles,
@@ -12,25 +26,10 @@ import {
   useDeleteMultipleFile,
   useFolders,
 } from '@/requests/useStoredFile'
-import { useEffect, useState, useRef, useCallback } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { StoredFileResponse } from '@/types/storage'
-import { useDialog } from 'app/dialog-provider'
-import { InfiniteData } from '@tanstack/react-query'
 import { PaginatedResponse } from '@/types/common'
-import Dropzone from '@/components/Dropzone'
-import Loading from '@/components/Loading'
-import clsx from 'clsx'
-
-import {
-  TrashIcon,
-  ArrowDownTrayIcon,
-  CheckCircleIcon,
-  XCircleIcon,
-} from '@heroicons/react/24/outline'
-import Folders from '@/components/Folders'
+import { StoredFileResponse } from '@/types/storage'
 import { handleDownload } from '@/utils/helper'
-import FilePreviewer from '@/components/FilePreviewer'
+import { useDialog } from 'app/dialog-provider'
 
 type GalleryFilters = ToolbarFiltersType & {
   folder?: string
@@ -133,7 +132,7 @@ const View: React.FC = () => {
   const infiniteFiles = lazyFilesData as
     | InfiniteData<PaginatedResponse<StoredFileResponse>>
     | undefined
-  const allFiles: StoredFileResponse[] = infiniteFiles?.pages?.flatMap((page) => page.data) || []
+  const allFiles: StoredFileResponse[] = infiniteFiles?.pages?.flatMap((page) => page.items) || []
 
   const totalItems = infiniteFiles?.pages[infiniteFiles.pages.length - 1]?.total ?? 0
 

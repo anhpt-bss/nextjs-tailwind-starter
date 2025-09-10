@@ -1,7 +1,8 @@
 // hooks/useApiErrorHandler.ts
+import { toast } from 'sonner'
+
 import { logoutAndClearSession } from '@/services/auth.service'
 import { ApiResponse } from '@/types/common'
-import { toast } from 'sonner'
 
 export function handleApiError(error: any) {
   let message = error?.message || 'Unknown error'

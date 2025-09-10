@@ -1,14 +1,14 @@
-import React from 'react'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 import {
   Squares2X2Icon,
   Bars3Icon,
   ArrowUpTrayIcon,
   ServerStackIcon,
 } from '@heroicons/react/24/outline'
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
-import Link from 'next/link'
-import debounce from 'lodash/debounce'
 import clsx from 'clsx'
+import debounce from 'lodash/debounce'
+import Link from 'next/link'
+import React from 'react'
 
 const sortOptions = [
   { value: 'az', label: 'A-Z' },
@@ -18,6 +18,7 @@ const sortOptions = [
 ]
 
 import type { StorageResponse } from '@/types/storage'
+
 import { ComboboxField, ComboboxOption } from './headlessui/Combobox'
 
 export type ToolbarFiltersType = {

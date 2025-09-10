@@ -1,14 +1,15 @@
 'use client'
 
-import { useRegister } from '@/requests/useAuth'
-import { registerSchema } from '@/validators/auth.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import Link from 'next/link'
+
+import DatePickerField from '@/components/headlessui/DatePicker'
 import InputField from '@/components/headlessui/Input'
 import SelectField from '@/components/headlessui/Select'
-import DatePickerField from '@/components/headlessui/DatePicker'
+import { useRegister } from '@/requests/useAuth'
+import { registerSchema } from '@/validators/auth.schema'
 
 type RegisterFormValues = z.infer<typeof registerSchema>
 

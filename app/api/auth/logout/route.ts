@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { successResponse } from '@/utils/response'
 
 // route.ts for logout endpoint

@@ -1,8 +1,9 @@
 // import { NextResponse } from 'next/server' (removed duplicate)
 import { NextResponse } from 'next/server'
-import { successResponse, errorResponse } from '@/utils/response'
+
 import { fetchAllNews } from '@/lib/news'
 import type { NewsItemResponse } from '@/types/news'
+import { successResponse, errorResponse } from '@/utils/response'
 
 export async function GET(req: Request) {
   try {

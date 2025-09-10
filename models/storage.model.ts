@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose'
+
 import { encrypt } from '@/lib/encrypt'
 
 export interface IStorage extends Document {

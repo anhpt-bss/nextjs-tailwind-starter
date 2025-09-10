@@ -1,12 +1,13 @@
 'use client'
 
-import { useLogin } from '@/requests/useAuth'
-import { loginSchema } from '@/validators/auth.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+
 import InputField from '@/components/headlessui/Input'
-import Link from 'next/link'
+import { useLogin } from '@/requests/useAuth'
+import { loginSchema } from '@/validators/auth.schema'
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
