@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: typeof window === 'undefined' ? process.env.NEXT_PUBLIC_API_URL || '' : '',
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL || ''}${process.env.NEXT_PUBLIC_BASE_PATH || ''}`,
   withCredentials: true, // Enable cookies for cross-site requests
   headers: {
     'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ api.interceptors.request.use(
   (config) => {
     if (typeof window === 'undefined') {
       config.headers = config.headers || {}
-      config.headers['secret-key'] = process.env.NEXT_PUBLIC_SECRET_KEY || ''
+      config.headers['secret-key'] = process.env.SECRET_KEY || ''
     }
     return config
   },

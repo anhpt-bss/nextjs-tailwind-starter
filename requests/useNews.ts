@@ -1,8 +1,19 @@
-import { useCustomQuery } from '@/hooks/useCustomQuery'
-import type { NewsItemResponse } from '@/types/news.d'
-import { requestGetNews } from '@/services/news.service'
+// requests/useNews.ts
+
 import { useQueryClient } from '@tanstack/react-query'
 
+import { useCustomQuery } from '@/hooks/useCustomQuery'
+import api from '@/lib/axios'
+import type { NewsItemResponse } from '@/types/news.d'
+
+// Requests
+export const requestGetNews = async (): Promise<NewsItemResponse[]> => {
+  const res = await api.get('/api/rss')
+  if (!res.data.success) throw res.data
+  return res.data.data
+}
+
+// Hooks
 export function useNews(options) {
   const queryClient = useQueryClient()
 

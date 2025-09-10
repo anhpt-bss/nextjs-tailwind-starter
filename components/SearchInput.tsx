@@ -1,6 +1,7 @@
-import React, { useState, useCallback } from 'react'
 import debounce from 'lodash/debounce'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { Search as SearchIcon } from 'lucide-react'
+import React, { useState, useCallback } from 'react'
+
 import { normalizeText } from '@/utils/helper'
 
 interface SearchInputProps {
@@ -32,7 +33,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
     <div
       className={`mx-auto flex w-full max-w-lg items-center gap-3 rounded-full border border-neutral-200 bg-white px-4 py-2 shadow dark:border-neutral-700 dark:bg-neutral-900 ${className}`}
     >
-      <MagnifyingGlassIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-400" />
+      <SearchIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-400" />
       <input
         type="text"
         value={value}

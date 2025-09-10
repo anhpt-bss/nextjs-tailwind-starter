@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+
+import { connectDB } from '@/lib/db'
 import { withAuth } from '@/middlewares/withAuth'
-import { storedFileSchema } from '@/validators/storage.schema'
+import StoredFile from '@/models/storedFile.model'
 import { StoredFileResponse } from '@/types/storage'
 import { successResponse, errorResponse } from '@/utils/response'
-import StoredFile from '@/models/storedFile.model'
-import { connectDB } from '@/lib/db'
+import { storedFileSchema } from '@/validators/storage.schema'
 
 export const POST = withAuth(async (req: NextRequest) => {
   try {
@@ -17,9 +18,9 @@ export const POST = withAuth(async (req: NextRequest) => {
     // Validate all files first
     const validFiles = files
       .map((fileData, i) => {
-        const parse = storedFileSchema.safeParse(fileData)
-        if (!parse.success) {
-          errors.push({ index: i, error: parse.error.errors })
+        const parsed = storedFileSchema.safeParse(fileData)
+        if (!parsed.success) {
+          errors.push({ index: i, error: parsed.error.issues })
           return null
         }
         return { ...fileData, uploaded_by: userId }

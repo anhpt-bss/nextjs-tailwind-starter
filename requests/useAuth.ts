@@ -1,11 +1,33 @@
 // requests/useAuth.ts
-import { useCustomMutation } from '@/hooks/useCustomMutation'
+
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+
+import { useCustomMutation } from '@/hooks/useCustomMutation'
+import api from '@/lib/axios'
 import { logoutAndClearSession, saveAuthCookies } from '@/services/auth.service'
-import { requestLogin, requestRegister, requestLogout } from '@/services/auth.service'
 import { UserResponse } from '@/types/user'
 
+// Requests
+export const requestLogin = async (payload) => {
+  const res = await api.post('/api/auth/login', payload)
+  if (!res.data.success) throw res.data
+  return res.data.data
+}
+
+export const requestRegister = async (payload) => {
+  const res = await api.post('/api/auth/register', payload)
+  if (!res.data.success) throw res.data
+  return res.data.data
+}
+
+export const requestLogout = async () => {
+  const res = await api.post('/api/auth/logout')
+  if (!res.data.success) throw res.data
+  return res.data.data
+}
+
+// Hooks
 export function useLogin(options?: { successMessage?: string; redirectUrl?: string }) {
   const router = useRouter()
   return useCustomMutation<

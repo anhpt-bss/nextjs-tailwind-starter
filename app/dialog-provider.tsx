@@ -1,9 +1,17 @@
 'use client'
 
-import React, { createContext, useContext, useState, ReactNode } from 'react'
-import { Dialog, DialogPanel, DialogTitle, Description } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import React, { createContext, useContext, useState, ReactNode } from 'react'
+
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 export interface DialogOptions {
   open?: boolean
@@ -16,7 +24,7 @@ export interface DialogOptions {
   onCancel?: () => void
   showCancel?: boolean
   showConfirm?: boolean
-  width?: string // e.g., '40%', '500px'
+  width?: string
 }
 
 interface DialogContextType {
@@ -52,70 +60,45 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   return (
     <DialogContext.Provider value={{ openDialog, closeDialog }}>
       {children}
-      <Dialog
-        open={dialog.open}
-        onClose={closeDialog}
-        className="fixed inset-0 z-50 flex items-center justify-center"
-      >
-        <div
-          className="fixed inset-0 bg-black/50 transition-colors duration-300 dark:bg-gray-950/80"
-          aria-hidden="true"
-        />
-        <div
+      <Dialog open={dialog.open} onOpenChange={(open) => !open && closeDialog()}>
+        <DialogContent
+          style={dialog.width ? { maxWidth: dialog.width } : undefined}
           className={clsx(
-            'relative z-10 w-full px-2',
-            'max-w-full', // base
-            'sm:max-w-[90%]', // ≥ 640px
-            'md:max-w-[70%]', // ≥ 768px
-            dialog.width ? `lg:max-w-[${dialog.width}]` : 'lg:max-w-[30%]', // ≥ 1024px
-            dialog.width ? `xl:max-w-[${dialog.width}]` : 'xl:max-w-[30%]', // ≥ 1280px
-            dialog.width ? `2xl:max-w-[${dialog.width}]` : '2xl:max-w-[30%]' // 1536px
+            'gap-0 p-0',
+            dialog.width
+              ? `max-w-[${dialog.width}]`
+              : 'sm:max-w-[90%] md:max-w-[70%] lg:max-w-[30%]'
           )}
         >
-          <DialogPanel className="mx-auto flex w-full flex-col rounded-xl bg-white shadow-2xl transition-colors duration-300 dark:bg-gray-900">
-            {/* Header */}
-            <div className="mb-2 flex items-center justify-between border-b border-gray-200 px-4 py-2 dark:border-gray-800">
-              {dialog.title && (
-                <DialogTitle className="truncate overflow-hidden text-lg font-semibold whitespace-nowrap text-gray-900 dark:text-white">
-                  {dialog.title}
-                </DialogTitle>
-              )}
-              <span className="ml-2 cursor-pointer text-red-600 dark:text-red-400">
-                <XMarkIcon className="h-5 w-5" onClick={closeDialog} />
-              </span>
-            </div>
+          {/* Header */}
+          <DialogHeader className="flex flex-row items-center justify-between border-b border-gray-200 px-4 py-2 dark:border-gray-800">
+            {dialog.title && (
+              <DialogTitle className="truncate overflow-hidden text-lg font-semibold whitespace-nowrap">
+                {dialog.title}
+              </DialogTitle>
+            )}
+          </DialogHeader>
 
-            {/* Body */}
-            <div className="mb-2 max-h-[80vh] flex-1 overflow-y-auto px-4 py-2">
-              {dialog.description && (
-                <Description className="mb-4 text-gray-600 dark:text-gray-300">
-                  {dialog.description}
-                </Description>
-              )}
-              {dialog.content}
-            </div>
+          {/* Body */}
+          <div className="mb-2 max-h-[90vh] flex-1 overflow-y-auto px-4 py-2">
+            {dialog.description && (
+              <DialogDescription className="mb-4">{dialog.description}</DialogDescription>
+            )}
+            {dialog.content}
+          </div>
 
-            {/* Footer */}
-            <div className="flex flex-wrap justify-end gap-2 px-4 py-2">
-              {dialog.showCancel !== false && (
-                <button
-                  onClick={closeDialog}
-                  className="rounded bg-gray-200 px-4 py-2 text-gray-700 transition-colors duration-200 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-                >
-                  {dialog.cancelText || 'Cancel'}
-                </button>
-              )}
-              {dialog.showConfirm !== false && (
-                <button
-                  onClick={handleConfirm}
-                  className="rounded bg-blue-600 px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-700"
-                >
-                  {dialog.confirmText || 'OK'}
-                </button>
-              )}
-            </div>
-          </DialogPanel>
-        </div>
+          {/* Footer */}
+          <DialogFooter className="flex flex-wrap justify-end gap-2 border-t border-gray-200 px-4 py-2 dark:border-gray-800">
+            {dialog.showCancel !== false && (
+              <Button variant="secondary" onClick={closeDialog}>
+                {dialog.cancelText || 'Cancel'}
+              </Button>
+            )}
+            {dialog.showConfirm !== false && (
+              <Button onClick={handleConfirm}>{dialog.confirmText || 'OK'}</Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </DialogContext.Provider>
   )

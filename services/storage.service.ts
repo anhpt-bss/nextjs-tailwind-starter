@@ -1,31 +1,6 @@
-import Storage from '@/models/storage.model'
 import { connectDB } from '@/lib/db'
-import api from '@/lib/axios'
-import type { CreateStoragePayload, StorageResponse, UpdateStoragePayload } from '@/types/storage'
-
-export const requestGetStorages = async () => {
-  const res = await api.get('/api/storage')
-  if (!res.data.success) throw res.data
-  return res.data.data as StorageResponse[]
-}
-
-export const requestCreateStorage = async (payload: CreateStoragePayload) => {
-  const res = await api.post('/api/storage', payload)
-  if (!res.data.success) throw res.data
-  return res.data.data as StorageResponse
-}
-
-export const requestUpdateStorage = async (payload: UpdateStoragePayload) => {
-  const res = await api.put(`/api/storage/${payload._id}`, payload)
-  if (!res.data.success) throw res.data
-  return res.data.data as StorageResponse
-}
-
-export const requestDeleteStorage = async (id: string) => {
-  const res = await api.delete(`/api/storage/${id}`)
-  if (!res.data.success) throw res.data
-  return res.data.data as StorageResponse
-}
+import Storage from '@/models/storage.model'
+import type { StorageResponse } from '@/types/storage'
 
 export async function createStorage(data: Partial<StorageResponse>) {
   await connectDB()

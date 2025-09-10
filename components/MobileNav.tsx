@@ -1,128 +1,169 @@
 'use client'
 
-import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import { Fragment, useState, useEffect, useRef } from 'react'
-import Link from './Link'
-import headerNavLinks from '@/data/headerNavLinks'
+import { ChevronRight, AlignJustify } from 'lucide-react'
+import { MoreVertical } from 'lucide-react'
+import Link from 'next/link'
+import React from 'react'
 
-const MobileNav = ({ user }) => {
-  const [navShow, setNavShow] = useState(false)
-  const navRef = useRef(null)
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
+import {
+  useSidebar,
+  SidebarProvider,
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
+import Logo from '@/data/logo.svg'
+import { headerNavLinks } from '@/data/navLinks'
+import siteMetadata from '@/data/siteMetadata'
+import { UserResponse } from '@/types/user'
+import { getAvatarUrl } from '@/utils/helper'
 
-  const onToggleNav = () => {
-    setNavShow((status) => {
-      if (status) {
-        enableBodyScroll(navRef.current)
-      } else {
-        // Prevent scrolling
-        disableBodyScroll(navRef.current)
-      }
-      return !status
-    })
-  }
+import UserDropdown from './UserDropdown'
 
-  useEffect(() => {
-    return clearAllBodyScrollLocks
-  })
+interface MobileNavProps {
+  user?: UserResponse
+  logout?: () => void
+}
 
+const MobileNav: React.FC<MobileNavProps> = ({ user, logout }) => {
   return (
-    <>
-      <button aria-label="Toggle Menu" onClick={onToggleNav} className="cursor-pointer sm:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="hover:text-primary-500 dark:hover:text-primary-400 h-8 w-8 text-gray-900 dark:text-gray-100"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-      <Transition appear show={navShow} as={Fragment} unmount={false}>
-        <Dialog as="div" onClose={onToggleNav} unmount={false}>
-          <TransitionChild
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            unmount={false}
-          >
-            <div className="fixed inset-0 z-60 bg-black/25" />
-          </TransitionChild>
-
-          <TransitionChild
-            as={Fragment}
-            enter="transition ease-in-out duration-300 transform"
-            enterFrom="translate-x-full opacity-0"
-            enterTo="translate-x-0 opacity-95"
-            leave="transition ease-in duration-200 transform"
-            leaveFrom="translate-x-0 opacity-95"
-            leaveTo="translate-x-full opacity-0"
-            unmount={false}
-          >
-            <DialogPanel className="fixed top-0 left-0 z-70 h-full w-full bg-white/95 duration-300 dark:bg-gray-950/98">
-              <nav
-                ref={navRef}
-                className="mt-8 flex h-full basis-0 flex-col items-start overflow-y-auto pt-2 pl-12 text-left"
-              >
-                <Link
-                  key={'news'}
-                  href={'/news'}
-                  className="hover:text-primary-500 dark:hover:text-primary-400 mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline-0 dark:text-gray-100"
-                  onClick={onToggleNav}
-                >
-                  News
-                </Link>
-
-                {headerNavLinks.map((link) => (
-                  <Link
-                    key={link.title}
-                    href={link.href}
-                    className="hover:text-primary-500 dark:hover:text-primary-400 mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline-0 dark:text-gray-100"
-                    onClick={onToggleNav}
-                  >
-                    {link.title}
-                  </Link>
-                ))}
-
-                {user && (
-                  <Link
-                    key={'gallery'}
-                    href={'/gallery'}
-                    className="hover:text-primary-500 dark:hover:text-primary-400 mb-4 py-2 pr-4 text-2xl font-bold tracking-widest text-gray-900 outline-0 dark:text-gray-100"
-                    onClick={onToggleNav}
-                  >
-                    Gallery
-                  </Link>
-                )}
-              </nav>
-
-              <button
-                className="hover:text-primary-500 dark:hover:text-primary-400 fixed top-7 right-4 z-80 h-16 w-16 cursor-pointer p-4 text-gray-900 dark:text-gray-100"
-                aria-label="Toggle Menu"
-                onClick={onToggleNav}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </DialogPanel>
-          </TransitionChild>
-        </Dialog>
-      </Transition>
-    </>
+    <SidebarProvider className="min-h-fit w-fit sm:hidden">
+      <SidebarTrigger icon={<AlignJustify />} />
+      <SidebarNav user={user} logout={logout} />
+    </SidebarProvider>
   )
 }
 
-export default MobileNav
+export default React.memo(MobileNav)
+
+const SidebarNav: React.FC<MobileNavProps> = ({ user, logout }) => {
+  const { toggleSidebar } = useSidebar()
+
+  return (
+    <Sidebar collapsible="offcanvas" side="left" className="pt-14">
+      <SidebarHeader>
+        <Link href="/" aria-label={siteMetadata.headerTitle}>
+          <div className="flex items-center">
+            <div className="mr-3">
+              <Logo />
+            </div>
+            {typeof siteMetadata.headerTitle === 'string' ? (
+              <div className="h-6 text-2xl font-semibold">{siteMetadata.headerTitle}</div>
+            ) : (
+              siteMetadata.headerTitle
+            )}
+          </div>
+        </Link>
+      </SidebarHeader>
+
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarMenu>
+            {headerNavLinks.map((link) => {
+              if (link?.children) {
+                return (
+                  <Collapsible key={link?.title} defaultOpen className="group/collapsible">
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="flex items-center justify-between">
+                          <span>{link?.title}</span>
+                          <ChevronRight className="ml-2 h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {link?.children.map((child) => (
+                            <SidebarMenuSubItem key={child.title}>
+                              <SidebarMenuSubButton href={child.href}>
+                                {child.title}
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                )
+              }
+              if (link?.mega) {
+                return (
+                  <Collapsible key={link?.title} defaultOpen className="group/collapsible">
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="flex items-center justify-between">
+                          <span>{link?.title}</span>
+                          <ChevronRight className="ml-2 h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {link?.groups?.map((group) => (
+                            <SidebarMenuSubItem key={group?.groupTitle}>
+                              <span className="text-xs text-gray-500 uppercase dark:text-gray-400">
+                                {group?.groupTitle}
+                              </span>
+                              {group?.items.map((item) => (
+                                <SidebarMenuSubButton key={item.title} href={item.href}>
+                                  {item.title}
+                                </SidebarMenuSubButton>
+                              ))}
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                )
+              }
+              return (
+                <SidebarMenuItem key={link?.title}>
+                  <SidebarMenuButton asChild>
+                    <Link href={link?.href || '#'}>{link?.title}</Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )
+            })}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter>
+        {user && logout && (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <UserDropdown user={user} logout={logout} toggleSidebar={toggleSidebar}>
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <Avatar className="h-8 w-8 rounded-lg grayscale">
+                    <AvatarImage src={getAvatarUrl(user?.avatar)} alt={user?.name} />
+                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-medium">{user?.name}</span>
+                    <span className="text-muted-foreground truncate text-xs">{user?.email}</span>
+                  </div>
+                  <MoreVertical className="ml-auto size-4" />
+                </SidebarMenuButton>
+              </UserDropdown>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        )}
+      </SidebarFooter>
+    </Sidebar>
+  )
+}

@@ -4,23 +4,23 @@ import 'css/tailwind.css'
 import 'pliny/search/algolia.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import { Space_Grotesk } from 'next/font/google'
+import { Metadata } from 'next'
+import { Roboto } from 'next/font/google'
 import { Analytics, AnalyticsConfig } from 'pliny/analytics'
 import { SearchProvider, SearchConfig } from 'pliny/search'
-import Header from '@/components/Header'
-import SectionContainer from '@/components/SectionContainer'
-import Footer from '@/components/Footer'
-import siteMetadata from '@/data/siteMetadata'
-import { ThemeProviders } from './theme-providers'
-import { DialogProvider } from 'app/dialog-provider'
-import { Metadata } from 'next'
-import { ReactQueryProvider } from './react-query-provider'
-import { AppToaster } from './app-toaster'
 
-const space_grotesk = Space_Grotesk({
-  subsets: ['latin'],
+import { Toaster } from '@/components/ui/sonner'
+import siteMetadata from '@/data/siteMetadata'
+import { DialogProvider } from 'app/dialog-provider'
+
+import { ReactQueryProvider } from './react-query-provider'
+import { ThemeProviders } from './theme-providers'
+
+const roboto = Roboto({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['300', '400', '500', '700'],
   display: 'swap',
-  variable: '--font-space-grotesk',
+  variable: '--font-roboto',
 })
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     url: './',
     siteName: siteMetadata.title,
     images: [siteMetadata.socialBanner],
-    locale: 'en_US',
+    locale: siteMetadata.locale,
     type: 'website',
   },
   alternates: {
@@ -64,12 +64,12 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const basePath = process.env.BASE_PATH || ''
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`${roboto.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <link
@@ -99,19 +99,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
       <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
-      <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
+      <body className="w-full overflow-x-hidden bg-white text-black antialiased dark:bg-gray-950 dark:text-white">
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <ReactQueryProvider>
             <DialogProvider>
-              <AppToaster />
-              <SectionContainer>
-                <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
-                  <Header />
-                  <main className="mb-auto">{children}</main>
-                </SearchProvider>
-                <Footer />
-              </SectionContainer>
+              <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+                <Toaster />
+                {children}
+              </SearchProvider>
             </DialogProvider>
           </ReactQueryProvider>
         </ThemeProviders>

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { registerSchema } from '@/validators/auth.schema'
-import { register } from '@/services/auth.service'
+
 import { connectDB } from '@/lib/db'
+import { register } from '@/services/auth.service'
 import { successResponse, errorResponse } from '@/utils/response'
+import { registerSchema } from '@/validators/auth.schema'
 
 export async function POST(req: NextRequest) {
   await connectDB()
@@ -10,7 +11,7 @@ export async function POST(req: NextRequest) {
   const parsed = registerSchema.safeParse(body)
   if (!parsed.success) {
     return NextResponse.json(
-      errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.errors).body,
+      errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
       { status: 400 }
     )
   }

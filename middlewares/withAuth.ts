@@ -1,10 +1,11 @@
 // middlewares/withAuth.ts
 import { NextRequest, NextResponse } from 'next/server'
+
 import { verifyJwt } from '@/lib/jwt'
 
 export function withAuth(handler: any) {
   return async (req: NextRequest, ...args: any[]) => {
-    if (req.headers.get('secret-key') === process.env.NEXT_PUBLIC_SECRET_KEY) {
+    if (req.headers.get('secret-key') === process.env.SECRET_KEY) {
       // Skip authentication for internal API requests
       return handler(req, ...args)
     }
