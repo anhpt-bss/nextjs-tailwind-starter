@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
+import { CheckboxField } from '@/components/form/CheckboxField'
 import { TextField } from '@/components/form/TextField'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
@@ -21,6 +22,7 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
       name: defaultValues?.name || '',
       email: defaultValues?.email || '',
       password: '',
+      is_admin: defaultValues?.is_admin || false,
     },
   })
 
@@ -56,6 +58,8 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
             required
           />
         )}
+
+        <CheckboxField control={form.control} name="is_admin" label="Is Admin" />
 
         <Button type="submit" disabled={loading}>
           {defaultValues ? 'Save changes' : 'Create new'}

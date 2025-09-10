@@ -7,8 +7,9 @@ export interface IBlog extends Document {
   slug: string
   banner: mongoose.Types.ObjectId
   content: string
-  created_by?: string
-  created_time?: Date
+  is_published?: boolean
+  created_by: mongoose.Types.ObjectId
+  created_time: Date
 }
 
 const BlogSchema = new Schema<IBlog>(
@@ -18,7 +19,8 @@ const BlogSchema = new Schema<IBlog>(
     slug: { type: String, unique: true },
     banner: { type: Schema.Types.ObjectId, ref: 'Resource', required: true },
     content: { type: String, required: true },
-    created_by: { type: String, default: 'Admin' },
+    is_published: { type: Boolean, default: false },
+    created_by: { type: Schema.Types.ObjectId, ref: 'Users', required: true },
     created_time: { type: Date, default: Date.now },
   },
   { timestamps: true }

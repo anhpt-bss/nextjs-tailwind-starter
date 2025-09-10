@@ -57,7 +57,7 @@ export default function UserPage() {
       name: data.name,
       email: data.email,
       password: data.password,
-      is_admin: true,
+      is_admin: data.is_admin,
     }
 
     createUser.mutate(param, {
@@ -126,6 +126,17 @@ export default function UserPage() {
                 {user.email}
               </div>
             </CardContent>
+            <div className="flex w-20 items-center justify-center">
+              {user.is_admin ? (
+                <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-200">
+                  Admin
+                </span>
+              ) : (
+                <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                  User
+                </span>
+              )}
+            </div>
             <div className="flex flex-row gap-1 sm:gap-2">
               <Button
                 variant="ghost"

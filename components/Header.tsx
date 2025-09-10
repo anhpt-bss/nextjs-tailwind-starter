@@ -75,7 +75,7 @@ const Header = () => {
         </Link>
         <div className="flex items-center space-x-4 leading-5 sm:-mr-6 sm:space-x-6">
           <div className="no-scrollbar hidden sm:flex">
-            <HeaderMenu />
+            <HeaderMenu user={user} />
           </div>
 
           <SearchButton />

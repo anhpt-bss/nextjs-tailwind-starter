@@ -68,6 +68,7 @@ export default function BlogPage() {
         <div className="flex items-center gap-2">
           <SearchInput
             onSearch={(value) => setFilterParams((prev) => ({ ...prev, search: value }))}
+            isCollapsed={true}
           />
           <Button className="px-3 py-1 text-sm" onClick={handleOpenCreate}>
             Create new
@@ -120,7 +121,7 @@ export default function BlogPage() {
                 size="icon"
                 className="h-7 w-7 sm:h-8 sm:w-8"
                 onClick={() => handleOpenEdit(blog)}
-                aria-label="Sửa"
+                aria-label="Edit"
               >
                 <Edit className="h-4 w-4 text-gray-500 sm:h-5 sm:w-5 dark:text-gray-300" />
               </Button>
@@ -129,7 +130,7 @@ export default function BlogPage() {
                 size="icon"
                 className="h-7 w-7 sm:h-8 sm:w-8"
                 onClick={() => handleOpenDelete(blog)}
-                aria-label="Xoá"
+                aria-label="Delete"
               >
                 <Trash className="h-4 w-4 text-red-500 sm:h-5 sm:w-5 dark:text-red-400" />
               </Button>

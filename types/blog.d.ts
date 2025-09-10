@@ -8,6 +8,7 @@ export interface BlogResponse {
   content: string
   slug?: string
   banner_resource?: ResourceResponse
+  is_published?: boolean
   created_by?: string
   created_time?: string
 }

@@ -1,13 +1,14 @@
 import { z } from 'zod'
 
 export const blogCrudSchema = z.object({
-  title: z.string().min(1, 'Tiêu đề không được để trống'),
-  summary: z.string().min(1, 'Tóm tắt không được để trống'),
+  title: z.string().min(1, 'Title is required'),
+  summary: z.string().min(1, 'Summary is required'),
   banner: z.union([
-    z.instanceof(File, { message: 'Vui lòng upload banner' }),
-    z.string().min(1, 'Vui lòng chọn banner'),
+    z.instanceof(File, { message: 'Please upload a banner' }),
+    z.string().min(1, 'Please select a banner'),
   ]),
-  content: z.string().min(1, 'Nội dung không được để trống'),
+  content: z.string().min(1, 'Content is required'),
+  is_published: z.boolean().optional(),
 })
 
 export type BlogCrudFormValues = z.infer<typeof blogCrudSchema>

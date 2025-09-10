@@ -67,14 +67,14 @@ export default function BlogPage() {
   if (loadingFiles) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
-        <Loading text="Loading blog..." />
+        <Loading text="Loading feed..." />
       </div>
     )
   }
   if (isError) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
-        <Empty title="An error occurred" description={error?.message || 'Unable to load blog'} />
+        <Empty title="An error occurred" description={error?.message || 'Unable to load feed'} />
       </div>
     )
   }
@@ -96,7 +96,7 @@ export default function BlogPage() {
             key={blog?._id}
             className="bg-background dark:bg-card group py-0 transition-shadow hover:shadow-lg"
           >
-            <Link href={`/blog/${blog?.slug}`} className="block focus:outline-none" tabIndex={0}>
+            <Link href={`/feed/${blog?.slug}`} className="block focus:outline-none" tabIndex={0}>
               {blog?.banner_resource && (
                 <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-xl">
                   <Image

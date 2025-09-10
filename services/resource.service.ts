@@ -20,7 +20,7 @@ export async function uploadResourceFile(file: any): Promise<ResourceResponse> {
     } else if (file.arrayBuffer) {
       buffer = Buffer.from(await file.arrayBuffer())
     } else {
-      throw new Error('Không xác định được buffer file')
+      throw new Error('Cannot determine file buffer')
     }
 
     const existed = await ResourceModel.findOne({
@@ -40,7 +40,7 @@ export async function uploadResourceFile(file: any): Promise<ResourceResponse> {
       fs.writeFile(filePath, buffer),
       ResourceModel.create({
         filename: originalName,
-        path: `/upload/${filename}`,
+        path: `/uploads/${filename}`,
         size: file.size,
         mimetype: file.type,
       }),
@@ -50,7 +50,7 @@ export async function uploadResourceFile(file: any): Promise<ResourceResponse> {
   } catch (error: any) {
     console.error('Upload error:', error)
     const status = error?.status || 500
-    throw new Error(status === 500 ? 'Lỗi hệ thống khi upload file' : error.message)
+    throw new Error(status === 500 ? 'System error during file upload' : error.message)
   }
 }
 
@@ -66,7 +66,7 @@ export function validateFiles(files: File[]) {
   if (files.length === 0) {
     return {
       valid: false,
-      error: errorResponse('Không có file nào được upload', 'NO_FILES', 400),
+      error: errorResponse('No files uploaded', 'NO_FILES', 400),
     }
   }
 
@@ -74,7 +74,7 @@ export function validateFiles(files: File[]) {
     return {
       valid: false,
       error: errorResponse(
-        `Vượt quá số lượng file cho phép (${maxFiles})`,
+        `Exceeded the allowed number of files (${maxFiles})`,
         'UPLOAD_LIMIT_EXCEEDED',
         400
       ),
@@ -86,7 +86,7 @@ export function validateFiles(files: File[]) {
       return {
         valid: false,
         error: errorResponse(
-          `File ${file.name} vượt quá kích thước tối đa (${maxSizeMB}MB)`,
+          `File ${file.name} exceeds the maximum size (${maxSizeMB}MB)`,
           'UPLOAD_SIZE_EXCEEDED',
           400
         ),
@@ -97,7 +97,7 @@ export function validateFiles(files: File[]) {
       return {
         valid: false,
         error: errorResponse(
-          `Loại file ${file.type} không được phép`,
+          `File type ${file.type} is not allowed`,
           'UPLOAD_TYPE_NOT_ALLOWED',
           415
         ),

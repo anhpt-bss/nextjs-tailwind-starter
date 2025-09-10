@@ -3,6 +3,7 @@ import { UsersIcon, LayoutDashboardIcon, FileIcon } from 'lucide-react'
 interface NavLinkGroupItem {
   title: string
   href: string
+  isPrivate?: boolean
   description?: string
   icon?: React.ReactNode
 }
@@ -19,17 +20,17 @@ interface NavLink extends NavLinkGroupItem {
 
 export const adminNavLinks: NavLink[] = [
   {
-    title: 'Bảng điều khiển',
+    title: 'Dashboard',
     href: '/admin/dashboard',
     icon: <LayoutDashboardIcon className="h-4 w-4" />,
   },
   {
-    title: 'Bài đăng',
+    title: 'Blogs',
     href: '/admin/blog',
     icon: <FileIcon className="h-4 w-4" />,
   },
   {
-    title: 'Người dùng',
+    title: 'Users',
     href: '/admin/user',
     icon: <UsersIcon className="h-4 w-4" />,
   },
@@ -39,7 +40,7 @@ export const headerNavLinks: NavLink[] = [
   { href: '/news', title: 'News' },
   { href: '/blog', title: 'Blog' },
   { href: '/feed', title: 'Feed' },
-  { href: '/gallery', title: 'Gallery' },
+  { href: '/gallery', title: 'Gallery', isPrivate: true },
   { href: '/about', title: 'About' },
   // {
   //   title: 'More',

@@ -27,6 +27,8 @@ export const GET = async (req: NextRequest) => {
 export const POST = withAuth(async (req: NextRequest) => {
   try {
     await connectDB()
+    const userId = (await (req as any).userId) as string
+
     if (req.headers.get('content-type')?.includes('multipart/form-data')) {
       const formData = await req.formData()
       const title = formData.get('title') as string
@@ -37,7 +39,7 @@ export const POST = withAuth(async (req: NextRequest) => {
       const parsed = blogCrudSchema.safeParse({ title, summary, content, banner })
       if (!parsed.success) {
         return NextResponse.json(
-          errorResponse('Dữ liệu không hợp lệ', 'INVALID_DATA', 400, parsed.error.format()).body,
+          errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
           { status: 400 }
         )
       }
@@ -60,6 +62,7 @@ export const POST = withAuth(async (req: NextRequest) => {
         summary,
         content,
         banner: bannerId ? new mongoose.Types.ObjectId(bannerId) : undefined,
+        created_by: userId ? new mongoose.Types.ObjectId(userId) : undefined,
       })
       return NextResponse.json(successResponse(blog).body, { status: 200 })
     } else {
@@ -68,12 +71,16 @@ export const POST = withAuth(async (req: NextRequest) => {
       const parsed = blogCrudSchema.safeParse(body)
       if (!parsed.success) {
         return NextResponse.json(
-          errorResponse('Dữ liệu không hợp lệ', 'INVALID_DATA', 400, parsed.error.format()).body,
+          errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
           { status: 400 }
         )
       }
 
-      const blog = await createBlog(body)
+      const bodyReq = {
+        ...body,
+        created_by: userId ? new mongoose.Types.ObjectId(userId) : undefined,
+      }
+      const blog = await createBlog(bodyReq)
       return NextResponse.json(successResponse(blog).body, { status: 200 })
     }
   } catch (e: any) {

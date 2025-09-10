@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 
+import { CheckboxField } from '@/components/form/CheckboxField'
 import { EditorField } from '@/components/form/EditorField'
 import { FileField } from '@/components/form/FileField'
 import { TextField } from '@/components/form/TextField'
@@ -28,6 +29,7 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
       summary: defaultValues?.summary || '',
       banner: defaultValues?.banner,
       content: defaultValues?.content || '',
+      is_published: defaultValues?.is_published || false,
     },
   })
 
@@ -54,6 +56,7 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
             defaultValues?.banner_resource ? [defaultValues?.banner_resource] : undefined
           }
         />
+
         <EditorField
           control={form.control}
           name="content"
@@ -61,6 +64,8 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
           uploadType="api"
           height={'auto'}
         />
+
+        <CheckboxField control={form.control} name="is_published" label="Published" />
 
         <div className="mt-4 flex gap-4">
           <Button

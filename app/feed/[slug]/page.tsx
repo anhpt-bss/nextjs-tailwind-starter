@@ -18,7 +18,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
   const errorMessage =
     typeof error === 'object' && error && 'message' in error
       ? String((error as Record<string, unknown>).message)
-      : error?.toString?.() || 'Unable to load blog details'
+      : error?.toString?.() || 'Unable to load feed details'
 
   if (isLoading) {
     return (
@@ -41,7 +41,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
       <header className="mb-8 flex flex-col gap-4">
         <div className="flex items-center gap-2 py-4">
           <Link
-            href="/blog"
+            href="/feed"
             className="inline-flex items-center gap-1 rounded px-3 py-1 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/30"
           >
             ← Back

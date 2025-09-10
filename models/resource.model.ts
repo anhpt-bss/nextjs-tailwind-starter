@@ -31,11 +31,11 @@ const ResourceSchema = new Schema<IResource>(
     category: {
       type: String,
       required: false,
-      default: 'Hệ Thống',
+      default: 'System',
     },
     created_by: {
       type: String,
-      default: 'Admin',
+      default: 'System',
     },
     created_time: {
       type: Date,
