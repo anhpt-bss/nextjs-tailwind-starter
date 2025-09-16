@@ -1,11 +1,13 @@
-import { StoredFileResponse } from '@/types/storage'
-import React from 'react'
-import Image from 'next/image'
 import dayjs from 'dayjs'
-import MoreAction from './MoreAction'
-import Loading from './Loading'
-import Empty from './Empty'
+import Image from 'next/image'
+import React from 'react'
+
+import { StoredFileResponse } from '@/types/storage'
 import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
+
+import Empty from './Empty'
+import Loading from './Loading'
+import MoreAction from './MoreAction'
 
 interface GalleryGridProps {
   files: StoredFileResponse[]

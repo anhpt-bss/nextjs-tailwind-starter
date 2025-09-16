@@ -1,15 +1,48 @@
 // requests/useStorage.ts
-import { useCustomQuery } from '@/hooks/useCustomQuery'
-import { useCustomMutation } from '@/hooks/useCustomMutation'
-import { toast } from 'sonner'
+
 import { useQueryClient } from '@tanstack/react-query'
-import {
-  requestGetStorages,
-  requestCreateStorage,
-  requestUpdateStorage,
-  requestDeleteStorage,
-} from '@/services/storage.service'
-import type { StorageResponse, StoragePayload } from '@/types/storage'
+import { toast } from 'sonner'
+
+import { useCustomMutation } from '@/hooks/useCustomMutation'
+import { useCustomQuery } from '@/hooks/useCustomQuery'
+import api from '@/lib/axios'
+import type {
+  StorageResponse,
+  StoragePayload,
+  CreateStoragePayload,
+  UpdateStoragePayload,
+} from '@/types/storage'
+
+// Requests
+export const requestGetStorages = async () => {
+  const res = await api.get('/api/storage')
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse[]
+}
+
+export const requestCreateStorage = async (payload: CreateStoragePayload) => {
+  const res = await api.post('/api/storage', payload)
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse
+}
+
+export const requestUpdateStorage = async (payload: UpdateStoragePayload) => {
+  const res = await api.put(`/api/storage/${payload._id}`, payload)
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse
+}
+
+export const requestDeleteStorage = async (id: string) => {
+  const res = await api.delete(`/api/storage/${id}`)
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse
+}
+
+export const requestGetDefaultStorages = async () => {
+  const res = await api.get('/api/storage/default')
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse[]
+}
 
 // Hooks
 export function useStorages(options = {}) {
@@ -40,4 +73,8 @@ export function useUpdateStorage(options = {}) {
 
 export function useDeleteStorage(options = {}) {
   return useCustomMutation<StorageResponse, string>(requestDeleteStorage, options)
+}
+
+export function useDefautlStorages(options = {}) {
+  return useCustomQuery<StorageResponse[]>(['storages'], requestGetDefaultStorages, options)
 }

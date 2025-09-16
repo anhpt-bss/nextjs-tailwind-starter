@@ -1,6 +1,7 @@
 // models/user.model.ts
+import mongoose, { Schema, Document } from 'mongoose'
+
 import { hashCharacter } from '@/lib/hash'
-import mongoose, { Schema, Document, Model } from 'mongoose'
 
 export interface IUser extends Document {
   avatar?: mongoose.Types.ObjectId

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { withAuth } from '@/middlewares/withAuth'
 import { uploadFileToStorage } from '@/services/storedFile.service'
-import { uploadFileSchema } from '@/validators/storage.schema'
-import { successResponse, errorResponse } from '@/utils/response'
 import type { StoredFileResponse } from '@/types/storage'
+import { successResponse, errorResponse } from '@/utils/response'
+import { uploadFileSchema } from '@/validators/storage.schema'
 
 export const POST = withAuth(async (req: NextRequest) => {
   try {
@@ -14,9 +15,9 @@ export const POST = withAuth(async (req: NextRequest) => {
     const errors: { index: number; error: any }[] = []
     for (let i = 0; i < files.length; i++) {
       const fileData = files[i]
-      const parse = uploadFileSchema.safeParse(fileData)
-      if (!parse.success) {
-        errors.push({ index: i, error: parse.error.errors })
+      const parsed = uploadFileSchema.safeParse(fileData)
+      if (!parsed.success) {
+        errors.push({ index: i, error: parsed.error.issues })
         continue
       }
       try {

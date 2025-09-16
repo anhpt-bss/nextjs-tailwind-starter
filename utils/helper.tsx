@@ -7,10 +7,13 @@ import {
   ArchiveBoxIcon,
   CodeBracketIcon,
 } from '@heroicons/react/24/outline'
-import React from 'react'
 import _ from 'lodash'
-import type { StoredFileResponse } from '@/types/storage'
 import Image from 'next/image'
+import React from 'react'
+
+import type { CommonParam } from '@/types/common'
+import { ResourceResponse } from '@/types/resource'
+import type { StoredFileResponse } from '@/types/storage'
 
 export const getFilePreviewIconOrImage = (
   file: File | StoredFileResponse,
@@ -106,4 +109,39 @@ export function normalizeText(text: string) {
     .replace(/\p{Diacritic}/gu, '')
     .replace(/[^a-zA-Z0-9 ]/g, '')
     .toLowerCase()
+}
+
+export const getResourceUrl = (resource: ResourceResponse) => {
+  if (resource?.platform === 'github') {
+    return resource?.preview_url || resource?.download_url || ''
+  }
+  return `${process.env.NEXT_PUBLIC_API_URL || ''}${process.env.NEXT_PUBLIC_BASE_PATH || ''}${resource?.path}`
+}
+
+/**
+ * Convert CommonParam -> URL query string
+ */
+export function toQueryParams(params: CommonParam): string {
+  const query = new URLSearchParams()
+
+  if (params.search) query.append('search', params.search)
+  if (params.sort) query.append('sort', params.sort)
+  if (params.skip != null) query.append('skip', String(params.skip))
+  if (params.limit != null) query.append('limit', String(params.limit))
+
+  return query.toString()
+}
+
+/**
+ * Parse URL query string -> CommonParam
+ */
+export function fromQueryParams(queryString: string): CommonParam {
+  const searchParams = new URLSearchParams(queryString)
+
+  return {
+    search: searchParams.get('search') ?? undefined,
+    sort: searchParams.get('sort') ?? undefined,
+    skip: searchParams.get('skip') ? Number(searchParams.get('skip')) : undefined,
+    limit: searchParams.get('limit') ? Number(searchParams.get('limit')) : undefined,
+  }
 }

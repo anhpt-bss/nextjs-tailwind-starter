@@ -1,11 +1,14 @@
 import clsx from 'clsx'
-import * as React from 'react'
-import type { StoredFileResponse } from '../types/storage'
-import MoreAction from './MoreAction'
-import Loading from './Loading'
-import Empty from './Empty'
-import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 import dayjs from 'dayjs'
+import * as React from 'react'
+
+import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
+
+import Empty from './Empty'
+import Loading from './Loading'
+import MoreAction from './MoreAction'
+
+import type { StoredFileResponse } from '../types/storage'
 
 type GalleryListProps = {
   files: StoredFileResponse[]

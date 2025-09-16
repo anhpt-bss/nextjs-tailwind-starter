@@ -1,8 +1,9 @@
-import { StoredFileResponse } from '@/types/storage'
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline'
 import React from 'react'
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { toast } from 'sonner'
+
+import { StoredFileResponse } from '@/types/storage'
 import { handleDownload } from '@/utils/helper'
 
 interface MoreActionProps {

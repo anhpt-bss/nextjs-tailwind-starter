@@ -9,6 +9,13 @@ export interface ApiResponse<T = any> {
 }
 
 export interface PaginatedResponse<T> {
-  data: T[]
+  items: T[]
   total: number
+}
+
+export interface CommonParam {
+  search?: string
+  sort?: string
+  skip?: number
+  limit?: number
 }

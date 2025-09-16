@@ -3,20 +3,21 @@
 import dayjs from 'dayjs'
 import Lightbox, { Slide } from 'yet-another-react-lightbox'
 import Captions from 'yet-another-react-lightbox/plugins/captions'
+import Counter from 'yet-another-react-lightbox/plugins/counter'
+import Download from 'yet-another-react-lightbox/plugins/download'
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen'
+import Share from 'yet-another-react-lightbox/plugins/share'
 import Slideshow from 'yet-another-react-lightbox/plugins/slideshow'
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
 import Video from 'yet-another-react-lightbox/plugins/video'
 import Zoom from 'yet-another-react-lightbox/plugins/zoom'
-import Download from 'yet-another-react-lightbox/plugins/download'
-import Counter from 'yet-another-react-lightbox/plugins/counter'
-import Share from 'yet-another-react-lightbox/plugins/share'
+
 import 'yet-another-react-lightbox/plugins/counter.css'
 import 'yet-another-react-lightbox/plugins/captions.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
 import 'yet-another-react-lightbox/styles.css'
-import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 import { StoredFileResponse } from '@/types/storage'
+import { formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
 
 const breakpoints = [3840, 1920, 1080, 640, 384, 256, 128]
 

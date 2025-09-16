@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
 import { Field, Label, Select, Description } from '@headlessui/react'
 import clsx from 'clsx'
+import React from 'react'
 
 export interface BaseSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string

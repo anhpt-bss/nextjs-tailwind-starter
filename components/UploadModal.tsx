@@ -1,15 +1,16 @@
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
+import { XMarkIcon, PhotoIcon, FolderIcon } from '@heroicons/react/24/outline'
+import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useState } from 'react'
-import { XMarkIcon, PhotoIcon, FolderIcon } from '@heroicons/react/24/outline'
-import { useUploadLargeFiles } from '@/requests/useStoredFile'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { uploadFileSchema } from '@/validators/storage.schema'
+
 import InputField from '@/components/headlessui/Input'
 import SelectField from '@/components/headlessui/Select'
+import { useUploadLargeFiles } from '@/requests/useStoredFile'
 import { StorageResponse, UploadLargeFilePayload } from '@/types/storage'
 import { fileToBase64, formatSize, getFilePreviewIconOrImage } from '@/utils/helper'
-import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
+import { uploadFileSchema } from '@/validators/storage.schema'
 
 interface UploadModalProps {
   storages: StorageResponse[]

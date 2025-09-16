@@ -1,11 +1,12 @@
 'use client'
-import { useProfile, useUpdateProfile } from '@/requests/useUser'
-import { useState, useEffect } from 'react'
-import IconEdit from '@/components/IconEdit'
-import { useLogout } from '@/requests/useAuth'
-import Link from 'next/link'
-import Loading from '@/components/Loading'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+
+import IconEdit from '@/components/IconEdit'
+import Loading from '@/components/Loading'
+import { useLogout } from '@/requests/useAuth'
+import { useProfile, useUpdateProfile } from '@/requests/useUser'
 import { getAvatarUrl } from '@/utils/helper'
 
 const initialProfile = {
@@ -190,7 +191,7 @@ export default function ProfilePage() {
 
         {data?.is_admin && (
           <Link href="/admin" className="mt-4 block text-center text-blue-600 hover:underline">
-            Admin Dashboard
+            Admin CMS
           </Link>
         )}
       </div>

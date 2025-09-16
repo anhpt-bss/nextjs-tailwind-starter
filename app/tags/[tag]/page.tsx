@@ -1,11 +1,12 @@
 import { slug } from 'github-slugger'
+import { Metadata } from 'next'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
+
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allBlogs } from 'contentlayer/generated'
-import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
-import { Metadata } from 'next'
+import tagData from 'app/tag-data.json'
+import { allBlogs } from 'contentlayer/generated'
 
 const POSTS_PER_PAGE = 5
 

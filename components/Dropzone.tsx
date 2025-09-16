@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react'
 import { PhotoIcon } from '@heroicons/react/24/outline'
+import { useRef, useState, useEffect } from 'react'
 
 interface DropzoneProps {
   onUpload: (files: FileList) => void

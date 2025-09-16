@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { withAuth } from '@/middlewares/withAuth'
-import { successResponse, errorResponse } from '@/utils/response'
 import { getDistinctFoldersByUser } from '@/services/storedFile.service'
+import { successResponse, errorResponse } from '@/utils/response'
 
 export const GET = withAuth(async (req: NextRequest) => {
   try {

@@ -1,11 +1,11 @@
 // services/auth.service.ts
-import api from '@/lib/axios'
-import UserModel from '@/models/user.model'
-import { signJwt } from '@/lib/jwt'
-import { compareCharacter } from '@/lib/hash'
-import { LoginPayload, RegisterPayload, UserResponse } from '@/types/user'
+
 import { clearAllCookiesClient, setUniversalCookie } from '@/lib/cookie'
+import { compareCharacter } from '@/lib/hash'
+import { signJwt } from '@/lib/jwt'
 import { getQueryClient } from '@/lib/react-query'
+import UserModel from '@/models/user.model'
+import { CookieProfileSaved, LoginPayload, RegisterPayload, UserResponse } from '@/types/user'
 
 export async function login(data: LoginPayload) {
   const user = await UserModel.findOne({ email: data.email })
@@ -43,30 +43,13 @@ export function saveAuthCookies(token?: string, user?: UserResponse) {
     setUniversalCookie('token', token)
   }
   if (user) {
-    const profileSaved = {
+    const profileSaved: CookieProfileSaved = {
       userId: user._id,
       avatar: user.avatar,
       name: user.name,
+      email: user.email,
       isAdmin: user.is_admin,
     }
     setUniversalCookie('profile', JSON.stringify(profileSaved))
   }
-}
-
-export const requestLogin = async (payload) => {
-  const res = await api.post('/api/auth/login', payload)
-  if (!res.data.success) throw res.data
-  return res.data.data
-}
-
-export const requestRegister = async (payload) => {
-  const res = await api.post('/api/auth/register', payload)
-  if (!res.data.success) throw res.data
-  return res.data.data
-}
-
-export const requestLogout = async () => {
-  const res = await api.post('/api/auth/logout')
-  if (!res.data.success) throw res.data
-  return res.data.data
 }

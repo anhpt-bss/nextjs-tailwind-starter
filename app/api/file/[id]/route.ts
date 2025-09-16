@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { withAuth } from '@/middlewares/withAuth'
 import { getFileById, updateFileMetadata, deleteFile } from '@/services/storedFile.service'
-import { storedFileSchema } from '@/validators/storage.schema'
 import { successResponse, errorResponse } from '@/utils/response'
+import { storedFileSchema } from '@/validators/storage.schema'
 
 export const GET = withAuth(async (req: NextRequest, context: any) => {
   const userId = (req as any).userId
@@ -23,10 +24,10 @@ export const PUT = withAuth(async (req: NextRequest, context: any) => {
   const params = await context.params
   const { id } = await params
   const body = await req.json()
-  const parse = storedFileSchema.safeParse(body)
-  if (!parse.success) {
+  const parsed = storedFileSchema.safeParse(body)
+  if (!parsed.success) {
     return NextResponse.json(
-      errorResponse('Invalid data', 'INVALID_DATA', 400, parse.error.errors).body,
+      errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
       { status: 400 }
     )
   }

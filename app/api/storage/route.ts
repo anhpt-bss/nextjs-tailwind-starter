@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { withAuth } from '@/middlewares/withAuth'
 import { createStorage, getStoragesByUser } from '@/services/storage.service'
-import { storageSchema } from '@/validators/storage.schema'
 import { successResponse, errorResponse } from '@/utils/response'
+import { storageSchema } from '@/validators/storage.schema'
 
 export const POST = withAuth(async (req: NextRequest) => {
   const userId = (req as any).userId
   const body = await req.json()
-  const parse = storageSchema.safeParse(body)
-  if (!parse.success) {
+  const parsed = storageSchema.safeParse(body)
+  if (!parsed.success) {
     return NextResponse.json(
-      errorResponse('Invalid data', 'INVALID_DATA', 400, parse.error.errors).body,
+      errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
       { status: 400 }
     )
   }

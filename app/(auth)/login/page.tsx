@@ -1,22 +1,25 @@
 'use client'
 
-import { useLogin } from '@/requests/useAuth'
-import { loginSchema } from '@/validators/auth.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import InputField from '@/components/headlessui/Input'
-import Link from 'next/link'
+
+import { TextField } from '@/components/form/TextField'
+import { Button } from '@/components/ui/button'
+import { Form } from '@/components/ui/form'
+import { useLogin } from '@/requests/useAuth'
+import { loginSchema } from '@/validators/auth.schema'
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormValues>({
+  const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
   const { mutate: login, isPending } = useLogin({
@@ -28,42 +31,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md rounded-2xl bg-white/90 p-8 shadow-2xl backdrop-blur-md dark:bg-gray-900/90"
-      >
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white/90 p-8 shadow-2xl backdrop-blur-md dark:bg-gray-900/90">
         <h2 className="mb-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-blue-300 dark:via-purple-300 dark:to-pink-300">
-          Sign in to your account
+          Login
         </h2>
 
-        <InputField
-          control={control}
-          name="email"
-          label="Email"
-          placeholder="you@example.com"
-          type="email"
-          required
-          inputProps={{ autoComplete: 'email' }}
-        />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <TextField
+              control={form.control}
+              name="email"
+              label="Email"
+              placeholder="Enter your email"
+              type="email"
+              required
+            />
 
-        <InputField
-          control={control}
-          name="password"
-          label="Password"
-          placeholder="Choose a secure password"
-          type="password"
-          required
-          inputProps={{ minLength: 6 }}
-        />
+            <TextField
+              control={form.control}
+              type="password"
+              name="password"
+              label="Password"
+              placeholder="Enter your password"
+              required
+              minLength={6}
+            />
 
-        <button
-          type="submit"
-          className="w-full rounded-lg bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 py-2 font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-pink-700"
-          disabled={isPending}
-        >
-          {isPending ? 'Logging in...' : 'Login'}
-        </button>
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white hover:from-blue-700 hover:to-pink-700"
+              disabled={isPending}
+            >
+              {isPending ? 'Logging in...' : 'Login'}
+            </Button>
+          </form>
+        </Form>
 
         <div className="mt-6 text-center">
           <span className="text-gray-600 dark:text-gray-300">Don't have an account?</span>
@@ -74,7 +77,7 @@ export default function LoginPage() {
             Register now
           </Link>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

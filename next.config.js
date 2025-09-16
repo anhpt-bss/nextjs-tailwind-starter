@@ -55,7 +55,7 @@ const securityHeaders = [
 ]
 
 const output = process.env.EXPORT ? 'export' : undefined
-const basePath = process.env.BASE_PATH || undefined
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || undefined
 const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 
 /**
@@ -74,6 +74,10 @@ module.exports = () => {
     },
     images: {
       remotePatterns: [
+        {
+          protocol: 'http',
+          hostname: 'localhost',
+        },
         {
           protocol: 'https',
           hostname: 'picsum.photos',

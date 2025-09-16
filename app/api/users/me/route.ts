@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserById } from '@/services/user.service'
-import { withAuth } from '@/middlewares/withAuth'
+
 import { connectDB } from '@/lib/db'
+import { withAuth } from '@/middlewares/withAuth'
 import UserModel from '@/models/user.model'
-import { successResponse, errorResponse } from '@/utils/response'
+import { getUserById } from '@/services/user.service'
 import { RegisterPayload } from '@/types/user'
+import { successResponse, errorResponse } from '@/utils/response'
+import { userCrudSchema } from '@/validators/user.schema'
 
 export const GET = withAuth(async (req: NextRequest) => {
   try {
@@ -17,7 +19,7 @@ export const GET = withAuth(async (req: NextRequest) => {
     }
     const user = await getUserById(userId)
     if (!user) {
-      return NextResponse.json(errorResponse('User not found', 'USER_NOT_FOUND', 404).body, {
+      return NextResponse.json(errorResponse('Record not found', 'RECORD_NOT_FOUND', 404).body, {
         status: 404,
       })
     }
@@ -45,9 +47,18 @@ export const PUT = withAuth(async (req: NextRequest) => {
       gender: body.gender,
       birthday: body.birthday,
     }
+
+    const parsed = userCrudSchema.safeParse(updateFields)
+    if (!parsed.success) {
+      return NextResponse.json(
+        errorResponse('Invalid data', 'INVALID_DATA', 400, parsed.error.issues).body,
+        { status: 400 }
+      )
+    }
+
     const user = await UserModel.findByIdAndUpdate(userId, updateFields, { new: true }).lean()
     if (!user) {
-      return NextResponse.json(errorResponse('User not found', 'USER_NOT_FOUND', 404).body, {
+      return NextResponse.json(errorResponse('Record not found', 'RECORD_NOT_FOUND', 404).body, {
         status: 404,
       })
     }

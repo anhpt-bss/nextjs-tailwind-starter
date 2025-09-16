@@ -7,10 +7,10 @@ const siteMetadata = {
     'Personal blog & knowledge hub by Phạm Tuấn Anh — sharing web development, technology insights, and creative solutions for modern digital experiences.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://apt.ddns.net',
+  siteUrl: `${process.env.NEXT_PUBLIC_API_URL || ''}${process.env.NEXT_PUBLIC_BASE_PATH || ''}`,
   siteRepo: 'https://github.com/anhpt-bss/nextjs-tailwind-starter',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/app/logo.png`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/app/banner.png`,
+  siteLogo: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/static/images/app/logo.png`,
+  socialBanner: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/static/images/app/banner.png`,
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'address@yoursite.com',
   github: 'https://github.com',
@@ -25,7 +25,7 @@ const siteMetadata = {
   bluesky: 'https://bsky.app/',
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
-  stickyNav: false,
+  stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
@@ -64,10 +64,10 @@ const siteMetadata = {
     giscusConfig: {
       // Visit the link below, and follow the steps in the 'configuration' section
       // https://giscus.app/
-      repo: process.env.NEXT_PUBLIC_GISCUS_REPO,
-      repositoryId: process.env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID,
-      category: process.env.NEXT_PUBLIC_GISCUS_CATEGORY,
-      categoryId: process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID,
+      repo: process.env.GISCUS_REPO,
+      repositoryId: process.env.GISCUS_REPOSITORY_ID,
+      category: process.env.GISCUS_CATEGORY,
+      categoryId: process.env.GISCUS_CATEGORY_ID,
       mapping: 'pathname', // supported options: pathname, url, title
       reactions: '1', // Emoji reactions: 1 = enable / 0 = disable
       // Send discussion metadata periodically to the parent window: 1 = enable / 0 = disable
@@ -88,7 +88,7 @@ const siteMetadata = {
   search: {
     provider: 'kbar', // kbar or algolia
     kbarConfig: {
-      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`, // path to load documents to search
+      searchDocumentsPath: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/search.json`, // path to load documents to search
     },
     // provider: 'algolia',
     // algoliaConfig: {
@@ -98,6 +98,21 @@ const siteMetadata = {
     //   apiKey: '599cec31baffa4868cae4e79f180729b',
     //   indexName: 'docsearch',
     // },
+  },
+  upload: {
+    provider: process.env.NEXT_PUBLIC_UPLOAD_PROVIDER,
+    localConfig: {
+      path: process.env.NEXT_PUBLIC_UPLOAD_LOCAL_PATH || 'uploads',
+      length: process.env.NEXT_PUBLIC_UPLOAD_MAX_FILES,
+      maxSize: process.env.NEXT_PUBLIC_UPLOAD_MAX_SIZE_MB,
+      allowedMime: process.env.NEXT_PUBLIC_UPLOAD_ALLOWED_MIME,
+    },
+    githubConfig: {
+      owner: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_OWNER,
+      repo: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_REPO,
+      path: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_PATH || 'uploads',
+      token: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_TOKEN,
+    },
   },
 }
 

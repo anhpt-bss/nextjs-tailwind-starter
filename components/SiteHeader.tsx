@@ -1,0 +1,36 @@
+import React from 'react'
+
+import { Separator } from '@/components/ui/separator'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+
+import ThemeSwitch from './ThemeSwitch'
+
+interface SiteHeaderProps {
+  navMenu?: {
+    title: string
+    href: string
+  }[]
+  currentPath?: string
+}
+
+const SiteHeader: React.FC<SiteHeaderProps> = ({ navMenu, currentPath }) => {
+  const currentPageTitle = React.useMemo(() => {
+    return (
+      navMenu?.find((item) => item.href === currentPath || currentPath?.includes(item.href))
+        ?.title || 'Dashboard'
+    )
+  }, [navMenu, currentPath])
+
+  return (
+    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+      <div className="flex w-full items-center gap-1 px-4 py-2 lg:gap-2 lg:px-6">
+        <SidebarTrigger className="-ml-1" />
+        <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
+        <h1 className="text-base font-medium">{currentPageTitle}</h1>
+      </div>
+      <ThemeSwitch />
+    </header>
+  )
+}
+
+export default React.memo(SiteHeader)

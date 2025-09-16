@@ -1,8 +1,10 @@
 // lib/cookie.ts
-import nookies, { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+
+import { verifyJwt } from '@/lib/jwt'
+
 import type { NextPageContext } from 'next'
 import type { NextResponse } from 'next/server'
-import { verifyJwt } from '@/lib/jwt'
 
 // Check if the context is a NextResponse (server-side)
 function isServerRes(ctx: any): ctx is NextResponse {
