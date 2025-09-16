@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { connectDB } from '@/lib/db'
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import { getAllUsers, createUser } from '@/services/user.service'
 import { successResponse, errorResponse } from '@/utils/response'
 import { userCrudSchema } from '@/validators/user.schema'

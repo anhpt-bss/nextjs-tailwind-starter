@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import { getFilesByUser } from '@/services/storedFile.service'
 import { successResponse, errorResponse } from '@/utils/response'
 

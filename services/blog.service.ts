@@ -4,23 +4,35 @@ import mongoose, { PipelineStage } from 'mongoose'
 
 import BlogModel from '@/models/blog.model'
 import { IBlog } from '@/models/blog.model'
+import userModel, { IUser } from '@/models/user.model'
 import { CommonParam } from '@/types/common'
 
 export async function getAllBlogs(
-  options: CommonParam = {}
+  options: CommonParam = {},
+  userId?: string
 ): Promise<{ items: IBlog[]; total: number }> {
   const { search, sort = 'newest', skip, limit } = options
 
-  /** Build query */
+  // Build query
   const query: Record<string, unknown> = {}
   if (search) {
     query.$text = { $search: search }
   }
 
-  /** Count total first */
+  if (userId) {
+    const user = await userModel.findById(userId).lean<IUser>().exec()
+
+    if (user && !user.is_admin) {
+      query.is_published = true
+    }
+  } else {
+    query.is_published = true
+  }
+
+  // Count total
   const total = await BlogModel.countDocuments(query)
 
-  /** Build sort object */
+  // Build sort object
   const sortObj: Record<string, 1 | -1> = (() => {
     switch (sort) {
       case 'newest':
@@ -32,7 +44,7 @@ export async function getAllBlogs(
     }
   })()
 
-  /** Aggregation pipeline */
+  // Aggregation pipeline
   const pipeline: PipelineStage[] = [
     { $match: query },
     {
@@ -50,15 +62,15 @@ export async function getAllBlogs(
     },
     {
       $lookup: {
-        from: 'storedfiles',
-        localField: 'banner',
+        from: 'users',
+        localField: 'created_by',
         foreignField: '_id',
-        as: 'banner_storedfiles',
+        as: 'created_by_user',
       },
     },
     {
       $addFields: {
-        banner_storedfiles: { $arrayElemAt: ['$banner_storedfiles', 0] },
+        created_by_user: { $arrayElemAt: ['$created_by_user', 0] },
       },
     },
     { $sort: sortObj },

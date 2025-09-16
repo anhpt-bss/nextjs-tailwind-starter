@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import { createStorage, getStoragesByUser } from '@/services/storage.service'
 import { successResponse, errorResponse } from '@/utils/response'
 import { storageSchema } from '@/validators/storage.schema'

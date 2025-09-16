@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit, Trash } from 'lucide-react'
+import { Edit, Trash, Check, X, User } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -113,6 +113,20 @@ export default function BlogPage() {
               </div>
               <div className="text-xs text-gray-500 sm:text-sm dark:text-gray-400">
                 {blog?.summary}
+              </div>
+              <div className="mt-1 flex gap-4 text-xs text-gray-500 dark:text-gray-400">
+                <span className="flex items-center gap-1">
+                  {blog?.is_published ? (
+                    <Check className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <X className="h-4 w-4 text-red-500" />
+                  )}
+                  <span>{blog?.is_published ? 'Published' : 'Unpublished'}</span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <User className="h-4 w-4 text-blue-500" />
+                  <span>{blog?.created_by || 'Unknown'}</span>
+                </span>
               </div>
             </CardContent>
             <CardFooter>

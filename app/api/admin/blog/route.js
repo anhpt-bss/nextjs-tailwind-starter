@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 
 const BLOG_DIR = path.join(process.cwd(), 'data', 'blog')
 

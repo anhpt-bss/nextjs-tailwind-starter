@@ -134,7 +134,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </SidebarFooter>
           <SidebarRail />
         </Sidebar>
-        <SidebarInset>
+        <SidebarInset className="overflow-hidden">
           <SiteHeader navMenu={adminNavLinks} currentPath={pathname} />
           <section className="h-[calc(100vh-var(--header-height))] overflow-auto p-4">
             {children}
