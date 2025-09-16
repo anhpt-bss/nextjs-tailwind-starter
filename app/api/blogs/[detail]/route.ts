@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { connectDB } from '@/lib/db'
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import { getBlogById, updateBlogById, deleteBlogById, getBlogBySlug } from '@/services/blog.service'
 import { uploadResourceFile } from '@/services/resource.service'
 import { successResponse, errorResponse } from '@/utils/response'
@@ -49,9 +49,10 @@ export const PUT = withAuth(
         const title = formData.get('title') as string
         const summary = formData.get('summary') as string
         const content = formData.get('content') as string
+        const is_published = formData.get('is_published') === 'true'
         const banner = formData.get('banner') as File | string
 
-        const parsed = blogCrudSchema.safeParse({ title, summary, content, banner })
+        const parsed = blogCrudSchema.safeParse({ title, summary, content, is_published, banner })
         if (!parsed.success) {
           return NextResponse.json(
             errorResponse('Dữ liệu không hợp lệ', 'INVALID_DATA', 400, parsed.error.format()).body,
@@ -71,6 +72,7 @@ export const PUT = withAuth(
           title,
           summary,
           content,
+          is_published,
           banner: bannerId ? new mongoose.Types.ObjectId(bannerId) : undefined,
         })
         if (!updatedBlog) {

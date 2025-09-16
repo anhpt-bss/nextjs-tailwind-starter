@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { connectDB } from '@/lib/db'
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import UserModel from '@/models/user.model'
 import { getUserById } from '@/services/user.service'
 import { RegisterPayload } from '@/types/user'

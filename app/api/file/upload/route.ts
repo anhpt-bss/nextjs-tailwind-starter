@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import { uploadFileToStorage } from '@/services/storedFile.service'
 import type { StoredFileResponse } from '@/types/storage'
 import { successResponse, errorResponse } from '@/utils/response'

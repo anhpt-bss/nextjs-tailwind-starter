@@ -32,6 +32,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ id: strin
     payload.append('title', values.title)
     payload.append('summary', values.summary)
     payload.append('content', values.content)
+    payload.append('is_published', values.is_published ? 'true' : 'false')
 
     if (values.banner instanceof File && cloudStorage) {
       const responseFile = await uploadFileAndSaveResource(values.banner, cloudStorage)
@@ -54,6 +55,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ id: strin
     payload.append('title', values.title)
     payload.append('summary', values.summary)
     payload.append('content', values.content)
+    payload.append('is_published', values.is_published ? 'true' : 'false')
 
     if (values.banner instanceof File && cloudStorage) {
       const responseFile = await uploadFileAndSaveResource(values.banner, cloudStorage)

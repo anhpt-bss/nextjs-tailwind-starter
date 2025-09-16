@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { connectDB } from '@/lib/db'
-import { withAuth } from '@/middlewares/withAuth'
+import { withAuth } from '@/middlewares/auth'
 import resourceModel from '@/models/resource.model'
 import { successResponse, errorResponse } from '@/utils/response'
 import { ResourceCreateSchema } from '@/validators/resource.schema'
