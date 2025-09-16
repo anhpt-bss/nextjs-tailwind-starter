@@ -2,12 +2,9 @@
 
 import mongoose, { PipelineStage } from 'mongoose'
 
-import api from '@/lib/axios'
 import BlogModel from '@/models/blog.model'
 import { IBlog } from '@/models/blog.model'
-import { BlogResponse } from '@/types/blog'
-import { CommonParam, PaginatedResponse } from '@/types/common'
-import { toQueryParams } from '@/utils/helper'
+import { CommonParam } from '@/types/common'
 
 export async function getAllBlogs(
   options: CommonParam = {}
@@ -49,6 +46,19 @@ export async function getAllBlogs(
     {
       $addFields: {
         banner_resource: { $arrayElemAt: ['$banner_resource', 0] },
+      },
+    },
+    {
+      $lookup: {
+        from: 'storedfiles',
+        localField: 'banner',
+        foreignField: '_id',
+        as: 'banner_storedfiles',
+      },
+    },
+    {
+      $addFields: {
+        banner_storedfiles: { $arrayElemAt: ['$banner_storedfiles', 0] },
       },
     },
     { $sort: sortObj },
@@ -120,48 +130,4 @@ export async function updateBlogById(id: string, data: Partial<IBlog>): Promise<
 
 export async function deleteBlogById(id: string): Promise<IBlog | null> {
   return BlogModel.findByIdAndDelete(id).lean<IBlog>().exec()
-}
-
-// Admin
-export const requestGetBlogs = async (
-  param: CommonParam
-): Promise<PaginatedResponse<BlogResponse>> => {
-  const res = await api.get(`/api/blogs?${toQueryParams(param)}`)
-  if (!res.data.success) throw res.data
-  return res.data.data
-}
-
-export const requestGetBlogById = async (id: string): Promise<BlogResponse> => {
-  const res = await api.get(`/api/blogs/detail?id=${id}`)
-  if (!res.data.success) throw res.data
-  return res.data.data as BlogResponse
-}
-
-export const requestCreateBlog = async (payload: FormData) => {
-  const res = await api.post('/api/blogs', payload, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
-  if (!res.data.success) throw res.data
-  return res.data.data as BlogResponse
-}
-
-export const requestUpdateBlog = async (payload: FormData) => {
-  const res = await api.put(`/api/blogs/${payload.get('_id') as string}`, payload, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  })
-  if (!res.data.success) throw res.data
-  return res.data.data as BlogResponse
-}
-
-export const requestDeleteBlog = async (id: string) => {
-  const res = await api.delete(`/api/blogs/${id}`)
-  if (!res.data.success) throw res.data
-  return res.data.data as BlogResponse
-}
-
-// Client
-export const requestGetBlogBySlug = async (slug: string): Promise<BlogResponse> => {
-  const res = await api.get(`/api/blogs/detail?slug=${slug}`)
-  if (!res.data.success) throw res.data
-  return res.data.data as BlogResponse
 }

@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
+import siteMetadata from '@/data/siteMetadata'
 import { useCustomInfiniteQuery } from '@/hooks/useCustomInfiniteQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
@@ -12,11 +13,13 @@ import { decrypt } from '@/lib/encrypt'
 import { uploadFileToGithub } from '@/lib/github'
 import { PaginatedResponse } from '@/types/common'
 import {
+  StorageResponse,
   StoredFilePayload,
   StoredFileResponse,
   UploadFilePayload,
   UploadLargeFilePayload,
 } from '@/types/storage'
+import { fileToBase64 } from '@/utils/helper'
 
 type MutationContext = { toastId: string }
 
@@ -263,4 +266,25 @@ export function useLazyStorageFiles(
 
 export function useFolders(options = {}) {
   return useCustomQuery<string[]>(['folders'], requestGetFolders, options)
+}
+
+export const uploadFilesToCloud = async (files: File[], cloudStorage?: StorageResponse) => {
+  if (siteMetadata.upload.provider === 'github' && cloudStorage) {
+    const payloads: UploadLargeFilePayload[] = []
+    for (const file of files) {
+      const base64_content = await fileToBase64(file)
+      payloads.push({
+        storage: cloudStorage,
+        file_path: 'uploads',
+        base64_content,
+        file_name: file.name,
+        file_extension: file.name.split('.').pop() || '',
+        content_type: file.type,
+        size: file.size,
+      })
+    }
+
+    return await requestUploadLargeFilesToStorage(payloads)
+  }
+  return null
 }

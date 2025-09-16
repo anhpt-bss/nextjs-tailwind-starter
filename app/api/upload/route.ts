@@ -30,7 +30,7 @@ export const POST = withAuth(async (req: NextRequest) => {
     console.error('Upload API error:', e)
     const status = e.status || 500
     return NextResponse.json(
-      errorResponse(e.message || 'Upload thất bại', 'REQUEST_FAILED', status).body,
+      errorResponse(e.message || 'Upload failed', 'REQUEST_FAILED', status).body,
       { status }
     )
   }

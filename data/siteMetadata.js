@@ -99,6 +99,21 @@ const siteMetadata = {
     //   indexName: 'docsearch',
     // },
   },
+  upload: {
+    provider: process.env.NEXT_PUBLIC_UPLOAD_PROVIDER,
+    localConfig: {
+      path: process.env.NEXT_PUBLIC_UPLOAD_LOCAL_PATH || 'uploads',
+      length: process.env.NEXT_PUBLIC_UPLOAD_MAX_FILES,
+      maxSize: process.env.NEXT_PUBLIC_UPLOAD_MAX_SIZE_MB,
+      allowedMime: process.env.NEXT_PUBLIC_UPLOAD_ALLOWED_MIME,
+    },
+    githubConfig: {
+      owner: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_OWNER,
+      repo: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_REPO,
+      path: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_PATH || 'uploads',
+      token: process.env.NEXT_PUBLIC_UPLOAD_GITHUB_TOKEN,
+    },
+  },
 }
 
 module.exports = siteMetadata

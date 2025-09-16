@@ -49,3 +49,42 @@ export async function deleteFileFromGithub({ owner, repo, path, token, sha, file
 
   return res.data
 }
+
+export async function checkFileExistsOnGithub({
+  owner,
+  repo,
+  token,
+  path,
+}: {
+  owner: string
+  repo: string
+  token: string
+  path: string
+}) {
+  try {
+    const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/${path}`
+
+    console.log(`[Checking File Existence] ${url}`)
+
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json',
+      },
+    })
+
+    if (res.status === 200) {
+      const data = await res.json()
+      return data
+    }
+
+    if (res.status === 404) {
+      return false
+    }
+
+    throw new Error(`GitHub check failed with status ${res.status}`)
+  } catch (err) {
+    console.error('Error checking file existence on GitHub:', err)
+    throw err
+  }
+}

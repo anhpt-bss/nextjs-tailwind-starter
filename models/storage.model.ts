@@ -9,6 +9,7 @@ export interface IStorage extends Document {
   owner: string
   repo: string
   token: string
+  is_default?: boolean
   created_at?: Date
   updated_at?: Date
 }
@@ -23,6 +24,7 @@ const StorageSchema = new Schema<IStorage>(
     owner: { type: String, required: true },
     repo: { type: String, required: true },
     token: { type: String, required: true },
+    is_default: { type: Boolean, default: false },
   },
   { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 )

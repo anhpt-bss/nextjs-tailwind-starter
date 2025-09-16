@@ -5,6 +5,7 @@ import { useController, Control } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ResourceResponse } from '@/types/resource'
+import { getResourceUrl } from '@/utils/helper'
 
 interface FileFieldProps {
   name: string
@@ -116,7 +117,13 @@ export const FileField: React.FC<FileFieldProps> = ({
             <div className="mt-3 flex flex-wrap gap-2">
               {defaultFile.map((item, idx) => (
                 <div key={idx} className="relative h-24 w-24 overflow-hidden rounded border">
-                  <Image src={item.path} alt="preview" sizes="fill" fill className="object-cover" />
+                  <Image
+                    src={getResourceUrl(item)}
+                    alt="preview"
+                    sizes="fill"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               ))}
             </div>

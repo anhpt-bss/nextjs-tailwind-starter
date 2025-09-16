@@ -10,18 +10,55 @@ import { toast } from 'sonner'
 import { useCustomInfiniteQuery } from '@/hooks/useCustomInfiniteQuery'
 import { useCustomMutation } from '@/hooks/useCustomMutation'
 import { useCustomQuery } from '@/hooks/useCustomQuery'
-import {
-  requestGetBlogs,
-  requestCreateBlog,
-  requestUpdateBlog,
-  requestDeleteBlog,
-  requestGetBlogById,
-  requestGetBlogBySlug,
-} from '@/services/blog.service'
+import api from '@/lib/axios'
 import { BlogResponse } from '@/types/blog'
 import { CommonParam, PaginatedResponse } from '@/types/common'
+import { toQueryParams } from '@/utils/helper'
 
-// Admin CRUD
+// Requests
+export const requestGetBlogs = async (
+  param: CommonParam
+): Promise<PaginatedResponse<BlogResponse>> => {
+  const res = await api.get(`/api/blogs?${toQueryParams(param)}`)
+  if (!res.data.success) throw res.data
+  return res.data.data
+}
+
+export const requestGetBlogById = async (id: string): Promise<BlogResponse> => {
+  const res = await api.get(`/api/blogs/detail?id=${id}`)
+  if (!res.data.success) throw res.data
+  return res.data.data as BlogResponse
+}
+
+export const requestCreateBlog = async (payload: FormData) => {
+  const res = await api.post('/api/blogs', payload, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+  if (!res.data.success) throw res.data
+  return res.data.data as BlogResponse
+}
+
+export const requestUpdateBlog = async (payload: FormData) => {
+  const res = await api.put(`/api/blogs/${payload.get('_id') as string}`, payload, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+  if (!res.data.success) throw res.data
+  return res.data.data as BlogResponse
+}
+
+export const requestDeleteBlog = async (id: string) => {
+  const res = await api.delete(`/api/blogs/${id}`)
+  if (!res.data.success) throw res.data
+  return res.data.data as BlogResponse
+}
+
+export const requestGetBlogBySlug = async (slug: string): Promise<BlogResponse> => {
+  const res = await api.get(`/api/blogs/detail?slug=${slug}`)
+  if (!res.data.success) throw res.data
+  return res.data.data as BlogResponse
+}
+
+// Hooks
 export function useBlogs(param: CommonParam = {}, options?: { enabled?: boolean }) {
   return useCustomQuery<PaginatedResponse<BlogResponse>, CommonParam>(
     ['blogs', { ...param }],

@@ -38,6 +38,12 @@ export const requestDeleteStorage = async (id: string) => {
   return res.data.data as StorageResponse
 }
 
+export const requestGetDefaultStorages = async () => {
+  const res = await api.get('/api/storage/default')
+  if (!res.data.success) throw res.data
+  return res.data.data as StorageResponse[]
+}
+
 // Hooks
 export function useStorages(options = {}) {
   return useCustomQuery<StorageResponse[]>(['storages'], requestGetStorages, options)
@@ -67,4 +73,8 @@ export function useUpdateStorage(options = {}) {
 
 export function useDeleteStorage(options = {}) {
   return useCustomMutation<StorageResponse, string>(requestDeleteStorage, options)
+}
+
+export function useDefautlStorages(options = {}) {
+  return useCustomQuery<StorageResponse[]>(['storages'], requestGetDefaultStorages, options)
 }

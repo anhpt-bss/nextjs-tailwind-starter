@@ -12,6 +12,7 @@ import Image from 'next/image'
 import React from 'react'
 
 import type { CommonParam } from '@/types/common'
+import { ResourceResponse } from '@/types/resource'
 import type { StoredFileResponse } from '@/types/storage'
 
 export const getFilePreviewIconOrImage = (
@@ -110,8 +111,11 @@ export function normalizeText(text: string) {
     .toLowerCase()
 }
 
-export const getResourceUrl = (path: string) => {
-  return `${process.env.NEXT_PUBLIC_API_URL || ''}${process.env.NEXT_PUBLIC_BASE_PATH || ''}${path}`
+export const getResourceUrl = (resource: ResourceResponse) => {
+  if (resource?.platform === 'github') {
+    return resource?.preview_url || resource?.download_url || ''
+  }
+  return `${process.env.NEXT_PUBLIC_API_URL || ''}${process.env.NEXT_PUBLIC_BASE_PATH || ''}${resource?.path}`
 }
 
 /**

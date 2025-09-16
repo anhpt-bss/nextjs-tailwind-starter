@@ -30,3 +30,8 @@ export async function deleteStorage(id: string, userId: string) {
   await connectDB()
   return Storage.findOneAndDelete({ _id: id, user: userId })
 }
+
+export async function getDefaultStorages() {
+  await connectDB()
+  return Storage.find({ is_default: true })
+}

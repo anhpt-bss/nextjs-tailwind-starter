@@ -50,7 +50,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         {blog?.banner_resource && (
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl">
             <Image
-              src={getResourceUrl(blog?.banner_resource?.path)}
+              src={getResourceUrl(blog?.banner_resource)}
               alt={blog?.banner_resource?.filename}
               fill
               className="object-cover"

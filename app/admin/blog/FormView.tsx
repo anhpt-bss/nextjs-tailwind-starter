@@ -11,15 +11,22 @@ import { TextField } from '@/components/form/TextField'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { BlogResponse } from '@/types/blog'
+import { StorageResponse } from '@/types/storage'
 import { BlogCrudFormValues, blogCrudSchema } from '@/validators/blog.schema'
 
 interface FormViewProps {
+  defaultValues?: BlogResponse | null
+  cloudStorage?: StorageResponse
   onSubmit: (data: BlogCrudFormValues) => void
   loading?: boolean
-  defaultValues?: BlogResponse | null
 }
 
-export default function FormView({ onSubmit, loading, defaultValues }: FormViewProps) {
+export default function FormView({
+  onSubmit,
+  loading,
+  defaultValues,
+  cloudStorage,
+}: FormViewProps) {
   const router = useRouter()
 
   const form = useForm<BlogCrudFormValues>({
@@ -63,6 +70,7 @@ export default function FormView({ onSubmit, loading, defaultValues }: FormViewP
           label="Content"
           uploadType="api"
           height={'auto'}
+          cloudStorage={cloudStorage}
         />
 
         <CheckboxField control={form.control} name="is_published" label="Published" />

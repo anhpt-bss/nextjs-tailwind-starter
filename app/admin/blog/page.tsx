@@ -98,7 +98,7 @@ export default function BlogPage() {
               <div className="relative h-full w-full">
                 {blog?.banner_resource && (
                   <Image
-                    src={getResourceUrl(blog?.banner_resource?.path)}
+                    src={getResourceUrl(blog?.banner_resource)}
                     alt={blog?.banner_resource?.filename}
                     sizes="fill"
                     fill

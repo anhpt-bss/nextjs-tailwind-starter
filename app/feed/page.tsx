@@ -100,7 +100,7 @@ export default function BlogPage() {
               {blog?.banner_resource && (
                 <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-xl">
                   <Image
-                    src={getResourceUrl(blog?.banner_resource?.path)}
+                    src={getResourceUrl(blog?.banner_resource)}
                     alt={blog?.banner_resource?.filename}
                     fill
                     className="object-cover transition-transform duration-200 group-hover:scale-105"
