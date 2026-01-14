@@ -167,14 +167,12 @@ export const cvDataEN = {
       highlights: [],
     },
   ],
-  certifications: [
-    // {
-    //   name: 'AWS Certified Developer - Associate',
-    //   issuer: 'Amazon Web Services',
-    //   date: '2023',
-    //   credential: 'AWS-DEV-2023-12345',
-    // },
-  ],
+  certifications: [] as Array<{
+    name: string
+    issuer: string
+    date: string
+    credential: string
+  }>,
   languages: [
     { name: 'Vietnamese', level: 'Native' },
     { name: 'English', level: 'Professional working proficiency' },
