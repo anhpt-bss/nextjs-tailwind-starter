@@ -1,0 +1,191 @@
+// English CV Data for Senior Frontend Developer
+export const cvDataEN = {
+  locale: 'en',
+  personal: {
+    name: 'Pham Tuan Anh',
+    title: 'Website Developer',
+    subtitle: 'Over 7 years of experience building modern web applications',
+    location: 'Ho Chi Minh City, Vietnam',
+    email: 'anhpt.devweb@gmail.com',
+    phone: '+84 (0)364 006 033',
+    website: 'https://apt.ddns.net',
+    linkedin: 'linkedin.com/in/tuan-anh-pham-dev',
+    dateOfBirth: '12/07/1996',
+    avatar: '/static/images/avatar.png',
+  },
+  summary:
+    'Frontend Developer with 7+ years of experience building large-scale web applications. Specialized in React, Next.js, Vue.js, and TypeScript. Experienced in designing application architecture, applying design patterns, and mentoring team members. Built enterprise systems serving multiple businesses with user-friendly interfaces and excellent user experience.',
+  skills: {
+    frontend: ['React', 'Next.js', 'Vue.js', 'Angular', 'TypeScript', 'JavaScript', 'HTML5/CSS3'],
+    styling: [
+      'Tailwind CSS',
+      'Styled Components',
+      'CSS Modules',
+      'SCSS/SASS',
+      'Responsive Design',
+      'CSS-in-JS',
+    ],
+    stateManagement: ['Redux Toolkit', 'Redux Saga', 'Zustand', 'React Query', 'Context API'],
+    tools: ['Git/GitHub', 'Docker', 'Webpack', 'Vite', 'ESLint/Prettier', 'CI/CD', 'SonarQube'],
+    testing: ['Jest', 'Vitest'],
+    backend: ['Node.js', 'Express', 'RESTful API', 'MongoDB'],
+    others: [
+      'Agile/Scrum',
+      'Microservices',
+      'Web Performance',
+      'SEO',
+      'SignalR',
+      'Socket.IO',
+      'Design Systems',
+    ],
+  },
+  experience: [
+    {
+      company: 'Base Business Solutions Corp',
+      position: 'Web Developer',
+      location: 'Ho Chi Minh City, Vietnam',
+      duration: 'September 2020 - Present',
+      type: 'Full-time',
+      achievements: [
+        'Designed frontend architecture and applied design patterns (Singleton, Factory, Observer, Module) for large-scale enterprise applications',
+        'Built and developed in-house web applications as a Frontend Developer',
+        'Proposed and implemented appropriate technology solutions, configured projects and established coding standards for the team',
+        'Optimized performance and user experience for web applications, improving performance and UX',
+        'Mentored and guided team members on React ecosystem, design patterns, best practices, and development processes',
+        'Collaborated closely with design, backend, and project management teams to ensure project timeline and quality',
+        'Conducted code reviews and ensured code quality, implementing continuous improvements based on customer feedback',
+      ],
+      technologies: ['JavaScript', 'TypeScript', 'React', 'Vue.js', 'Next.js'],
+    },
+    {
+      company: 'BeeSight Soft',
+      position: 'Web Developer',
+      location: 'Ho Chi Minh City, Vietnam',
+      duration: 'July 2019 - August 2020',
+      type: 'Full-time',
+      achievements: [
+        'Served as a Frontend Developer in developing internal sales management application using React',
+        'Fixed bugs and developed Frontend features for applications using React Native, Angular, Vue.js, and React',
+        'Built, maintained, and fixed bugs for Hybrid Mobile applications using Cordova Framework',
+        'Designed and built websites for clients using WordPress Landing Page model',
+        'Participated in developing and expanding Backend modules for web applications using PHP and Node.js',
+      ],
+      technologies: [
+        'JavaScript',
+        'TypeScript',
+        'PHP',
+        'Node.js',
+        'React',
+        'React Native',
+        'Angular',
+        'Vue.js',
+        'Cordova',
+        'WordPress',
+        'RESTful API',
+      ],
+    },
+  ],
+  projects: [
+    {
+      name: 'UCRM - Unify CRM',
+      description:
+        'Application helping businesses quickly gain a 360° view of customers. Integrates multiple applications, manages large data sets, centralized and diverse to suit all types of customer business.',
+      role: 'Frontend Developer',
+      technologies: [
+        'React',
+        'TypeScript',
+        'Redux',
+        'React Query',
+        'Shadcn UI',
+        'Tailwind CSS',
+        'SignalR',
+      ],
+      achievements: [
+        'Met most customer requirements',
+        '99.9% uptime',
+        'High performance',
+        'Modern UI/UX',
+      ],
+      year: '2020-Present',
+    },
+    {
+      name: 'WFM - Workforce Management',
+      description:
+        'Application supporting businesses in effective workforce planning and management, including shift scheduling, work time tracking, attendance, workforce demand forecasting, and performance analysis, helping optimize operational costs and improve work productivity.',
+      role: 'Frontend Developer',
+      technologies: [
+        'React',
+        'TypeScript',
+        'Zustand',
+        'React Query',
+        'Ant Design',
+        'SCSS',
+        'SignalR',
+      ],
+      achievements: [
+        'User-friendly UI/UX',
+        'Optimized performance',
+        'Smart mechanisms',
+        'Easy customization',
+      ],
+      year: '2023-Present',
+    },
+    {
+      name: 'IC - Interaction Center',
+      description:
+        'Multi-channel interaction management system centralizing all customer favorite channels on one platform with automation capabilities and fast, efficient interaction handling, delivering excellent customer experience.',
+      role: 'Frontend Developer',
+      technologies: ['React', 'JavaScript', 'Redux-Saga', 'Ant Design', 'SCSS', 'SignalR'],
+      achievements: [
+        'Continuous interaction handling',
+        'User-friendly UI/UX',
+        'Real-time processing',
+      ],
+      year: '2021-Present',
+    },
+    {
+      name: 'LCM - Lead Campaign Management',
+      description:
+        'Application supporting management and operation of outbound/inbound call campaigns, enabling lead allocation to agents, call status tracking, campaign progress monitoring, agent performance evaluation, and report consolidation, helping optimize operational performance and improve customer care quality.',
+      role: 'Frontend Developer',
+      technologies: ['React', 'JavaScript', 'Redux-Saga', 'Ant Design', 'SCSS', 'SignalR'],
+      achievements: [
+        'Large data calculation and processing',
+        'Intuitive UI/UX',
+        'Real-time processing',
+      ],
+      year: '2020-Present',
+    },
+  ],
+  education: [
+    {
+      degree: 'Bachelor of Computer Networks and Communications',
+      school: 'University of Information Technology - Vietnam National University Ho Chi Minh City',
+      location: 'Quarter 34, Linh Xuan Ward, Ho Chi Minh City, Vietnam',
+      duration: '2015 - 2020',
+      gpa: '7.0/10',
+      highlights: [],
+    },
+  ],
+  certifications: [
+    // {
+    //   name: 'AWS Certified Developer - Associate',
+    //   issuer: 'Amazon Web Services',
+    //   date: '2023',
+    //   credential: 'AWS-DEV-2023-12345',
+    // },
+  ],
+  languages: [
+    { name: 'Vietnamese', level: 'Native' },
+    { name: 'English', level: 'Professional working proficiency' },
+  ],
+  interests: [
+    'Football',
+    'Videography & Photography',
+    'Content Creation',
+    'Travel',
+    'New Technology',
+  ],
+}
+
+export type CVData = typeof cvDataEN
